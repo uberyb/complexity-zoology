@@ -1,0 +1,48 @@
+This is BibTeX, Version 0.99d (TeX Live 2017/Debian)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: documentation.aux
+The style file: alpha.bst
+Database file #1: refs.bib
+Warning--can't use both volume and number fields in aaronson2005quantum
+You've used 25 entries,
+            2543 wiz_defined-function locations,
+            713 strings with 8327 characters,
+and the built_in function-call counts, 11284 in all, are:
+= -- 1196
+> -- 444
+< -- 20
++ -- 151
+- -- 147
+* -- 801
+:= -- 1754
+add.period$ -- 84
+call.type$ -- 25
+change.case$ -- 154
+chr.to.int$ -- 25
+cite$ -- 26
+duplicate$ -- 469
+empty$ -- 853
+format.name$ -- 180
+if$ -- 2385
+int.to.chr$ -- 1
+int.to.str$ -- 0
+missing$ -- 26
+newline$ -- 129
+num.names$ -- 75
+pop$ -- 140
+preamble$ -- 1
+purify$ -- 179
+quote$ -- 0
+skip$ -- 396
+stack$ -- 0
+substring$ -- 794
+swap$ -- 119
+text.length$ -- 20
+text.prefix$ -- 10
+top$ -- 0
+type$ -- 196
+warning$ -- 1
+while$ -- 118
+width$ -- 28
+write$ -- 337
+(There was 1 warning)

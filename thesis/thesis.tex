@@ -1,0 +1,125 @@
+\input{layout-preamble}
+\input{macros-preamble}
+
+%%% environments
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{corollary}{Corollary}[section]
+
+\theoremstyle{definition}
+\newtheorem{remark}{Remark}[section]
+\newtheorem{definition}{Definition}[section]
+
+%%% use lowercase letters for subcaption labeling
+\captionsetup[subfigure]{labelfont=rm}
+
+\begin{document}
+   \frontmatter
+
+   \pagestyle{prelim}
+   
+   % Redefine plain page style so that the first pages of chapters
+   % have desired page style.
+   %
+   \fancypagestyle{plain}{%
+      \fancyhf{}
+      \cfoot{-\thepage-}
+   }%
+   \input{title-page}
+   \newpage
+	
+	 % %%% (optional) copyright page <== this page is not numbered!
+	 % \thispagestyle{empty}
+	 % \begin{titlepage}
+	 % \vspace*{50em}
+	 % \begin{center}
+	 %         \copyright \ First M.\ Last, 20XX.  All rights reserved.  
+	 % \end{center}
+	 % \end{titlepage}
+	 % \newpage
+	 % \stepcounter{page}
+	
+	 % %%% (optional) dedication page
+	 % \thispagestyle{empty}
+	 % \vspace*{20em}
+	 % \begin{center}
+	 %   To...
+	 % \end{center}
+	 % \newpage
+   
+   % Begin Double Spacing
+   %
+   \doublespacing
+   
+   \tableofcontents
+   \newpage
+   
+   \input{abstract}
+   \newpage
+   
+   \section*{Acknowledgments}
+   \input{acknowledgements}
+   
+   \mainmatter
+   
+   \pagestyle{maintext}
+   
+   % Redefine plain page style so that the first pages of 
+   % chapters have desired page style.
+   %
+   \fancypagestyle{plain}{%
+      \renewcommand{\headrulewidth}{0pt}
+      \fancyhf{}
+      \cfoot{\thepage}%%%
+   }%
+   
+   \chapter{Introduction}
+   
+   \input{introduction}
+
+   \chapter{Complexity Classes and Operators}
+   
+   This chapter summarizes the foundational concepts that underlie classical 
+   and quantum complexity theory. The general reference used for these ideas is
+   the text \textit{Computational Complexity} by Arora and Barak 
+   \cite{arora2009computational}. Throughout this thesis, we also use a survey 
+   of Watrous as a secondary reference for quantum computation 
+   \cite{watrous2009quantum}.
+
+   \input{overview}
+   \input{operators}
+
+   \chapter{The Complexity Zoology Program}
+   
+   \input{program-intro}
+   \input{input-syntax}
+   \input{operator-inference}
+   \input{to-do-list-inference-algorithm}
+   \input{zoology-logic}
+   \input{extremal-unknowns}
+   \input{output}
+
+   \chapter{Complexity Theory Results}
+
+   \input{results-intro}
+   \input{simplified-version}
+   \input{data-set}
+   \input{conclusion}
+   
+   %\appendix
+   %\chapter{Input File: Classes}
+   
+   %\input{classes-file-appendix}
+   
+   %\chapter{Input File: Operators} \label{input-operators}
+   
+   %\input{operators-file-appendix}
+   
+   \backmatter
+   
+   \nocite{*}
+   \bibliographystyle{amsalpha-fi-arxlast}
+   \bibliography{refs}
+   
+\end{document}

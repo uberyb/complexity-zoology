@@ -1,0 +1,106 @@
+\documentclass[12pt]{amsart}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{mathptmx}
+\usepackage{amsmath,amsthm,amssymb,mathrsfs}
+
+\title{Operator Propogation and Inference}
+\date{}
+\author{Robert Sanders}
+
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{proposition}{Proposition}
+\newtheorem*{corollary}{Corollary}
+
+\theoremstyle{definition}
+\newtheorem*{definition}{Definition}
+
+\theoremstyle{remark}
+\newtheorem*{claim}{Claim}
+\newtheorem*{remark}{Remark}
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\start}{\mathtt{start}}
+\newcommand{\halt}{\mathtt{halt}}
+\newcommand{\Left}{\mathsf{L}}
+\newcommand{\Stay}{\mathsf{S}}
+\newcommand{\Right}{\mathsf{R}}
+\newcommand{\A}{\mathsf{A}}
+\newcommand{\sC}{\mathsf{C}}
+\newcommand{\co}{\mathsf{co}}
+\newcommand{\cocap}{\mathsf{cocap}}
+\newcommand{\NP}{\mathsf{NP}}
+\newcommand{\sP}{\mathsf{P}}
+\newcommand{\poly}{\mathsf{poly}}
+\newcommand{\msf}[1]{\mathsf{#1}}
+\newcommand{\id}{\msf{id}}
+\newcommand{\AND}{\mathbin{\&}}
+\newcommand{\OR}{\mathbin{\text{or}}}
+\newcommand{\Oh}{\mathcal{O}}
+\newcommand{\inner}[1]{\left\langle#1\right\rangle}
+\newcommand{\op}{\msf{op}}
+\newcommand{\sN}{\msf{N}}
+\newcommand{\BP}{\msf{BP}}
+\newcommand{\exppad}{\msf{exppad}}
+\newcommand{\FP}{\msf{FP}}
+\newcommand{\CZ}{\msf{CZ}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\cN}{\mathcal{N}}
+
+\begin{document}
+\maketitle
+
+Operators in Complexity Zoology are implemented as partial funtions on the set
+of all distinct complexity classes. Processing of operators occurs after the
+processing of equality statements, so we can assume that we have a quotient map
+$q:\cN\rightarrow\cC$, where $\cN$ is the set of all names for complexity
+classes, $\cC$ is the set of all distinct complexity classes, and $q(x)=q(y)$ if
+and only if $x$ and $y$ are names for the same class. The system's understanding
+of a complexity class operator $\op$ is a partial function
+$op:\cC\rightharpoonup\cC$; i.e., a function whose domain is a subset of $\cC$
+that takes values in $\cC$. The function that defines $\op$ is necessarily a
+partial one, because for a given complexity class $\sC$, the class $\op\cdot\sC$
+might not be declared in Complexity Zoology's data set.
+
+Initially, we assume that the following is true of out operator partial
+functions:
+\begin{enumerate}
+\item $\id(x)=x$ for all $x\in\cC$.
+\item If a class $x$ has a name of the form $\mathtt{op.y}$, where $y\cN$ and
+  $\mathtt{op}$ is the name of an operator, then we set $op(q(y))=x$.
+\end{enumerate}
+Then, the partial functions are expanded according to the quadratic relations
+specified in the input file. More specifically, suppose that one such relation
+is
+\[
+\op_1\cdot\op_2=\op_3\cdot\op_4.
+\]
+Then, the operator partial functions can be expanded according to the following
+rules:
+\begin{enumerate}
+\item If $op_1(op_2(x))$ and $y=op_4(x)$ are defined, then define
+  $op_3(y):=op_1(op_2(x))$.
+\item If $op_3(op_4(x))$ and $y=op_2(x)$ are defined, then define
+  $op_1(y):=op_3(op_4(x))$.
+\end{enumerate}
+These rules are applied iteratively until the partial functions can be expanded
+no further. This process uses the same task list-based system that is used in
+the primary inference engine.
+
+While the partial functions are expanding, there is the possibility that a new
+definition of $op(x)$ contradicts an earlier one. For example, suppose it is
+established that $op(x)=y$, and then Complexity Zoology learns that $op(x)=z$,
+where $y\neq z$. This would imply that $y$ and $z$, which were thought to
+indicate separate complexity classes, are actually two names for the same
+class. If this occurs, Complexity Zoology stops and prints an error, as it is
+expected that all equalities between complexity classes are learned through
+explicit statements in the data file and the transitivity of equality.
+
+\end{document}

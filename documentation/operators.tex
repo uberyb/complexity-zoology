@@ -1,0 +1,497 @@
+\documentclass[12pt]{amsart}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{mathptmx}
+\usepackage{amsmath,amsthm,amssymb,mathrsfs}
+\usepackage{enumerate}
+\usepackage{listings}
+\usepackage{url}
+
+\title{Complexity Class Operators}
+\date{}
+\author{Robert Sanders}
+
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{proposition}{Proposition}
+\newtheorem*{corollary}{Corollary}
+
+\theoremstyle{definition}
+\newtheorem*{definition}{Definition}
+
+\theoremstyle{remark}
+\newtheorem*{claim}{Claim}
+\newtheorem*{remark}{Remark}
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\start}{\mathtt{start}}
+\newcommand{\halt}{\mathtt{halt}}
+\newcommand{\Left}{\mathsf{L}}
+\newcommand{\Stay}{\mathsf{S}}
+\newcommand{\Right}{\mathsf{R}}
+\newcommand{\A}{\mathsf{A}}
+\newcommand{\sC}{\mathsf{C}}
+\newcommand{\co}{\mathsf{co}}
+\newcommand{\cocap}{\mathsf{cocap}}
+\newcommand{\NP}{\mathsf{NP}}
+\newcommand{\sP}{\mathsf{P}}
+\newcommand{\poly}{\mathsf{poly}}
+\newcommand{\msf}[1]{\mathsf{#1}}
+\newcommand{\id}{\msf{id}}
+\newcommand{\AND}{\mathbin{\&}}
+\newcommand{\OR}{\mathbin{\text{or}}}
+\newcommand{\Oh}{\mathcal{O}}
+\newcommand{\inner}[1]{\left\langle#1\right\rangle}
+\newcommand{\op}{\msf{op}}
+\newcommand{\sN}{\msf{N}}
+\newcommand{\BP}{\msf{BP}}
+\newcommand{\exppad}{\msf{exppad}}
+\newcommand{\FP}{\msf{FP}}
+
+\begin{document}
+\maketitle
+
+A \textit{complexity class operator} $\op$ is an inclusion-preserving
+automorphism on the set of all complexity classes, written as $\op\cdot\sC$ for
+a complexity class $\sC$. Thus, if $\sC\subseteq\msf{D}$, then
+$\op\cdot\sC\subseteq\op\cdot\msf{D}$. Complexity Zoology's knowledge of
+operators consists of inequalities of the form $\op_1\leq\op_2$, meaning that
+$(\op_1\cdot\sC)^A\subseteq(\op_2\cdot\sC)^A$ for each class $\sC$ and oracle
+$A$, and quadratic relations of the form $\op_1\cdot\op_2=\op_3\cdot\op_4$,
+meaning that $(\op_1\cdot\op_2\cdot\sC)^A=(\op_3\cdot\op_4\cdot\sC)^A$ for each
+class $\sC$ and oracle $A$.
+
+\section{Definitions}
+
+The definitions of the following complexity
+class operators preserve relativization. In other words, if an operator
+$\msf{op}$ is defined by the property that
+\[
+  \msf{op}\cdot\sC=\{\cL\subseteq\Sigma^*:\varphi(\cL,\sC)\}
+\]
+for any complexity class $\sC$, then the relativized version of
+$\msf{op}\cdot\sC$ is
+\[
+  (\msf{op}\cdot\sC)^A=\{\cL\subseteq\Sigma^*:\varphi(\cL,\sC^A)\}.
+\]
+
+The simplest operators are $\id$, the identity operator; $\co$, which swaps
+``yes'' and ``no'' answers to each decision problem; and $\cocap$, which takes
+the intersection of a class with its complement.
+
+\begin{definition} For each complexity class $\sC$, we set
+\begin{align*}
+  \id\cdot\sC&:=\{\cL\subseteq\Sigma^*:\cL\in\sC\}=\sC, \\
+  \co\cdot\sC&:=\{\cL\subseteq\Sigma^*:\Sigma^*\setminus\cL\in\sC\}, \\
+  \cocap\cdot\sC&:=\{\cL\subseteq\Sigma^*:\cL\in\sC\AND\cL\in\co\cdot\sC\}=
+                  \sC\cap(\co\cdot\sC).
+\end{align*}
+A class is \textbf{symmetric} if $\sC=\co\cdot\sC$ with respect to every oracle.
+\end{definition}
+For example, the class $\sP$ is symmetric, while $\NP$ is not, because there is
+an oracle $A$ relative to which $\NP^A\neq\co\NP^A$ (although, of course, this
+is an open problem in the absence of an oracle.
+
+The $\poly$ operator adds a polynomial-length advice string to each input. To be
+precise, we denote by $|\Oh(n^*)|$ the set of all functions $p:\N\ra\Sigma^*$
+such that $|p(n)|=\Oh(n^k)$ for some $k\in\N$. A function $p\in|\Oh(n^*)|$ is
+regarded as an \textit{advice function} when $p(n)$ is given as an argument for
+each input of length $n$.
+\begin{definition}
+For a complexity class $\sC$, we define
+\[
+  \poly\cdot\sC=\{\cL\subseteq\Sigma^*:(\exists \cL^\prime\in\sC,
+  p\in|\Oh(n^*)|)(\forall x\in\Sigma^*)[x\in\cL\Longleftrightarrow
+  \inner{x,p(|x|)}\in\cL^\prime]\}.
+\]
+\end{definition}
+We allow advice functions to map to the null string $\epsilon$ of length
+zero. In the case of tuples, $\inner{x,\epsilon}$ should be understood to be
+$x$, so that, as we will see, $\poly\cdot\sC$ always contains $\sC$. For most
+classes with polynomial advice, we write $\poly\cdot\sC=\sC/\poly$; we have, for
+instance, $\sP/\poly$, $\NP/\poly$, and $\msf{BQP}/\poly$.
+
+The operators $\oplus$, $\sN$, and $\sP$ are all defined in terms of
+certificates, strings whose lengths are polynomials of the length of the
+original input. Let $\Oh(n^*)$ denote the set of all functions $p:\N\ra\N$ such
+that $p(n)=\Oh(n^k)$ for some $k\in\N$; then, for a quantifier $Q$, we can
+define an operator $\op_Q$ by
+\[
+  \op_Q\cdot\sC:=\{\cL\subseteq\Sigma^*:
+  (\exists\cL^\prime\in\sC, p\in\Oh(n^*))(\forall x\in\Sigma^*)
+  [x\in\cL\Longleftrightarrow(Qy\in\Sigma^{p(|x|)})[\inner{x,y}\in\cL^\prime]]\}.
+\]
+The aforementioned operators are then equal to $\op_Q$ for different choices of
+$Q$.
+\begin{definition}
+The operators $\oplus$, $\sN$, and $\sP$ are defined as follows for a
+complexity class $\sC$:
+\begin{itemize}
+\item $\oplus\cdot\sC:=\op_Q\cdot\sC$, where $(Qy\in S)$ means ``for an odd
+  number of $y\in S$.''
+\item $\sN\cdot\sC:=\op_Q\cdot\sC$, where $(Qy\in S)$ means $(\exists y\in S)$.
+\item $\sP\cdot\sC:=\op_Q\cdot\sC$, where $(Qy\in S)$ means ``for more than 1/2
+  of all $y\in S$.''
+\end{itemize}
+$\oplus$ is read as ``parity.''
+\end{definition}
+
+The bounded probabilistic operator $\BP$ is defined similarly.
+\begin{definition}
+For each complexity class $\sC$,
+\begin{align*}
+\BP\cdot\sC:=\{\cL\subseteq\Sigma^*:&(\exists\cL^\prime,p\in\Oh(n^*))(\forall
+x\in\Sigma^*)[[x\in\cL\Longrightarrow
+(\exists_{>2/3}\hspace{2pt}y\in\Sigma^{p(|x|)})[\inner{x,y}\in\cL^\prime]] \\
+&\AND[x\notin\cL\Longrightarrow(\exists_{>2/3}\hspace{2pt}y\in\Sigma^{p(|x|)})
+[\inner{x,y}\notin\cL^\prime]]]\},
+\end{align*}
+where $(\exists_{>2/3}\hspace{2pt}y\in\Sigma^{p(|x|)})$ is understood to
+mean ``for more than 2/3 of all $y\in\Sigma^{p(|x|)}$.''
+\end{definition}
+All of these operators are named in such a way that they suggest the definitions
+of common complexity classes; for example, $\NP=\sN\cdot\sP$,
+$\sP\sP=\sP\cdot\sP$, $\msf{BPP}=\BP\cdot\sP$, and $\oplus\sP=\oplus\cdot\sP$.
+
+Finally, we have the operator $\sC\mapsto\sP^\sC$, which maps to $\sC$ to $\sP$
+with $\sC$-oracle, as well as $\exppad$, which adds an exponential length of
+zeros to input, generally for the purpose of buying additional computational
+time.
+\begin{definition}
+For every complexity class $\sC$,
+\[
+\sP^\sC:=\{\cL\subseteq\Sigma^*:(\exists A\in C)[\cL\in\sP^A]\}=\bigcup_{A\in
+  C}\sP^A,
+\]
+where the languages in $\sC$ have been identified with their decision
+functions.
+\end{definition}
+The above operator is used in the definition of the polynomial hierarchy: for
+every $n\in\N$, $\Delta_{n+1}^\sP=\sP^{\Sigma_n^\sP}$.
+\begin{definition}
+Let $\Oh(2^\text{poly})$ denote the set of all functions $f:\N\ra\N$ such that
+$f(n)=\Oh(2^{p(n)})$ for some polynomial function $p:\N\ra\N$. Then, for a
+complexity class $\sC$,
+\[
+\exppad\cdot\sC:=\{\cL\subseteq\Sigma^*:(\exists\cL^\prime\in\sC,f\in
+\Oh(2^\text{poly}))[x\in\cL\Longleftrightarrow x0^{f(|x|)}\in\cL^\prime]\}.
+\]
+\end{definition}
+$\msf{NEXP}$, for example, is not defined to  be $\sN\cdot\msf{EXP}$, but rather
+$\exppad\cdot\NP$.
+
+\section{Properties of Complexity Classes}
+
+Proving the properties of complexity operators often requires that the
+underlying complexity classes themselves have certain regularity
+properties. First, every complexity class of interest should be
+\textit{nontrivial} in the sense that it contains a nonempty language not equal
+to $\Sigma^*$. We also expect that if $\cL\in\sC$, then any languages that are
+reducible to $\cL$ in polynomial-time are also in $\sC$.
+
+\begin{definition}
+A complexity class $\sC$ is \textbf{polynomial-time self-reducible} if for every
+$\cL\in\sC$ and every function $f\in\FP$,
+\[
+f^{-1}[\cL]=\{x\in\Sigma^*:f(x)\in\cL\}\in\sC.
+\]
+\end{definition}
+
+Every class in this project is relativizingly nontrivial and polynomial-time
+self-reducible, so that for each oracle $A$, if $f\in\FP^A$ and $\cL\in\sC^A$
+then $f^{-1}[\cL]\in\sC^A$. As a result, $\sP$ lies at
+the bottom of Complexity Zoology's inclusion hierarchy.
+
+\begin{proposition}
+If $\sC$ is a nontrivial, polynomial-time self-reducible complexity class, then
+$\sP\subseteq\sC$.
+\end{proposition}
+
+\begin{proof}
+Fix a nontrivial language $\cL\in\sC$, so that $\cL\neq\emptyset$ and
+$\cL\in\Sigma^*$. Then there exists $x_1\in\cL$ and $x_0\notin\cL$.
+
+Now suppose $\cL^\prime\in\sP$.. Then define $f:\Sigma^*\rightarrow\Sigma^*$ to
+be
+\[
+f(x)=\begin{cases}x_1&\text{ if }x\in\cL^\prime, \\
+x_0&\text{ if }x\notin\cL^\prime.\end{cases}
+\]
+We have $f\in\FP$, since it can be determined whether or not $x\in\cL^\prime$ in
+polynomial-time, and then writing $x_1$ or $x_0$ can be accomplished in constant
+time. Therefore $\cL^\prime=f^{-1}[\cL]\in\sC$ by polynomial-time
+self-reducibility, so we can conclude that $\sP\subseteq\sC$.
+\end{proof}
+
+Additionally, complexity classes should be closed under joins and projections.
+The \textit{join} of a pair of languages $\cL,\cL^\prime\subseteq\Sigma^*$ is
+\[
+\cL\oplus\cL^\prime=\{x\in\Sigma^*:(x=0y\AND y\in\cL)\OR(x=1y\AND
+y\in\cL^\prime)\}.
+\]
+The \textit{0-projection} of a language $\cL$ is
+\[
+\{x\in\Sigma^*:0x\in\cL\},
+\]
+and the \textit{1-projection} is defined similarly.
+\section{Relations and Inclusions}
+
+\begin{proposition}
+  The $\id$, $\co$, and $\cocap$ operators satisfy the following properties:
+  \begin{enumerate}
+  \item $\cocap\leq\co$ and $\cocap\leq\id$;
+  \item $\co$ is involutive, so that $\co\cdot\co=\id$;
+  \item $\co\cdot\cocap=\cocap\cdot\co=\cocap$.
+  \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+(1) and (2) are immediate from the definitions of the operators. For (3), we
+have
+\begin{align*}
+\cocap\cdot\co\cdot\sC&=(\co\cdot\sC)\cap(\co\cdot\co\cdot\sC) \\
+                      &=(\co\cdot\sC)\cap\sC \\
+                      &=\cocap\cdot\sC,
+\end{align*}
+and
+\begin{align*}
+\cL\in\co\cdot\cocap\cdot\sC
+&\Longleftrightarrow\Sigma^*\setminus\cL\in\cocap\cdot\sC \\
+&\Longleftrightarrow\Sigma^*\setminus\cL\in\sC
+\AND\Sigma^*\setminus\cL\in\co\cdot\sC \\
+&\Longleftrightarrow\cL\in\co\cdot\sC\AND\cL\in\co\cdot\co\cdot\sC \\
+&\Longleftrightarrow\cL\in\co\cdot\sC\AND\cL\in\sC \\
+&\Longleftrightarrow\cL\in\cocap\cdot\sC.
+\end{align*}
+\end{proof}
+
+For many operators, it is the case that $\sC\in\op\cdot\sC$ for every $\sC$,
+because the definitions of these classes include an additional certificate or
+advice string.
+
+\begin{proposition}
+$\id\subseteq\op$, where $\op=\poly,\oplus,\BP,\sP,\sN\text{ or }\exppad$.
+\end{proposition}
+
+\begin{proof}
+Fix $\cL\in\sC$. Then $\cL\in\op\cdot\sC$ for each possible choice of $\op$:
+\begin{itemize}
+\item If $\op=\poly$, take $\cL^\prime=\cL$ and $p(n)=\epsilon$ for all $n\in\N$
+  in the definition of $\poly\cdot\sC$.
+\item If $\op=\oplus,\BP,\sP,\text{ or }\sN$, take $\cL^\prime=\cL$ and
+  $p(n)=0$ for all $n\in\N$ in the definition of $\op\cdot\sC$.
+\item If $\op=\exppad$, take $\cL^\prime=\cL$ and $f(n)=\epsilon$ for all
+  $n\in\N$ in the definition of $\exppad\cdot\sC$.
+\end{itemize}
+\end{proof}
+Since the condition $\cL\in\BP\cdot\sC$ is a strengthening of the condition that
+$\cL\in\sP\cdot\sC$, the following is immediate.
+\begin{proposition}
+$\BP\leq\sP$.
+\end{proposition}
+
+We next consider some commutativity properties.
+
+\begin{proposition}
+$\co\cdot\op=\op\cdot\co$, where $\op=\BP,\sP,\text{ or }\poly$.
+\end{proposition}
+
+\begin{proof}
+For each of the possible choices of $\op$, the definition of $\op\cdot\sC$ has
+the following form:
+\[
+op\cdot\sC:=\{\cL\subseteq\Sigma^*:(\exists\cL^\prime\in\sC)
+\psi(\cL,\cL^\prime)\},
+\]
+where $\psi(\cL,\cL^\prime)$ is a proposition having the property that
+\[
+\psi(\cL,\Sigma^*\setminus\cL^\prime)\Longleftrightarrow
+\psi(\Sigma^*\setminus\cL,\cL^\prime).
+\]
+Thus,
+\begin{align*}
+\co\cdot\op\cdot\sC
+&=\{\cL\subseteq\Sigma^*:(\exists\cL^\prime\in\sC)\psi(\Sigma^*\setminus\cL,\cL^\prime)\} \\
+&=\{\cL\subseteq\Sigma^*:(\exists\cL^\prime\in\sC)
+\psi(\cL,\Sigma^*\setminus\cL^\prime)\} \\
+&=\{\cL\subseteq\Sigma^*:(\exists\cL^\prime\in\co\cdot\sC)
+\psi(\cL,\cL^\prime)\} \\
+&=\op\cdot\co\cdot\sC
+\end{align*}
+for each possible choice of $\op$.
+\end{proof}
+A similar argument, based on the structure of te definitions of the relevant
+operators, can be used to show that $\poly$ commutes with $\oplus$, $\sN$, and
+$\sP$.
+
+\begin{proposition}
+If complexity classes are assumed to be polynomial-time self-reducible, then
+$\poly\cdot\op=\op\cdot\poly$, where $\op=\oplus,\sN,\text{ or }\poly$.
+\end{proposition}
+
+\begin{proof}
+We say that $\cL\in\poly\cdot\op\cdot\sC$ if there exist $\cL^\prime\in\sC$,
+$p\in\Oh(n*)$, and $q\in|\Oh(n^*)|$ such that for every $x\in\Sigma^*$,
+\[
+x\in\cL\Longleftrightarrow
+(Qy\in\Sigma^{p(|\inner{x,q(|x|)}|)})[\inner{\inner{x,q(|x|)},y}\in\cL^\prime],
+\]
+where $Q$ is the quantifier in the definition of the operator that is being
+considered. Similarly, we say that $\cL\in\op\cdot\poly\cdot\sC$ if there exist
+$\cL^\prime\in\sC$, $p\in\Oh(n*)$, and $q\in|\Oh(n^*)|$ such that for every
+$x\in\Sigma^*$,
+\[
+x\in\cL\Longleftrightarrow
+(Qy\in\Sigma^{p(|x|)})[\inner{\inner{x,y},q(|\inner{x,y}|)}\in\cL^\prime].
+\]
+The condition $\cL\in\poly\cdot\op\cdot\sC$ is equivalent to the condition that
+there are $\cL^\prime\in\sC$, $\bar p\in\Oh(n^*)$, and $q\in|\Oh(n^*)|$ such
+that for all $x\in\Sigma^*$,
+\[
+x\in\cL\Longleftrightarrow
+(Qy\in\Sigma^{\bar p(|x|)})[\inner{\inner{x,q(|x|)},y}\in\cL^\prime].
+\]
+For instance, if $\cL\in\poly\cdot\op\cdot\sC$, then we can set $\bar
+p(n)=p(N)$, where $N=|\inner{x,q(|x|)}|$ for $|x|=n$. Likewise, in the
+conditions for $\cL\in\op\cdot\poly\cdot\sC$ we can replace $q$ with a $\bar q$
+so that
+\[
+x\in\cL\Longleftrightarrow
+(Qy\in\Sigma^{p(|x|)})[\inner{\inner{x,y},\bar q(|x|)}\in\cL^\prime].
+\]
+The rewritten conditions for $\cL\in\poly\cdot\op\cdot\sC$ and
+$\cL\in\op\cdot\poly\cdot\sC$ are then equivalent to each other because a
+mapping between $\inner{\inner{x,z},y}$ and $\inner{\inner{x,y},z}$ is
+polynomial-time computable.
+\end{proof}
+
+\begin{proposition}
+If complexity classes are assumed to be polynomial-time self-reducible, then
+$\co\cdot\oplus=\oplus\cdot\co$.
+\end{proposition}
+
+Finally, we consider the properties of the operator $\sC\mapsto\sP^\sC$.
+\begin{proposition}
+For any complexity class $\sC$,
+\begin{enumerate}
+\item $\sC\subseteq\sP^\sC$;
+\item $\co\cdot\sC\subseteq\sP^\sC$;
+\item $\co\cdot\sP^\sC=\sP^{\co\cdot\sC}=\sP^\sC$.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+If $\cL\in\sC$ and $A$ is the decision function for $\cL$, then
+$\cL\subseteq\sP^A\subseteq\sP^\sC$. Hence $\sC\subseteq\sP^\sC$. Moreover,
+$\sP^A$ is a symmetric class for every $A$, and so
+\begin{align*}
+\cL\in\co\cdot\sP^C
+&\Longleftrightarrow\Sigma^*\setminus\cL\in\sP^\sC \\
+&\Longleftrightarrow(\exists A\in\sC)[\Sigma^*\setminus\cL\in\sP^A] \\
+&\Longleftrightarrow(\exists A\in\sC)[\cL\in\sP^A] \\
+&\Longleftrightarrow\cL\in\sP^\sC,
+\end{align*}
+and
+\begin{align*}
+\cL\in\sP^{\co\cdot\sC}
+&\Longleftrightarrow(\exists A\in\sC)[\cL\in\sP^{1-A}] \\
+&\Longleftrightarrow(\exists A\in\sC)[\cL\in\sP^A] \\
+&\Longleftrightarrow\cL\in\sP^\sC,
+\end{align*}
+because $\sP^A=\sP^{1-A}$ for every oracle $A$. Thus, (1) and (3) are true. (2)
+then follows immediately, because
+$\sC\subseteq\sP^\sC\Longrightarrow\co\cdot\sC
+\subseteq\co\cdot\sP^\sC\Longrightarrow\co\cdot\sC\subseteq\sP^\sC$.
+\end{proof}
+
+\begin{proposition}
+For any complexity class non-trivial, polynomial-time self reducible class
+$\sC$ that is closed under joins, $\poly\cdot\sP^\sC=\sP^{\poly\cdot\sC}$ and
+$\BP\cdot\sP^\sC=\sP^{\BP\cdot\sC}$.
+\end{proposition}
+
+\begin{proof}[Proof of first equation]
+First, we show that it is unconditionally the case that
+$\sP^{\poly\cdot\sC}\subseteq\poly\cdot\sP^\sC$. Suppose that
+$\cL\in\sP^{\poly\cdot\sC}$. Then there is a polynomial-time algorithm with
+$A$-oracle that computes $\cL$, where $A$ is a decision function for a language
+$\cL^\prime\in\poly\cdot\sC$. By the definition of the $\poly$ operator, there
+exists a language $\cL^{\prime\prime}\in\sC$ and an advice function
+$p\in|\Oh(n^*)|$ such that $x\in\cL^\prime$ if and only if
+$\inner{x,p(|x|)}\in\cL^{\prime\prime}$.
+
+Let $A^\prime$ indicate the decision function for $\cL^{\prime\prime}$. Also,
+let $f\in\Oh(n^*)$ denote time bound for the $\sP^A$ algorithm for $\cL$, so
+that the question of whether $x\in\cL$ is decided in at most $f(|x|)$
+computational steps. Define $P:\N\rightarrow\Sigma^*$ so that, for each
+$n\in\N$, $P(n)$ is the concatenation $p(0)p(1)\ldots p(f(n))$.
+
+The following algorithm in $\poly\cdot\sP^{A^\prime}$ decides whether $x\in\cL$:
+\begin{enumerate}
+\item The advice function is $P$. Note that $P\in|\Oh(n^*)|$, because for
+  sufficiently large $n$ $|P(n)|$ is at most $f(n)|p(f(n))|$.
+\item Follow the $\sP^A$ algorithm for $\cL$ exactly, except when there is an
+  oracle call.
+\item When an oracle call to $A$ occurs with the string $y\in\Sigma^*$, replace
+  it with an oracle call to $A^\prime$ with the string $\inner{y,p(|y|)}$. This
+  oracle call is possible because $P(|x|)$ contains the advice strings for all
+  $y$ that are short enough for the $\sP^A$ algorithm to be able to query the
+  oracle.
+\end{enumerate}
+Thus, we have $\cL\in\poly\cdot\sP^{A^\prime}\subseteq\poly\cdot\sP^\sC$, and we
+can conclude that $\sP^{\poly\cdot\sC}\subseteq\poly\cdot\sP^\sC$ in all cases.
+
+For the inclusion $\poly\cdot\sP^\sC\subseteq\sP^{\poly\cdot\sC}$, suppose that
+$\cL\in\poly\cdot\sP^\sC$. This means that there exists a $P^A$ algorithm that
+decides $\cL$ when provided with some advice function $p\in|\Oh(n^*)|$, where
+$A$ is the decision function of some $\cL^\prime\Sigma^*\rightarrow\Sigma$
+according to the following rules:
+\begin{itemize}
+\item If $x=0\inner{y,z}$, then $A^\prime(x)$ is equal to the zth bit of
+  $p(|y|)$.
+\item If $x=1y$, then $A^\prime(x)=A(y)$.
+\end{itemize}
+The language $\cL^{\prime\prime}$ determined by $A^\prime$ is the join of two
+languages. One, which we will call $\cL_0^{\prime\prime}$, is the set of all
+$\inner{y,z}$ such that the $z$th bit of $p(|y|)$ is 1; the second language is
+$\cL^\prime$.
+
+We claim that $\cL^{\prime\prime}$ lies in $\poly\cdot\sC$. To prove this, it is
+enough to show that $\cL_1^{\prime\prime}\in\sP/\poly$. Then
+$\sP/\poly\subseteq\poly\cdot\sC$ (we know that $\sP\subseteq\sC$ because $\sC$
+si assumed to be nontrivial and polynomial-time self-reducible), and
+$\cL^\prime\in\poly\cdot\sC$ by assumption, so
+$\cL^{\prime\prime}\in\poly\cdot\sC$ by the hypothesis that $\sC$, and therefore
+$\poly\cdot\sC$, is closed under joints.
+
+To see that $\cL_1^{\prime\prime}\in\sP/\poly$, let $P\in|\Oh(n^*)|$ be the
+function defined by the concatenation $P(n)=p(0)p(1)\ldots p(n)$. Then, given
+$\inner{y,z}$, $P$ can be used as an advie function to check whether the $z$th
+bit of $p(|y|)$ is 1.
+
+Hence $\cL^{\prime\prime}\in\poly\sC$. To show that $\cL\in\sP^{\poly\cdot\sC}$,
+we show that $\cL\in P^{A^\prime}$. The following is a $\sP^{A^\prime}$
+algorithm for deciding whether $x\in\cL$:
+\begin{enumerate}
+\item First, extract the advice string $p(|x|)$ from the $A^\prime$-oracle. Make
+  the oracle queries $0\inner{x,j}$, $j\leq|p(|x|)|$ until the entirety of
+  $p(|x|)$ has been recorded.
+\item Carry out the rest of the computation according to the $\poly\cdot\sP^A$
+  algorithm. Replace oracle queries to $A$ about the string $y$ with oracle
+  queries to $A^\prime$ about the string $y$.
+\end{enumerate}
+Therefore $\cL\in\sP^{\poly\cdot\sC}$, concluding the proof that $\sP^{\poly\cdot\sC}=\poly\cdot\sP^\sC$.
+\end{proof}
+
+The first of these equations is true because advice can be moved between the
+polynomial-time computation and the oracle class, while the latter equation is
+true because randomness in computation is equivalent to randomness in the
+oracle. The class $\sC$ must satisfy the regularity properties discussed in the
+previous section.
+
+\end{document}

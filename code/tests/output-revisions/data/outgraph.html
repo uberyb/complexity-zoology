@@ -1,0 +1,1367 @@
+<html>
+    <head>
+    <style>
+    body.dark-mode {
+      filter: invert(100%) hue-rotate(180deg);
+      background-color: black
+    }
+    body.light-mode {
+      filter: invert(0%);
+      background-color: white
+    }
+    table, th, td {
+        border: 2px solid black;
+    }
+    th {
+        text-align: left;
+    }
+    td {
+        border: 1px solid black;
+    }
+
+    text {
+        cursor: pointer;
+    }
+    </style>
+    <script>
+
+    var coloring_A = [["Sel", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "Sel", "PPP", "PPP", "PPP", "UUU", "UUU", "DDD", "DDD", "UUU", "UUU", "PPP", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "DDD", "DDD", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["DDD", "DDD", "Sel", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["DDD", "DDD", "PPP", "Sel", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "UUU", "UUU", "UUU", "UUU", "DDD", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["DDD", "DDD", "DDD", "DDD", "Sel", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["DUD", "DDD", "PPP", "PPP", "PPP", "Sel", "DUD", "DDD", "DDD", "DUD", "DUD", "PPP", "DDD", "PPP", "PPP", "PPP", "PPD", "DUD", "PPU", "PPU", "PPU", "PPP", "PPP", "PPP", "PPP", "UUU", "DUD", "DDD", "PPU", "DDD", "DDD", "PPP", "DUD", "PPP", "PPP", "PPP", "PPP", "DUD", "PPU", "DUD", "PPU", "PPU", "PPU", "PPU", "DUD", "UUU", "PPU", "PPU", "PPU", "PPU", "PPU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "DDD", "DUD", "DUD", "DUD", "DUD", "DUD", "DPP", "DDD"],
+                ["UUU", "DDD", "PPP", "PPP", "PPP", "DDD", "Sel", "DDD", "DDD", "UUU", "UUU", "PPP", "DDD", "DDD", "PPP", "PPP", "UUU", "DDD", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "PPP", "PPP", "PPP", "PPP", "PPP", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD"],
+                ["PPP", "DDD", "PPP", "PPP", "PPP", "PPP", "PPP", "Sel", "PPP", "PPP", "PPP", "PPP", "DDD", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "DDD", "PPP", "DDD", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "DDD", "PPP", "PPP", "UUU", "PPP", "PPP", "PPP", "DDD"],
+                ["UUU", "DDD", "PPP", "PPP", "PPP", "DDD", "PPP", "DDD", "Sel", "PPP", "PPP", "PPP", "DDD", "DDD", "PPP", "PPP", "UUU", "DDD", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "DDD", "DDD", "UUU", "DDD", "UUU", "DDD", "PPP", "PPP", "PPP", "PPP", "PPP", "DDD", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "DDD", "DDD", "PPP", "UUU", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "Sel", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "UUU", "DDD", "DDD", "PPP", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "UUU", "Sel", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "UUU", "DDD", "DDD", "PPP", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["DDD", "DDD", "PPP", "PPP", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "Sel", "DDD", "DDD", "PPP", "PPP", "DDD", "DDD", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "UUU", "PPP", "PPP", "UUU", "DDD", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["DDD", "DDD", "PPP", "PPP", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "Sel", "PPP", "PPP", "PPP", "DDD", "DDD", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "DDD", "DDD", "UUU", "DDD", "DDD", "PPP", "DDD", "PPP", "PPP", "PPP", "PPP", "DDD", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "PPP", "DDD"],
+                ["DDD", "DDD", "PPP", "PPP", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "Sel", "PPP", "PPP", "DDD", "DDD", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "DDD", "DDD", "UUU", "DDD", "DDD", "PPP", "DDD", "PPP", "PPP", "PPP", "PPP", "DDD", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["DDD", "DDD", "PPP", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "Sel", "DDD", "DDD", "DDD", "DDD", "UUU", "UUU", "DDD", "PPP", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "UUU", "UUU", "DDD", "UUU", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["DDD", "DDD", "PPP", "PPP", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "DDD", "PPP", "Sel", "DDD", "DDD", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "UUU", "UUU", "UUU", "UUU", "DDD", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["DUD", "DDD", "PPP", "PPP", "PPP", "UUD", "DUD", "DDD", "DDD", "DUD", "DUD", "UUU", "DDD", "UUU", "PPP", "PPP", "Sel", "DUD", "PPU", "PPU", "PPU", "UUU", "PPP", "PPP", "PPP", "UUU", "DUD", "DDD", "UUU", "DDD", "DDD", "UUU", "DUD", "UUU", "PPP", "PPP", "UUU", "DUD", "UUU", "DUD", "UUU", "PPU", "UUU", "UUU", "DUD", "UUU", "UUU", "PPU", "PPU", "PPU", "PPU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "DDD", "DUD", "DUD", "DUD", "DUD", "DUD", "DUU", "DDD"],
+                ["DUD", "DDD", "PPP", "PPP", "PPP", "PPD", "UUU", "DDD", "DDD", "DUD", "DUD", "PPP", "DDD", "PPP", "PPP", "PPP", "PPD", "Sel", "PPU", "PPU", "PPU", "PPP", "PPP", "PPP", "PPP", "UUU", "DUD", "DDD", "PPU", "DDD", "DDD", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPP", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "DDD", "PPD", "PPU", "UUU", "DUD", "PPP", "PPP", "DDD"],
+                ["DUD", "DDD", "PPP", "PPU", "PPP", "UUD", "DUD", "DDD", "DDD", "DUD", "DUD", "UUU", "DDD", "UUU", "UUU", "UUU", "UUD", "DUD", "Sel", "UUU", "UUU", "UUU", "PPU", "PPP", "PPU", "UUU", "DUD", "DDD", "UUU", "DDD", "DDD", "UUU", "DUD", "UUU", "UUU", "UUU", "UUU", "DUD", "UUU", "DUD", "UUU", "UUU", "UUU", "UUU", "DUD", "UUU", "UUU", "UUU", "UUU", "UUU", "PPU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "DDD", "DUD", "DUD", "DUD", "DUD", "DUD", "DUU", "DDD"],
+                ["DUD", "DDD", "PPP", "UUU", "PPP", "UUD", "DUD", "DDD", "DDD", "DUD", "DUD", "UUU", "DDD", "UUU", "UUU", "UUU", "UUD", "DUD", "UUU", "Sel", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "DUD", "DDD", "UUU", "DDD", "DDD", "UUU", "DUD", "UUU", "UUU", "UUU", "UUU", "DUD", "UUU", "DUD", "UUU", "UUU", "UUU", "UUU", "DUD", "UUU", "UUU", "PPU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UPP", "UUU", "UUU", "UUU", "DDD", "DUD", "DUD", "DUD", "DUD", "DUD", "DUU", "DDD"],
+                ["DUD", "DDD", "PPP", "UUU", "PPP", "UUD", "DUD", "DDD", "DDD", "DUD", "DUD", "UUU", "DDD", "UUU", "UUU", "UUU", "UUD", "DUD", "UUU", "UUU", "Sel", "UUU", "UUU", "UUU", "UUU", "UUU", "DUD", "DDD", "UUU", "DDD", "DDD", "UUU", "DUD", "UUU", "UUU", "UUU", "UUU", "DUD", "UUU", "DUD", "UUU", "UUU", "UUU", "UUU", "DUD", "UUU", "UUU", "UUU", "PPU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPU", "UUU", "UUU", "UUU", "DDD", "DUD", "DUD", "DUD", "DUD", "DUD", "DUU", "DDD"],
+                ["DDD", "DDD", "PPP", "PPP", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "PPP", "PPP", "DDD", "DDD", "UUU", "UUU", "UUU", "Sel", "PPP", "PPP", "PPP", "UUU", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "UUU", "PPP", "PPP", "PPP", "DDD", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["DDD", "DDD", "PPP", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "UUU", "UUU", "DDD", "Sel", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "UUU", "UUU", "DDD", "UUU", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "Sel", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["DDD", "DDD", "PPP", "PPU", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "UUU", "UUU", "UUU", "UUU", "PPU", "PPP", "Sel", "UUU", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "UUU", "UUU", "UUU", "UUU", "DDD", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "DDD", "PPP", "PPP", "PPP", "DDD", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "DDD", "DDD", "PPP", "PPP", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "Sel", "DDD", "DDD", "UUU", "DDD", "UUU", "DDD", "UUU", "UUU", "PPP", "PPP", "UUU", "DDD", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "DDD", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "DDD", "PPP", "PPP", "PPP", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPU", "Sel", "DDD", "PPP", "DDD", "UUU", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "UUU", "PPP", "UUU", "PPP", "DDD"],
+                ["DPD", "DUD", "PPP", "PPP", "PPP", "PPD", "UUU", "DDD", "DDD", "DUD", "DUD", "PPP", "PPP", "PPP", "PPP", "PPP", "PPD", "PPD", "PPU", "PPU", "PPU", "PPP", "PPP", "PPP", "PPP", "UUU", "DUD", "Sel", "PPU", "DDD", "DDD", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPP", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "DDD", "PPD", "PPU", "UUU", "DUD", "PPP", "PPP", "DUD"],
+                ["DUD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "DUD", "DUD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "Sel", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "PPU", "DDD", "DDD", "DDD", "DDD", "DDD", "PPU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "Sel", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP"],
+                ["PPP", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "PPP", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "Sel", "DDD", "DDD", "PPP", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["DDD", "DDD", "PPP", "PPP", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "PPP", "PPP", "DDD", "DDD", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "DDD", "DDD", "UUU", "DDD", "DDD", "Sel", "DDD", "PPP", "PPP", "PPP", "PPP", "DDD", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["DDD", "DDD", "PPP", "PPP", "PPP", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "PPP", "PPP", "DDD", "DDD", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "Sel", "PPP", "PPP", "PPP", "PPP", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD"],
+                ["DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "Sel", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["DDD", "DDD", "PPP", "PPP", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "OOO", "DDD", "DDD", "PPP", "PPP", "DDD", "DDD", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "UUU", "Sel", "PPP", "UUU", "DDD", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "Sel", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["DDD", "DDD", "PPP", "PPP", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "PPP", "PPP", "DDD", "DDD", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "UUU", "PPP", "PPP", "Sel", "DDD", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["DDD", "DDD", "PPP", "PPP", "PPP", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "PPP", "PPP", "PPP", "DDD", "DDD", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "DDD", "DDD", "UUU", "DDD", "DDD", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "Sel", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD"],
+                ["DUD", "DDD", "PPP", "PPP", "PPP", "DDD", "DUD", "DDD", "DDD", "DUD", "DUD", "PPP", "DDD", "DDD", "PPP", "PPP", "UUD", "DDD", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DUD", "PPP", "PPP", "PPP", "UUU", "DDD", "Sel", "DUD", "UUU", "PPU", "PPU", "PPU", "DUD", "UUU", "UUU", "PPU", "PPU", "PPU", "PPU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "DDD", "DDD", "DUD", "DUD", "DDD", "DDD", "DDD", "DDD"],
+                ["DUD", "DDD", "PPP", "PPP", "PPP", "DDD", "UUU", "DDD", "DDD", "DUD", "DUD", "PPP", "DDD", "DDD", "PPP", "PPP", "UUD", "DDD", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "PPP", "PPP", "PPP", "PPP", "PPP", "DDD", "PPU", "Sel", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPP", "PPP", "UUU", "PPP", "UUU", "UUU", "UUU", "DDD", "DDD", "PPU", "UUU", "DDD", "DDD", "DDD", "DDD"],
+                ["DUD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "DUD", "DUD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "Sel", "DDD", "DDD", "DDD", "DDD", "DDD", "PPU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["DUD", "DDD", "PPP", "PPP", "PPP", "DDD", "DUD", "DDD", "DDD", "DUD", "DUD", "UUU", "DDD", "DDD", "PPP", "PPP", "UUD", "DDD", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DUD", "UUU", "UUU", "UUU", "UUU", "DDD", "UUU", "DUD", "UUU", "Sel", "UUU", "UUU", "DUD", "UUU", "UUU", "PPU", "PPU", "PPU", "PPU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "DDD", "DDD", "DUD", "DUD", "DDD", "DDD", "DDD", "DDD"],
+                ["DUD", "DDD", "PPP", "PPP", "PPP", "DDD", "DUD", "DDD", "DDD", "DUD", "DUD", "UUU", "DDD", "DDD", "PPP", "PPP", "UUD", "DDD", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DUD", "UUU", "UUU", "UUU", "UUU", "DDD", "UUU", "DUD", "UUU", "PPU", "Sel", "PPU", "DUD", "UUU", "UUU", "PPU", "PPU", "PPU", "PPU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "DDD", "DDD", "DUD", "DUD", "DDD", "DDD", "DDD", "DDD"],
+                ["DUD", "DDD", "PPP", "PPP", "PPP", "DDD", "DUD", "DDD", "DDD", "DUD", "DUD", "UUU", "DDD", "DDD", "PPP", "PPP", "UUD", "DDD", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DUD", "UUU", "UUU", "UUU", "UUU", "DDD", "UUU", "DUD", "UUU", "PPU", "UUU", "Sel", "DUD", "UUU", "UUU", "PPU", "PPU", "PPU", "PPU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "DDD", "DDD", "DUD", "DUD", "DDD", "DDD", "DDD", "DDD"],
+                ["DUD", "DDD", "PPP", "PPP", "PPP", "DDD", "UUU", "DDD", "DDD", "DUD", "DUD", "PPP", "DDD", "DDD", "PPP", "PPP", "UUD", "DDD", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "PPP", "PPP", "PPP", "PPP", "PPP", "DDD", "PPU", "OUU", "UUU", "PPU", "PPU", "PPU", "Sel", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPP", "PPP", "UUU", "PPP", "UUU", "UUU", "UUU", "DDD", "DDD", "PPU", "UUU", "DDD", "DDD", "DDD", "DDD"],
+                ["DUD", "DDD", "PPP", "UUU", "PPP", "DDD", "UUU", "DDD", "DDD", "DUD", "DUD", "UUU", "DDD", "DDD", "PPP", "UUU", "UUD", "DDD", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "OUU", "Sel", "UUU", "UUU", "UUU", "UUU", "PPU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD"],
+                ["DUD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "DUD", "DUD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "Sel", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["DUD", "DDD", "PPP", "UUU", "PPP", "DDD", "DUD", "DDD", "DDD", "DUD", "DUD", "UUU", "DDD", "DDD", "UUU", "UUU", "UUD", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DUD", "UUU", "UUU", "UUU", "UUU", "DDD", "UUU", "DUD", "UUU", "UUU", "UUU", "UUU", "DUD", "UUU", "UUU", "Sel", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UPP", "UUU", "UUU", "UUU", "DDD", "DDD", "DUD", "DUD", "DDD", "DDD", "DDD", "DDD"],
+                ["DUD", "DDD", "PPP", "UUU", "PPP", "DDD", "DUD", "DDD", "DDD", "DUD", "DUD", "UUU", "DDD", "DDD", "UUU", "UUU", "UUD", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DUD", "UUU", "UUU", "UUU", "UUU", "DDD", "UUU", "DUD", "UUU", "UUU", "UUU", "UUU", "DUD", "UUU", "UUU", "UUU", "Sel", "UUU", "UUU", "UUU", "UUU", "UUU", "PPU", "UUU", "UUU", "UUU", "DDD", "DDD", "DUD", "DUD", "DDD", "DDD", "DDD", "DDD"],
+                ["DUD", "DDD", "PPP", "PPU", "PPP", "DDD", "DUD", "DDD", "DDD", "DUD", "DUD", "UUU", "DDD", "DDD", "UUU", "UUU", "UUD", "DDD", "UUU", "UUU", "UUU", "UUU", "PPU", "PPP", "PPU", "UUU", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DUD", "UUU", "UUU", "UUU", "UUU", "DDD", "UUU", "DUD", "UUU", "UUU", "UUU", "UUU", "DUD", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "DDD", "DDD", "DUD", "DUD", "DDD", "DDD", "DDD", "DDD"],
+                ["DUD", "DDD", "PPP", "UUU", "PPP", "DDD", "DUD", "DDD", "DDD", "DUD", "DUD", "UUU", "DDD", "DDD", "UUU", "UUU", "UUD", "DDD", "UUU", "UUU", "UUU", "UUU", "PPU", "PPP", "UUU", "UUU", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DUD", "UUU", "UUU", "UUU", "UUU", "DDD", "UUU", "DUD", "UUU", "UUU", "UUU", "UUU", "DUD", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "DDD", "DDD", "DUD", "DUD", "DDD", "DDD", "DDD", "DDD"],
+                ["DDD", "DDD", "PPP", "PPP", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "DDD", "PPP", "PPP", "DDD", "DDD", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "UUU", "PPP", "PPP", "UUU", "DDD", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "PPP", "UUU", "PPP", "UUU", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["DDD", "DDD", "PPP", "PPP", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "DDD", "PPP", "PPP", "DDD", "DDD", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "UUU", "PPP", "PPP", "UUU", "DDD", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU", "PPP", "UUU", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "DDD", "PPP", "PPP", "PPP", "DDD", "UUU", "DDD", "DDD", "UUU", "UUU", "UUU", "DDD", "DDD", "PPP", "PPP", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "DDD", "DDD", "UUU", "DDD", "UUU", "DDD", "UUU", "UUU", "PPP", "PPP", "UUU", "DDD", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "Sel", "PPP", "UUU", "UUU", "UUU", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD"],
+                ["DDD", "DDD", "PPP", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "Sel", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["DDD", "DDD", "PPP", "PPP", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "UUU", "PPP", "PPP", "DDD", "DDD", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "DDD", "DDD", "UUU", "DDD", "DDD", "UUU", "DDD", "UUU", "PPP", "PPP", "UUU", "DDD", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "PPP", "Sel", "PPP", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "UUU", "UUU", "DDD"],
+                ["DDD", "DDD", "PPP", "PPP", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "UUU", "PPP", "PPP", "DDD", "DDD", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "DDD", "DDD", "UUU", "DDD", "DDD", "UUU", "DDD", "UUU", "PPP", "PPP", "UUU", "DDD", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "PPP", "UUU", "Sel", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "UUU", "UUU", "DDD"],
+                ["DDD", "DDD", "PPP", "PPP", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "UUU", "PPP", "PPP", "DDD", "DDD", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "DDD", "DDD", "UUU", "DDD", "DDD", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "DDD", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "Sel", "DDD", "DDD", "DDD", "DDD", "DDD", "UUU", "UUU", "DDD"],
+                ["PPP", "DUD", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPD", "PPP", "DUD", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "Sel", "PPP", "PPP", "UUU", "PPP", "PPP", "PPP", "DUD"],
+                ["DUD", "DDD", "PPP", "PPP", "PPP", "PPD", "UUU", "DDD", "DDD", "DUD", "DUD", "PPP", "DDD", "PPP", "PPP", "PPP", "PPD", "DUD", "PPU", "PPU", "PPU", "PPP", "PPP", "PPP", "PPP", "UUU", "DUD", "DDD", "PPU", "DDD", "DDD", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPU", "UUU", "PPU", "PPU", "PPU", "PPU", "UUU", "UUU", "PPU", "PPU", "PPU", "PPU", "PPU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "DDD", "Sel", "PPU", "UUU", "DUD", "DUD", "DPP", "DDD"],
+                ["DUD", "DDD", "PPP", "PPP", "PPP", "DDD", "UUU", "DDD", "DDD", "DUD", "DUD", "PPP", "DDD", "DDD", "PPP", "PPP", "UUD", "DDD", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "PPP", "PPP", "PPP", "PPP", "PPP", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "DDD", "DDD", "Sel", "UUU", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "DDD", "PPP", "DDD", "DDD", "UUU", "UUU", "PPP", "DDD", "DDD", "PPP", "PPP", "UUU", "DDD", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "DDD", "DDD", "UUU", "DDD", "DDD", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "DDD", "DDD", "UUU", "Sel", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "DDD", "PPP", "PPP", "PPP", "PPP", "UUU", "DDD", "DDD", "UUU", "UUU", "PPP", "DDD", "PPP", "PPP", "PPP", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "DDD", "PPP", "DDD", "UUU", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "UUU", "Sel", "UUU", "PPP", "DDD"],
+                ["DDD", "DDD", "PPP", "PPP", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "PPP", "PPP", "PPP", "DDD", "DDD", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "DDD", "DDD", "UUU", "DDD", "DDD", "PPP", "DDD", "PPP", "PPP", "PPP", "PPP", "DDD", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "Sel", "PPP", "DDD"],
+                ["DDD", "DDD", "PPP", "PPP", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "PPP", "PPP", "PPP", "DDD", "DDD", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "DDD", "DDD", "UUU", "DDD", "DDD", "PPP", "DDD", "PPP", "PPP", "PPP", "PPP", "DDD", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DUD", "Sel", "DDD"],
+                ["UPU", "PPP", "PPP", "PPP", "PPP", "PPU", "PPP", "DDD", "DDD", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "PPU", "PPU", "PPU", "PPU", "PPU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "PPU", "PPU", "DDD", "DDD", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPP", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "DDD", "PPU", "PPU", "PPP", "UUU", "PPP", "PPP", "Sel"]];
+
+var coloring_AA = [["Sel", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "UUU", "DDD", "DDD", "PPP", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "Sel", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["DDD", "DDD", "Sel", "UUU", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "UUU", "PPP", "Sel", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["DDD", "DDD", "DDD", "DDD", "Sel", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "Sel", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "PPP", "PPP", "PPP", "PPU", "UUU", "PPU", "PPU", "PPU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "PPU", "UUU", "UUU", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "PPU", "UUU", "PPU", "PPU", "PPU", "PPU", "UUU", "UUU", "PPU", "PPU", "PPU", "PPU", "PPU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UPP", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "Sel", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "Sel", "PPP", "PPP", "PPP", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "UUU", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "UUU", "PPP", "PPP", "UUU", "PPP", "PPP", "PPP", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "PPP", "UUU", "Sel", "PPP", "PPP", "PPP", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "Sel", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "UUU", "DDD", "DDD", "PPP", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "UUU", "Sel", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "UUU", "DDD", "DDD", "PPP", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "Sel", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "Sel", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "Sel", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "Sel", "UUU", "PPU", "PPU", "PPU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPU", "PPU", "PPU", "PPU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "PPU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "PPP", "PPP", "PPP", "PPU", "Sel", "PPU", "PPU", "PPU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "PPU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPP", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "PPU", "PPU", "UUU", "UUU", "PPP", "PPP", "UUU"],
+                ["UUU", "UUU", "PPP", "PPU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU", "UUU", "UUU", "PPU", "PPP", "PPU", "UUU", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "Sel", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "UUU", "DDD", "DDD", "UUU", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "UUU", "PPP", "PPU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPU", "PPP", "Sel", "UUU", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "Sel", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPU", "Sel", "UUU", "PPP", "UUU", "UUU", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "PPP", "UUU"],
+                ["UPU", "UUU", "PPP", "PPP", "PPP", "PPU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "PPU", "PPU", "PPU", "PPU", "PPU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "Sel", "PPU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPP", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "PPU", "PPU", "UUU", "UUU", "PPP", "PPP", "UUU"],
+                ["UUU", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "Sel", "DDD", "UUU", "DDD", "DDD", "PPP", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "PPU", "DDD", "DDD", "DDD", "DDD", "DDD", "PPU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "Sel", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP"],
+                ["PPP", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "PPP", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "Sel", "DDD", "DDD", "PPP", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "UUU", "DDD", "DDD", "Sel", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "UUU", "DDD", "DDD", "UUU", "DDD", "Sel", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "Sel", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "Sel", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "Sel", "UUU", "UUU", "PPU", "PPU", "PPU", "UUU", "UUU", "UUU", "PPU", "PPU", "PPU", "PPU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "UUU", "PPU", "Sel", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPP", "PPP", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "UUU", "DDD", "DDD", "PPP", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "Sel", "DDD", "DDD", "DDD", "DDD", "DDD", "PPU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU", "UUU", "UUU", "UUU", "UUU", "PPU", "PPU", "PPU", "PPU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPU", "Sel", "PPU", "UUU", "UUU", "UUU", "PPU", "PPU", "PPU", "PPU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPU", "UUU", "Sel", "UUU", "UUU", "UUU", "PPU", "PPU", "PPU", "PPU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "UUU", "PPU", "UUU", "UUU", "PPU", "PPU", "PPU", "Sel", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPP", "PPP", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU", "UUU", "UUU", "UUU", "PPU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "UUU", "DDD", "DDD", "UUU", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "Sel", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "UUU", "PPP", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU", "UUU", "UUU", "UUU", "UUU", "PPU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPU", "PPP", "PPU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "PPP", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "Sel", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["DDD", "DDD", "PPP", "UUU", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "Sel", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "PPP", "Sel", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "PPP", "UUU", "Sel", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "Sel", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPU", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "Sel", "PPP", "PPP", "UUU", "PPP", "PPP", "PPP", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "PPU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "PPP", "PPP", "PPP", "PPU", "UUU", "PPU", "PPU", "PPU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "PPU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPU", "UUU", "PPU", "PPU", "PPU", "PPU", "UUU", "UUU", "PPU", "PPU", "PPU", "PPU", "PPU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "Sel", "PPU", "UUU", "UUU", "UUU", "UPP", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU", "PPP", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "PPP", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU"],
+                ["UPU", "PPP", "PPP", "PPP", "PPP", "PPU", "PPP", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "PPU", "PPU", "PPU", "PPU", "PPU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "PPU", "PPU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPP", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "PPU", "PPU", "PPP", "UUU", "PPP", "PPP", "Sel"]];
+
+var coloring_R = [["Sel", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "PPP", "UUU", "DDD", "DDD", "PPP", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "Sel", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["DDD", "DDD", "Sel", "UUU", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "UUU", "PPP", "Sel", "PPP", "UUU", "DDD", "UUU", "UUU", "UUU", "DDD", "DDD", "UUU", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["DDD", "DDD", "DDD", "DDD", "Sel", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "Sel", "DDD", "UUU", "UUU", "PPP", "DDD", "DDD", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "DDD", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "Sel", "PPP", "PPP", "PPP", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "OOO"],
+                ["UUU", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "Sel", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "PPP", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "UUU", "Sel", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "PPP", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "DDD", "UUU", "UUU", "Sel", "DDD", "DDD", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "DDD", "UUU", "UUU", "PPP", "Sel", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "PPP", "UUU", "PPP", "PPP", "UUU", "DDD"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "DDD", "UUU", "UUU", "PPP", "UUU", "Sel", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "DDD", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "DDD", "UUU", "PPP", "DDD", "UUU", "UUU", "DDD", "DDD"],
+                ["UUU", "UUU", "PPP", "UUU", "PPP", "UUU", "DDD", "UUU", "UUU", "UUU", "DDD", "DDD", "Sel", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "DDD", "UUU", "UUU", "UUU", "DDD", "DDD", "PPP", "Sel", "DDD", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "DUD", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "Sel", "PPU", "PPU", "PPU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPU", "PPU", "PPU", "PPU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "DUD"],
+                ["UUU", "UUU", "PPP", "PPU", "PPP", "UUU", "DUD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU", "UUU", "UUU", "PPU", "PPP", "PPU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "DUD"],
+                ["UUU", "UUU", "PPP", "UUU", "PPP", "UUU", "DUD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "DUD"],
+                ["UUU", "UUU", "PPP", "UUU", "PPP", "UUU", "DUD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "DUD"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "DDD", "UUU", "UUU", "PPP", "DDD", "DDD", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "Sel", "PPP", "PPP", "PPP", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "UUU", "PPP", "UUU", "PPP", "UUU", "DDD", "UUU", "UUU", "UUU", "DDD", "DDD", "UUU", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "Sel", "PPP", "UUU", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "Sel", "DDD", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "UUU", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "UUU", "PPP", "PPU", "PPP", "UUU", "DDD", "UUU", "UUU", "UUU", "DDD", "DDD", "UUU", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "PPU", "PPP", "Sel", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "Sel", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPU", "Sel", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU"],
+                ["UUU", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "Sel", "UUU", "DDD", "DDD", "PPP", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "PPU", "DDD", "DDD", "DDD", "DDD", "DDD", "PPU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["PPP", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "PPP", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "PPP", "Sel", "DDD", "DDD", "PPP", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "DDD", "UUU", "UUU", "PPP", "DDD", "DDD", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "DDD", "UUU", "UUU", "Sel", "PPP", "PPP", "PPP", "PPP", "PPP", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "DDD", "UUU", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "DDD", "UUU", "UUU", "PPP", "DDD", "DDD", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "DDD", "UUU", "UUU", "UUU", "Sel", "PPP", "PPP", "PPP", "PPP", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "Sel", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "DDD", "UUU", "UUU", "UUU", "DDD", "DDD", "PPP", "PPP", "DDD", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "PPP", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "UUU", "DDD", "Sel", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "DDD", "UUU", "UUU", "PPP", "DDD", "DDD", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "Sel", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "DDD", "UUU", "UUU", "PPP", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "Sel", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "DDD"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "DUD", "UUU", "UUU", "PPP", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "Sel", "UUU", "UUU", "PPU", "PPU", "PPU", "UUU", "UUU", "UUU", "PPU", "PPU", "PPU", "PPU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "DUD"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "DUD", "UUU", "UUU", "PPP", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "UUU", "PPU", "Sel", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPP", "PPP", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "PPU", "UUU", "UUU", "UUU", "UUU", "UUU", "DUD"],
+                ["UUU", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "PPP", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "Sel", "DDD", "DDD", "DDD", "DDD", "DDD", "PPU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "DUD", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU", "UUU", "UUU", "UUU", "UUU", "PPU", "PPU", "PPU", "PPU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "DUD"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "DUD", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPU", "Sel", "PPU", "UUU", "UUU", "UUU", "PPU", "PPU", "PPU", "PPU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "DUD"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "DUD", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPU", "UUU", "Sel", "UUU", "UUU", "UUU", "PPU", "PPU", "PPU", "PPU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "DUD"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "DUD", "UUU", "UUU", "PPP", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "UUU", "PPU", "UUU", "UUU", "PPU", "PPU", "PPU", "Sel", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPP", "PPP", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "PPU", "UUU", "UUU", "UUU", "UUU", "UUU", "DUD"],
+                ["UUU", "UUU", "PPP", "UUU", "PPP", "UUU", "DUD", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU", "UUU", "UUU", "UUU", "PPU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "DUD"],
+                ["UUU", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "UUU", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "Sel", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "UUU", "PPP", "UUU", "PPP", "UUU", "DUD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "DUD"],
+                ["UUU", "UUU", "PPP", "UUU", "PPP", "UUU", "DUD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU", "UUU", "UUU", "UUU", "UUU", "PPU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "DUD"],
+                ["UUU", "UUU", "PPP", "PPU", "PPP", "UUU", "DUD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPU", "PPP", "PPU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "DUD"],
+                ["UUU", "UUU", "PPP", "UUU", "PPP", "UUU", "DUD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "DUD"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "PPP", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "DDD"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "DDD"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "Sel", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["DDD", "DDD", "PPP", "UUU", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "Sel", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "PPP", "Sel", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "DDD"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "PPP", "UUU", "Sel", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "DDD"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "Sel", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "DDD"],
+                ["UPU", "UUU", "PPP", "PPP", "PPP", "PPP", "DUD", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "PPU", "PPU", "PPU", "PPU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "PPU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPP", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "Sel", "PPU", "PPP", "UUU", "PPP", "PPP", "UUU", "DUD"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "DUD", "UUU", "UUU", "PPP", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU", "UUU", "UUU", "UUU", "UUU", "DUD"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "DDD", "UUU", "UUU", "PPP", "DDD", "DDD", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "DDD", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "DDD", "UUU", "Sel", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "Sel", "PPP", "PPP", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "DDD", "UUU", "UUU", "PPP", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "PPP", "UUU", "Sel", "PPP", "UUU", "DDD"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "DDD", "UUU", "UUU", "PPP", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "DUD", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "DUU", "UUU", "PPP", "DUD", "UUU", "Sel", "DUU", "DDD"],
+                ["UPU", "PPP", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "PPU", "PPU", "PPU", "PPU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "PPU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPP", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "PPU", "PPU", "PPP", "UUU", "PPP", "PPP", "Sel", "UUU"],
+                ["PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "Sel"]];
+
+var coloring_T = [["Sel", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "PPP", "DDD", "UUU", "DDD", "DDD", "PPP", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "Sel", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["DDD", "DDD", "Sel", "UUU", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "UUU", "PPP", "Sel", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["DDD", "DDD", "DDD", "DDD", "Sel", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "Sel", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "PPP", "PPP", "PPP", "PPU", "UUU", "PPU", "PPU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "PPU", "UUU", "UUU", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "PPU", "UUU", "PPU", "PPU", "PPU", "PPU", "UUU", "UUU", "PPU", "PPU", "PPU", "PPU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UPP", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "Sel", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "Sel", "PPP", "PPP", "PPP", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "UUU", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "UUU", "PPP", "PPP", "UUU", "PPP", "PPP", "PPP", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "PPP", "UUU", "Sel", "PPP", "PPP", "PPP", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "Sel", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "UUU", "DDD", "UUU", "DDD", "DDD", "PPP", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "UUU", "Sel", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "UUU", "DDD", "UUU", "DDD", "DDD", "PPP", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "Sel", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "Sel", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "Sel", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "Sel", "UUU", "PPU", "PPU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPU", "PPU", "PPU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "PPU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "PPP", "PPP", "PPP", "PPU", "Sel", "PPU", "PPU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "PPU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPP", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "PPU", "PPU", "UUU", "UUU", "PPP", "PPP", "UUU"],
+                ["UUU", "UUU", "PPP", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPU", "UUU", "UUU", "UUU", "UUU", "UUU", "UPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPU", "UUU", "UUU", "UUU", "UUU", "PPU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "Sel", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "PPP", "UUU", "UUU", "UUU", "UUU", "DDD", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "Sel", "DDD", "DDD", "DDD", "UUU", "DDD", "UUU", "DDD", "DDD", "UUU", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "Sel", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "PPU", "Sel", "UUU", "PPP", "UUU", "UUU", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "PPP", "UUU"],
+                ["UPU", "UUU", "PPP", "PPP", "PPP", "PPU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "PPU", "PPU", "PPU", "PPU", "PPP", "PPP", "PPP", "UUU", "UUU", "Sel", "PPU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPP", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "PPU", "PPU", "UUU", "UUU", "PPP", "PPP", "UUU"],
+                ["UUU", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "Sel", "DDD", "UUU", "DDD", "DDD", "PPP", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "PPU", "DDD", "DDD", "DDD", "DDD", "DDD", "PPU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "Sel", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP"],
+                ["PPP", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "PPP", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "PPP", "DDD", "Sel", "DDD", "DDD", "PPP", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "UUU", "DDD", "UUU", "DDD", "DDD", "Sel", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "UUU", "DDD", "UUU", "DDD", "DDD", "UUU", "DDD", "Sel", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "Sel", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "Sel", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "Sel", "UUU", "UUU", "PPU", "PPU", "PPU", "UUU", "UUU", "UUU", "PPU", "PPU", "PPU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "UUU", "PPU", "Sel", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPP", "PPP", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "UUU", "DDD", "UUU", "DDD", "DDD", "PPP", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "Sel", "DDD", "DDD", "DDD", "DDD", "DDD", "PPU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU", "UUU", "UUU", "UUU", "UUU", "PPU", "PPU", "PPU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPU", "Sel", "PPU", "UUU", "UUU", "UUU", "PPU", "PPU", "PPU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPU", "UUU", "Sel", "UUU", "UUU", "UUU", "PPU", "PPU", "PPU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "UUU", "PPU", "UUU", "UUU", "PPU", "PPU", "PPU", "Sel", "PPU", "PPU", "PPU", "PPU", "PPU", "PPP", "PPP", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "PPP", "DDD", "DDD", "DDD", "UUU", "DDD", "UUU", "DDD", "DDD", "UUU", "DDD", "PPP", "DDD", "DDD", "DDD", "DDD", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "Sel", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "UUU", "PPP", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU", "UUU", "UUU", "UUU", "UUU", "UPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU", "UUU", "UUU", "UUU", "PPU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "PPP", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "Sel", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["DDD", "DDD", "PPP", "UUU", "PPP", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "UUU", "UUU", "DDD", "DDD", "DDD", "DDD", "Sel", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD", "DDD"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "PPP", "Sel", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "PPP", "UUU", "Sel", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "Sel", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPU", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "Sel", "PPP", "PPP", "UUU", "PPP", "PPP", "PPP", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "PPU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "PPP", "PPP", "PPP", "PPU", "UUU", "PPU", "PPU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "PPU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPU", "UUU", "PPU", "PPU", "PPU", "PPU", "UUU", "UUU", "PPU", "PPU", "PPU", "PPU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "Sel", "PPU", "UUU", "UUU", "UUU", "UPP", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU", "UUU", "UUU", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU", "PPP", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "PPP", "UUU"],
+                ["UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "PPP", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "UUU", "Sel", "UUU"],
+                ["UPU", "PPP", "PPP", "PPP", "PPP", "PPU", "PPP", "UUU", "UUU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "PPU", "PPU", "PPU", "PPU", "PPP", "PPP", "PPP", "UUU", "UUU", "PPU", "PPU", "UUU", "UUU", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPP", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPU", "PPP", "PPP", "UUU", "PPP", "PPP", "PPP", "PPP", "UUU", "PPU", "PPU", "PPP", "UUU", "PPP", "PPP", "Sel"]];
+
+window.onload = init;
+
+    function init() {
+
+        var ellipses = document.getElementsByTagName("ellipse");
+
+        for(var i=0; i < ellipses.length; i++)
+            ellipses[i].parentNode.addEventListener("click", colorNode, true);
+
+        }
+
+    function colorNode(event) {
+
+        var ellipses = document.getElementsByTagName("ellipse");
+        var iA = parseInt(event.currentTarget.getAttribute("num"));
+
+        for(var i=0; i < ellipses.length; i++) {
+    	iB = parseInt(ellipses[i].parentNode.getAttribute("num"))
+            var fillValue = "url(#".concat(coloring_A[iA-1][iB-1], ")");
+            ellipses[i].setAttribute("fill", fillValue)
+            }
+
+    }
+
+    function toggleTheme() {
+        var x = document.getElementById("docbody");
+        if (x.className == "light-mode") {
+          x.className = "dark-mode";
+        }
+        else {
+          x.className = "light-mode";
+        }
+    }
+
+    </script>
+
+    </head>
+
+    <body id="docbody" class="light-mode">
+
+    <h1>Output Graph</h1>
+
+    <button type="button" name="theme" onclick="toggleTheme()" >Toggle light/dark
+    </button>
+
+    <p>The arrows are interpreted as follows:</p>
+
+    <ul style="list-style-type:none">
+    <li>A <span style="color:black">&rarr;</span> B: A &sube; B and co(A) &sube; B
+    for every oracle.</li>
+
+    <li>A <span style="color:blue">&rarr;</span> B: A &sube; B for every oracle.
+    </li>
+
+    <li>A <span style="color:red">&rarr;</span> B: co(A) &sube; B for every oracle.
+    </li>
+
+    <li>A <span style="color:green">&rarr;</span> B: cocap(A) &sube; B for every
+    oracle.</li>
+    </ul>
+
+    <p> Click on a node to compare it to other complexity classes. Clicking a node
+    marks it as A, and the coloring of each node shows the status of the
+    corresponding class when it is considered as B. The left part of the node shows
+    the status of A &sube; B, the right part of the node shows the status of co(A)
+    &sube; B, and the middle part of the node shows the status of cocap(A) &sube; B
+    (all with respect to every oracle). </p>
+
+    <p> The colors are interpreted as follows: </p>
+
+    <ul>
+    <li style="color:#00b712">Proven</li>
+    <li style="color:#ff0000">Disproven</li>
+    <li style="color:#b2ac00">Open</li>
+    <li style="color:#848484">Unknown to the system</li>
+    <li style="color:#0076ff">Currently selected</li>
+    <li style="color:#ff7b00">Error: the status of this class is logically
+    impossible</li>
+    </ul>
+
+    <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+ "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<!-- Generated by graphviz version 2.40.1 (20161225.0304)
+ -->
+<!-- Title: G Pages: 1 -->
+<svg width="686.4pt" height="871.0pt"
+ viewBox="0.00 0.00 1056.44 1340.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 1336)">
+<defs>
+<linearGradient id="PPP"><stop offset="100%" stop-color="#00b712" /></linearGradient>
+<linearGradient id="DDD"><stop offset="100%" stop-color="#ff0000" /></linearGradient>
+<linearGradient id="OOO"><stop offset="100%" stop-color="#b2ac00" /></linearGradient>
+<linearGradient id="UUU"><stop offset="100%" stop-color="#848484" /></linearGradient>
+<linearGradient id="Err"><stop offset="100%" stop-color="#ff7b00" /></linearGradient>
+<linearGradient id="Sel"><stop offset="100%" stop-color="#0076ff" /></linearGradient>
+<linearGradient id="PPD"><stop offset="49%" stop-color="#00b712" /><stop offset="50%" stop-color="#ff0000" /><stop offset="51%" stop-color="#ff0000" /></linearGradient>
+<linearGradient id="PPO"><stop offset="49%" stop-color="#00b712" /><stop offset="50%" stop-color="#b2ac00" /><stop offset="51%" stop-color="#b2ac00" /></linearGradient>
+<linearGradient id="PPU"><stop offset="49%" stop-color="#00b712" /><stop offset="50%" stop-color="#848484" /><stop offset="51%" stop-color="#848484" /></linearGradient>
+<linearGradient id="DPP"><stop offset="49%" stop-color="#ff0000" /><stop offset="50%" stop-color="#00b712" /><stop offset="51%" stop-color="#00b712" /></linearGradient>
+<linearGradient id="OPP"><stop offset="49%" stop-color="#b2ac00" /><stop offset="50%" stop-color="#00b712" /><stop offset="51%" stop-color="#00b712" /></linearGradient>
+<linearGradient id="UPP"><stop offset="49%" stop-color="#848484" /><stop offset="50%" stop-color="#00b712" /><stop offset="51%" stop-color="#00b712" /></linearGradient>
+<linearGradient id="DPD"><stop offset="33%" stop-color="#ff0000" /><stop offset="34%" stop-color="#00b712" /><stop offset="66%" stop-color="#00b712" /><stop offset="67%" stop-color="#ff0000" /></linearGradient>
+<linearGradient id="DOD"><stop offset="33%" stop-color="#ff0000" /><stop offset="34%" stop-color="#b2ac00" /><stop offset="66%" stop-color="#b2ac00" /><stop offset="67%" stop-color="#ff0000" /></linearGradient>
+<linearGradient id="DUD"><stop offset="33%" stop-color="#ff0000" /><stop offset="34%" stop-color="#848484" /><stop offset="66%" stop-color="#848484" /><stop offset="67%" stop-color="#ff0000" /></linearGradient>
+<linearGradient id="DPO"><stop offset="33%" stop-color="#ff0000" /><stop offset="34%" stop-color="#00b712" /><stop offset="66%" stop-color="#00b712" /><stop offset="67%" stop-color="#b2ac00" /></linearGradient>
+<linearGradient id="DOO"><stop offset="33%" stop-color="#ff0000" /><stop offset="34%" stop-color="#b2ac00" /><stop offset="66%" stop-color="#b2ac00" /><stop offset="67%" stop-color="#b2ac00" /></linearGradient>
+<linearGradient id="DUO"><stop offset="33%" stop-color="#ff0000" /><stop offset="34%" stop-color="#848484" /><stop offset="66%" stop-color="#848484" /><stop offset="67%" stop-color="#b2ac00" /></linearGradient>
+<linearGradient id="DPU"><stop offset="33%" stop-color="#ff0000" /><stop offset="34%" stop-color="#00b712" /><stop offset="66%" stop-color="#00b712" /><stop offset="67%" stop-color="#848484" /></linearGradient>
+<linearGradient id="DOU"><stop offset="33%" stop-color="#ff0000" /><stop offset="34%" stop-color="#b2ac00" /><stop offset="66%" stop-color="#b2ac00" /><stop offset="67%" stop-color="#848484" /></linearGradient>
+<linearGradient id="DUU"><stop offset="33%" stop-color="#ff0000" /><stop offset="34%" stop-color="#848484" /><stop offset="66%" stop-color="#848484" /><stop offset="67%" stop-color="#848484" /></linearGradient>
+<linearGradient id="OPD"><stop offset="33%" stop-color="#b2ac00" /><stop offset="34%" stop-color="#00b712" /><stop offset="66%" stop-color="#00b712" /><stop offset="67%" stop-color="#ff0000" /></linearGradient>
+<linearGradient id="OOD"><stop offset="33%" stop-color="#b2ac00" /><stop offset="34%" stop-color="#b2ac00" /><stop offset="66%" stop-color="#b2ac00" /><stop offset="67%" stop-color="#ff0000" /></linearGradient>
+<linearGradient id="OPD"><stop offset="33%" stop-color="#b2ac00" /><stop offset="34%" stop-color="#848484" /><stop offset="66%" stop-color="#848484" /><stop offset="67%" stop-color="#ff0000" /></linearGradient>
+<linearGradient id="OPO"><stop offset="33%" stop-color="#b2ac00" /><stop offset="34%" stop-color="#00b712" /><stop offset="66%" stop-color="#00b712" /><stop offset="67%" stop-color="#b2ac00" /></linearGradient>
+<linearGradient id="OUO"><stop offset="33%" stop-color="#b2ac00" /><stop offset="34%" stop-color="#848484" /><stop offset="66%" stop-color="#848484" /><stop offset="67%" stop-color="#b2ac00" /></linearGradient>
+<linearGradient id="OPU"><stop offset="33%" stop-color="#b2ac00" /><stop offset="34%" stop-color="#00b712" /><stop offset="66%" stop-color="#00b712" /><stop offset="67%" stop-color="#848484" /></linearGradient>
+<linearGradient id="OOU"><stop offset="33%" stop-color="#b2ac00" /><stop offset="34%" stop-color="#b2ac00" /><stop offset="66%" stop-color="#b2ac00" /><stop offset="67%" stop-color="#848484" /></linearGradient>
+<linearGradient id="OUU"><stop offset="33%" stop-color="#b2ac00" /><stop offset="34%" stop-color="#848484" /><stop offset="66%" stop-color="#848484" /><stop offset="67%" stop-color="#848484" /></linearGradient>
+<linearGradient id="UPD"><stop offset="33%" stop-color="#848484" /><stop offset="34%" stop-color="#00b712" /><stop offset="66%" stop-color="#00b712" /><stop offset="67%" stop-color="#ff0000" /></linearGradient>
+<linearGradient id="UOD"><stop offset="33%" stop-color="#848484" /><stop offset="34%" stop-color="#b2ac00" /><stop offset="66%" stop-color="#b2ac00" /><stop offset="67%" stop-color="#ff0000" /></linearGradient>
+<linearGradient id="UUD"><stop offset="33%" stop-color="#848484" /><stop offset="34%" stop-color="#848484" /><stop offset="66%" stop-color="#848484" /><stop offset="67%" stop-color="#ff0000" /></linearGradient>
+<linearGradient id="UPO"><stop offset="33%" stop-color="#848484" /><stop offset="34%" stop-color="#00b712" /><stop offset="66%" stop-color="#00b712" /><stop offset="67%" stop-color="#b2ac00" /></linearGradient>
+<linearGradient id="UOO"><stop offset="33%" stop-color="#848484" /><stop offset="34%" stop-color="#b2ac00" /><stop offset="66%" stop-color="#b2ac00" /><stop offset="67%" stop-color="#b2ac00" /></linearGradient>
+<linearGradient id="UUO"><stop offset="33%" stop-color="#848484" /><stop offset="34%" stop-color="#848484" /><stop offset="66%" stop-color="#848484" /><stop offset="67%" stop-color="#b2ac00" /></linearGradient>
+<linearGradient id="UPU"><stop offset="33%" stop-color="#848484" /><stop offset="34%" stop-color="#00b712" /><stop offset="66%" stop-color="#00b712
+" /><stop offset="67%" stop-color="#848484" /></linearGradient>
+<linearGradient id="UOU"><stop offset="33%" stop-color="#848484" /><stop offset="34%" stop-color="#b2ac00" /><stop offset="66%" stop-color="#b2ac00" /><stop offset="67%" stop-color="#848484" /></linearGradient>
+</defs>
+<polygon fill="#ffffff" stroke="transparent" points="-4,4 -4,-1336 1052.4354,-1336 1052.4354,4 -4,4"/>
+<!-- 1 -->
+<g id="node1" class="node" num="1">
+<ellipse fill="none" stroke="#000000" cx="946.3945" cy="-306" rx="102.0819" ry="18"/>
+<text text-anchor="middle" x="946.3945" y="-302.3" font-family="Times,serif" font-size="14.00" fill="#000000">(NP&#45;cap&#45;coNP)/poly</text>
+</g>
+<!-- 29 -->
+<g id="node29" class="node" num="29">
+<ellipse fill="none" stroke="#000000" cx="890.3945" cy="-450" rx="48.1917" ry="18"/>
+<text text-anchor="middle" x="890.3945" y="-446.3" font-family="Times,serif" font-size="14.00" fill="#000000">NP/poly</text>
+</g>
+<!-- 1&#45;&gt;29 -->
+<g id="edge91" class="edge" num="1&#45;&gt;29">
+<path fill="none" stroke="#000000" d="M939.302,-324.2377C929.6663,-349.0154 912.3556,-393.5286 901.1254,-422.4061"/>
+<polygon fill="#000000" stroke="#000000" points="897.7918,-421.3217 897.4293,-431.9104 904.3159,-423.8589 897.7918,-421.3217"/>
+</g>
+<!-- 2 -->
+<g id="node2" class="node" num="2">
+<ellipse fill="none" stroke="#000000" cx="108.3945" cy="-162" rx="27" ry="18"/>
+<text text-anchor="middle" x="108.3945" y="-158.3" font-family="Times,serif" font-size="14.00" fill="#000000">+P</text>
+</g>
+<!-- 22 -->
+<g id="node22" class="node" num="22">
+<ellipse fill="none" stroke="#000000" cx="357.3945" cy="-666" rx="27" ry="18"/>
+<text text-anchor="middle" x="357.3945" y="-662.3" font-family="Times,serif" font-size="14.00" fill="#000000">MP</text>
+</g>
+<!-- 2&#45;&gt;22 -->
+<g id="edge5" class="edge" num="2&#45;&gt;22">
+<path fill="none" stroke="#000000" d="M89.6861,-175.6302C60.2396,-198.8205 6.3945,-249.0164 6.3945,-306 6.3945,-306 6.3945,-306 6.3945,-522 6.3945,-543.5678 -33.481,-540.3325 119.3945,-612 186.2298,-643.3321 272.3219,-657.0279 320.5077,-662.5809"/>
+<polygon fill="#000000" stroke="#000000" points="320.1576,-666.0634 330.4798,-663.6755 320.9214,-659.1052 320.1576,-666.0634"/>
+</g>
+<!-- 3 -->
+<g id="node3" class="node" num="3">
+<ellipse fill="none" stroke="#000000" cx="394.3945" cy="-1242" rx="27" ry="18"/>
+<text text-anchor="middle" x="394.3945" y="-1238.3" font-family="Times,serif" font-size="14.00" fill="#000000">AH</text>
+</g>
+<!-- 5 -->
+<g id="node5" class="node" num="5">
+<ellipse fill="none" stroke="#000000" cx="421.3945" cy="-1314" rx="30.5947" ry="18"/>
+<text text-anchor="middle" x="421.3945" y="-1310.3" font-family="Times,serif" font-size="14.00" fill="#000000">ALL</text>
+</g>
+<!-- 3&#45;&gt;5 -->
+<g id="edge100" class="edge" num="3&#45;&gt;5">
+<path fill="none" stroke="#000000" d="M401.0686,-1259.7978C404.1421,-1267.9936 407.8561,-1277.8976 411.264,-1286.9855"/>
+<polygon fill="#000000" stroke="#000000" points="408.0086,-1288.2726 414.7971,-1296.407 414.5629,-1285.8147 408.0086,-1288.2726"/>
+</g>
+<!-- 4 -->
+<g id="node4" class="node" num="4">
+<ellipse fill="none" stroke="#000000" cx="394.3945" cy="-1098" rx="44.6926" ry="18"/>
+<text text-anchor="middle" x="394.3945" y="-1094.3" font-family="Times,serif" font-size="14.00" fill="#000000">AH_plo</text>
+</g>
+<!-- 4&#45;&gt;3 -->
+<g id="edge7" class="edge" num="4&#45;&gt;3">
+<path fill="none" stroke="#000000" d="M394.3945,-1116.2377C394.3945,-1140.799 394.3945,-1184.7526 394.3945,-1213.6459"/>
+<polygon fill="#000000" stroke="#000000" points="390.8946,-1213.9103 394.3945,-1223.9104 397.8946,-1213.9104 390.8946,-1213.9103"/>
+</g>
+<!-- 6 -->
+<g id="node6" class="node" num="6">
+<ellipse fill="none" stroke="#000000" cx="456.3945" cy="-378" rx="27" ry="18"/>
+<text text-anchor="middle" x="456.3945" y="-374.3" font-family="Times,serif" font-size="14.00" fill="#000000">AM</text>
+</g>
+<!-- 17 -->
+<g id="node17" class="node" num="17">
+<ellipse fill="none" stroke="#000000" cx="302.3945" cy="-810" rx="27" ry="18"/>
+<text text-anchor="middle" x="302.3945" y="-806.3" font-family="Times,serif" font-size="14.00" fill="#000000">IP</text>
+</g>
+<!-- 6&#45;&gt;17 -->
+<g id="edge52" class="edge" num="6&#45;&gt;17">
+<path fill="none" stroke="#0000ff" d="M457.4035,-396.1352C459.0688,-436.1666 460.062,-534.6704 435.3945,-612 424.1358,-647.2943 415.1411,-654.0078 393.3945,-684 380.8282,-701.3309 374.4087,-703.0029 361.3945,-720 345.3622,-740.9388 329.0726,-766.1487 317.6835,-784.554"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="314.5973,-782.8917 312.3555,-793.2466 320.5654,-786.5498 314.5973,-782.8917"/>
+</g>
+<!-- 6&#45;&gt;29 -->
+<g id="edge53" class="edge" num="6&#45;&gt;29">
+<path fill="none" stroke="#0000ff" d="M482.5198,-383.3759C500.9087,-387.095 526.1173,-392.0633 548.3945,-396 649.4586,-413.8593 767.8387,-431.9159 835.484,-441.9628"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="835.0863,-445.442 845.4913,-443.4457 836.1123,-438.5176 835.0863,-445.442"/>
+</g>
+<!-- 39 -->
+<g id="node39" class="node" num="39">
+<ellipse fill="none" stroke="#000000" cx="560.3945" cy="-594" rx="34.394" ry="18"/>
+<text text-anchor="middle" x="560.3945" y="-590.3" font-family="Times,serif" font-size="14.00" fill="#000000">QAM</text>
+</g>
+<!-- 6&#45;&gt;39 -->
+<g id="edge54" class="edge" num="6&#45;&gt;39">
+<path fill="none" stroke="#0000ff" d="M459.9782,-396.0328C466.6826,-427.069 483.065,-491.8808 511.3945,-540 518.0177,-551.25 527.2563,-562.1991 535.9283,-571.2641"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="533.4817,-573.7675 543.0097,-578.4008 538.4506,-568.837 533.4817,-573.7675"/>
+</g>
+<!-- 65 -->
+<g id="node65" class="node" num="65">
+<ellipse fill="none" stroke="#000000" cx="251.3945" cy="-450" rx="57.3905" ry="18"/>
+<text text-anchor="middle" x="251.3945" y="-446.3" font-family="Times,serif" font-size="14.00" fill="#000000">Sigma_2P</text>
+</g>
+<!-- 6&#45;&gt;65 -->
+<g id="edge55" class="edge" num="6&#45;&gt;65">
+<path fill="none" stroke="#ff0000" d="M432.4772,-386.4002C400.0143,-397.8018 341.2696,-418.4341 299.4965,-433.1056"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="298.0744,-429.8954 289.7993,-436.5115 300.3941,-436.4999 298.0744,-429.8954"/>
+</g>
+<!-- 7 -->
+<g id="node7" class="node" num="7">
+<ellipse fill="none" stroke="#000000" cx="290.3945" cy="-306" rx="39.7935" ry="18"/>
+<text text-anchor="middle" x="290.3945" y="-302.3" font-family="Times,serif" font-size="14.00" fill="#000000">AWPP</text>
+</g>
+<!-- 33 -->
+<g id="node33" class="node" num="33">
+<ellipse fill="none" stroke="#000000" cx="399.3945" cy="-594" rx="27" ry="18"/>
+<text text-anchor="middle" x="399.3945" y="-590.3" font-family="Times,serif" font-size="14.00" fill="#000000">PP</text>
+</g>
+<!-- 7&#45;&gt;33 -->
+<g id="edge35" class="edge" num="7&#45;&gt;33">
+<path fill="none" stroke="#000000" d="M268.0511,-320.9966C229.8854,-348.6102 158.7152,-409.9934 185.3945,-468 195.6677,-490.3362 209.1315,-487.5407 227.3945,-504 244.6761,-519.575 245.6246,-527.7368 265.3945,-540 304.8258,-564.4592 320.7991,-557.5957 363.3945,-576 365.1745,-576.7691 366.9916,-577.583 368.8169,-578.4229"/>
+<polygon fill="#000000" stroke="#000000" points="367.3453,-581.5987 377.8771,-582.7524 370.3635,-575.2828 367.3453,-581.5987"/>
+</g>
+<!-- 8 -->
+<g id="node8" class="node" num="8">
+<ellipse fill="none" stroke="#000000" cx="483.3945" cy="-162" rx="30.5947" ry="18"/>
+<text text-anchor="middle" x="483.3945" y="-158.3" font-family="Times,serif" font-size="14.00" fill="#000000">BPP</text>
+</g>
+<!-- 9 -->
+<g id="node9" class="node" num="9">
+<ellipse fill="none" stroke="#000000" cx="594.3945" cy="-234" rx="31.6951" ry="18"/>
+<text text-anchor="middle" x="594.3945" y="-230.3" font-family="Times,serif" font-size="14.00" fill="#000000">BQP</text>
+</g>
+<!-- 8&#45;&gt;9 -->
+<g id="edge33" class="edge" num="8&#45;&gt;9">
+<path fill="none" stroke="#000000" d="M504.0126,-175.3739C521.0845,-186.4476 545.5616,-202.3246 564.7386,-214.7638"/>
+<polygon fill="#000000" stroke="#000000" points="562.8367,-217.7019 573.1311,-220.2075 566.6461,-211.8292 562.8367,-217.7019"/>
+</g>
+<!-- 18 -->
+<g id="node18" class="node" num="18">
+<ellipse fill="none" stroke="#000000" cx="378.3945" cy="-234" rx="27" ry="18"/>
+<text text-anchor="middle" x="378.3945" y="-230.3" font-family="Times,serif" font-size="14.00" fill="#000000">MA</text>
+</g>
+<!-- 8&#45;&gt;18 -->
+<g id="edge31" class="edge" num="8&#45;&gt;18">
+<path fill="none" stroke="#000000" d="M463.1494,-175.8823C446.8637,-187.0497 423.8171,-202.8531 405.8665,-215.162"/>
+<polygon fill="#000000" stroke="#000000" points="403.7837,-212.3464 397.5157,-220.8883 407.7424,-218.1195 403.7837,-212.3464"/>
+</g>
+<!-- 27 -->
+<g id="node27" class="node" num="27">
+<ellipse fill="none" stroke="#000000" cx="483.3945" cy="-234" rx="42.4939" ry="18"/>
+<text text-anchor="middle" x="483.3945" y="-230.3" font-family="Times,serif" font-size="14.00" fill="#000000">NISZK</text>
+</g>
+<!-- 8&#45;&gt;27 -->
+<g id="edge34" class="edge" num="8&#45;&gt;27">
+<path fill="none" stroke="#000000" d="M483.3945,-180.1686C483.3945,-187.869 483.3945,-197.0257 483.3945,-205.5834"/>
+<polygon fill="#000000" stroke="#000000" points="479.8946,-205.5867 483.3945,-215.5867 486.8946,-205.5868 479.8946,-205.5867"/>
+</g>
+<!-- 31 -->
+<g id="node31" class="node" num="31">
+<ellipse fill="none" stroke="#000000" cx="763.3945" cy="-234" rx="39.7935" ry="18"/>
+<text text-anchor="middle" x="763.3945" y="-230.3" font-family="Times,serif" font-size="14.00" fill="#000000">P/poly</text>
+</g>
+<!-- 8&#45;&gt;31 -->
+<g id="edge32" class="edge" num="8&#45;&gt;31">
+<path fill="none" stroke="#000000" d="M511.5239,-169.2333C560.1909,-181.7476 660.4696,-207.5336 718.7466,-222.5191"/>
+<polygon fill="#000000" stroke="#000000" points="718.2125,-225.9956 728.7691,-225.0963 719.9559,-219.2161 718.2125,-225.9956"/>
+</g>
+<!-- 9&#45;&gt;7 -->
+<g id="edge60" class="edge" num="9&#45;&gt;7">
+<path fill="none" stroke="#000000" d="M566.7867,-242.9744C556.6644,-246.0811 545.0726,-249.4259 534.3945,-252 448.2926,-272.7562 423.7491,-264.3581 338.3945,-288 335.5801,-288.7795 332.6986,-289.6549 329.8135,-290.5889"/>
+<polygon fill="#000000" stroke="#000000" points="328.4006,-287.3735 320.0822,-293.9351 330.6769,-293.9931 328.4006,-287.3735"/>
+</g>
+<!-- 10 -->
+<g id="node10" class="node" num="10">
+<ellipse fill="none" stroke="#000000" cx="763.3945" cy="-306" rx="63.0888" ry="18"/>
+<text text-anchor="middle" x="763.3945" y="-302.3" font-family="Times,serif" font-size="14.00" fill="#000000">BQP/mpoly</text>
+</g>
+<!-- 9&#45;&gt;10 -->
+<g id="edge59" class="edge" num="9&#45;&gt;10">
+<path fill="none" stroke="#000000" d="M620.0619,-244.9353C646.1706,-256.0585 687.1554,-273.5194 718.6232,-286.9259"/>
+<polygon fill="#000000" stroke="#000000" points="717.4849,-290.2452 728.0566,-290.9448 720.2285,-283.8053 717.4849,-290.2452"/>
+</g>
+<!-- 26 -->
+<g id="node26" class="node" num="26">
+<ellipse fill="none" stroke="#000000" cx="594.3945" cy="-306" rx="50.0912" ry="18"/>
+<text text-anchor="middle" x="594.3945" y="-302.3" font-family="Times,serif" font-size="14.00" fill="#000000">NIQSZK</text>
+</g>
+<!-- 9&#45;&gt;26 -->
+<g id="edge61" class="edge" num="9&#45;&gt;26">
+<path fill="none" stroke="#000000" d="M594.3945,-252.1686C594.3945,-259.869 594.3945,-269.0257 594.3945,-277.5834"/>
+<polygon fill="#000000" stroke="#000000" points="590.8946,-277.5867 594.3945,-287.5867 597.8946,-277.5868 590.8946,-277.5867"/>
+</g>
+<!-- 40 -->
+<g id="node40" class="node" num="40">
+<ellipse fill="none" stroke="#000000" cx="694.3945" cy="-378" rx="42.4939" ry="18"/>
+<text text-anchor="middle" x="694.3945" y="-374.3" font-family="Times,serif" font-size="14.00" fill="#000000">QCMA</text>
+</g>
+<!-- 9&#45;&gt;40 -->
+<g id="edge58" class="edge" num="9&#45;&gt;40">
+<path fill="none" stroke="#000000" d="M613.8133,-248.4028C626.3337,-258.4391 642.2911,-272.7246 653.3945,-288 667.343,-307.1895 678.1781,-331.8818 685.1974,-350.5471"/>
+<polygon fill="#000000" stroke="#000000" points="681.9107,-351.7506 688.6081,-359.96 688.4919,-349.3658 681.9107,-351.7506"/>
+</g>
+<!-- 11 -->
+<g id="node11" class="node" num="11">
+<ellipse fill="none" stroke="#000000" cx="814.3945" cy="-378" rx="59.5901" ry="18"/>
+<text text-anchor="middle" x="814.3945" y="-374.3" font-family="Times,serif" font-size="14.00" fill="#000000">BQP/qpoly</text>
+</g>
+<!-- 10&#45;&gt;11 -->
+<g id="edge64" class="edge" num="10&#45;&gt;11">
+<path fill="none" stroke="#000000" d="M776.0012,-323.7978C782.0085,-332.2786 789.3113,-342.5885 795.9285,-351.9304"/>
+<polygon fill="#000000" stroke="#000000" points="793.1197,-354.0203 801.756,-360.1575 798.8319,-349.9741 793.1197,-354.0203"/>
+</g>
+<!-- 41 -->
+<g id="node41" class="node" num="41">
+<ellipse fill="none" stroke="#000000" cx="874.3945" cy="-522" rx="70.3881" ry="18"/>
+<text text-anchor="middle" x="874.3945" y="-518.3" font-family="Times,serif" font-size="14.00" fill="#000000">QCMA/qpoly</text>
+</g>
+<!-- 11&#45;&gt;41 -->
+<g id="edge19" class="edge" num="11&#45;&gt;41">
+<path fill="none" stroke="#000000" d="M815.8863,-396.3226C817.9468,-415.0478 822.7061,-444.6162 833.3945,-468 837.9927,-478.06 844.7395,-488.0105 851.4379,-496.5763"/>
+<polygon fill="#000000" stroke="#000000" points="848.7334,-498.798 857.7736,-504.3231 854.152,-494.3664 848.7334,-498.798"/>
+</g>
+<!-- 12 -->
+<g id="node12" class="node" num="12">
+<ellipse fill="none" stroke="#000000" cx="509.3945" cy="-810" rx="27" ry="18"/>
+<text text-anchor="middle" x="509.3945" y="-806.3" font-family="Times,serif" font-size="14.00" fill="#000000">CH</text>
+</g>
+<!-- 35 -->
+<g id="node35" class="node" num="35">
+<ellipse fill="none" stroke="#000000" cx="509.3945" cy="-882" rx="50.0912" ry="18"/>
+<text text-anchor="middle" x="509.3945" y="-878.3" font-family="Times,serif" font-size="14.00" fill="#000000">PSPACE</text>
+</g>
+<!-- 12&#45;&gt;35 -->
+<g id="edge1" class="edge" num="12&#45;&gt;35">
+<path fill="none" stroke="#000000" d="M509.3945,-828.1686C509.3945,-835.869 509.3945,-845.0257 509.3945,-853.5834"/>
+<polygon fill="#000000" stroke="#000000" points="505.8946,-853.5867 509.3945,-863.5867 512.8946,-853.5868 505.8946,-853.5867"/>
+</g>
+<!-- 13 -->
+<g id="node13" class="node" num="13">
+<ellipse fill="none" stroke="#000000" cx="152.3945" cy="-234" rx="52.7911" ry="18"/>
+<text text-anchor="middle" x="152.3945" y="-230.3" font-family="Times,serif" font-size="14.00" fill="#000000">Delta_2P</text>
+</g>
+<!-- 64 -->
+<g id="node64" class="node" num="64">
+<ellipse fill="none" stroke="#000000" cx="104.3945" cy="-378" rx="34.394" ry="18"/>
+<text text-anchor="middle" x="104.3945" y="-374.3" font-family="Times,serif" font-size="14.00" fill="#000000">S_2P</text>
+</g>
+<!-- 13&#45;&gt;64 -->
+<g id="edge111" class="edge" num="13&#45;&gt;64">
+<path fill="none" stroke="#000000" d="M146.4123,-251.9465C138.1843,-276.6304 123.2982,-321.2889 113.6334,-350.2833"/>
+<polygon fill="#000000" stroke="#000000" points="110.294,-349.2336 110.452,-359.8273 116.9348,-351.4473 110.294,-349.2336"/>
+</g>
+<!-- 14 -->
+<g id="node14" class="node" num="14">
+<ellipse fill="none" stroke="#000000" cx="327.3945" cy="-522" rx="52.7911" ry="18"/>
+<text text-anchor="middle" x="327.3945" y="-518.3" font-family="Times,serif" font-size="14.00" fill="#000000">Delta_3P</text>
+</g>
+<!-- 32 -->
+<g id="node32" class="node" num="32">
+<ellipse fill="none" stroke="#000000" cx="327.3945" cy="-594" rx="27" ry="18"/>
+<text text-anchor="middle" x="327.3945" y="-590.3" font-family="Times,serif" font-size="14.00" fill="#000000">PH</text>
+</g>
+<!-- 14&#45;&gt;32 -->
+<g id="edge85" class="edge" num="14&#45;&gt;32">
+<path fill="none" stroke="#000000" d="M327.3945,-540.1686C327.3945,-547.869 327.3945,-557.0257 327.3945,-565.5834"/>
+<polygon fill="#000000" stroke="#000000" points="323.8946,-565.5867 327.3945,-575.5867 330.8946,-565.5868 323.8946,-565.5867"/>
+</g>
+<!-- 15 -->
+<g id="node15" class="node" num="15">
+<ellipse fill="none" stroke="#000000" cx="500.3945" cy="-1026" rx="30.5947" ry="18"/>
+<text text-anchor="middle" x="500.3945" y="-1022.3" font-family="Times,serif" font-size="14.00" fill="#000000">EXP</text>
+</g>
+<!-- 23 -->
+<g id="node23" class="node" num="23">
+<ellipse fill="none" stroke="#000000" cx="498.3945" cy="-1098" rx="38.9931" ry="18"/>
+<text text-anchor="middle" x="498.3945" y="-1094.3" font-family="Times,serif" font-size="14.00" fill="#000000">NEXP</text>
+</g>
+<!-- 15&#45;&gt;23 -->
+<g id="edge95" class="edge" num="15&#45;&gt;23">
+<path fill="none" stroke="#000000" d="M499.8898,-1044.1686C499.6759,-1051.869 499.4215,-1061.0257 499.1838,-1069.5834"/>
+<polygon fill="#000000" stroke="#000000" points="495.6851,-1069.4934 498.9059,-1079.5867 502.6824,-1069.6878 495.6851,-1069.4934"/>
+</g>
+<!-- 16 -->
+<g id="node16" class="node" num="16">
+<ellipse fill="none" stroke="#000000" cx="472.3945" cy="-954" rx="50.0912" ry="18"/>
+<text text-anchor="middle" x="472.3945" y="-950.3" font-family="Times,serif" font-size="14.00" fill="#000000">EXP_plo</text>
+</g>
+<!-- 16&#45;&gt;15 -->
+<g id="edge73" class="edge" num="16&#45;&gt;15">
+<path fill="none" stroke="#000000" d="M479.46,-972.1686C482.5675,-980.1594 486.2849,-989.7181 489.7189,-998.5486"/>
+<polygon fill="#000000" stroke="#000000" points="486.5416,-1000.0351 493.4281,-1008.0866 493.0656,-997.498 486.5416,-1000.0351"/>
+</g>
+<!-- 25 -->
+<g id="node25" class="node" num="25">
+<ellipse fill="none" stroke="#000000" cx="394.3945" cy="-1026" rx="57.6901" ry="18"/>
+<text text-anchor="middle" x="394.3945" y="-1022.3" font-family="Times,serif" font-size="14.00" fill="#000000">NEXP_plo</text>
+</g>
+<!-- 16&#45;&gt;25 -->
+<g id="edge72" class="edge" num="16&#45;&gt;25">
+<path fill="none" stroke="#000000" d="M453.9096,-971.063C443.9767,-980.2318 431.5619,-991.6916 420.6448,-1001.7689"/>
+<polygon fill="#000000" stroke="#000000" points="417.9911,-999.4553 413.017,-1008.81 422.7391,-1004.599 417.9911,-999.4553"/>
+</g>
+<!-- 19 -->
+<g id="node19" class="node" num="19">
+<ellipse fill="none" stroke="#000000" cx="372.3945" cy="-882" rx="30.5947" ry="18"/>
+<text text-anchor="middle" x="372.3945" y="-878.3" font-family="Times,serif" font-size="14.00" fill="#000000">MIP</text>
+</g>
+<!-- 17&#45;&gt;19 -->
+<g id="edge22" class="edge" num="17&#45;&gt;19">
+<path fill="none" stroke="#0000ff" d="M317.2397,-825.2693C326.7611,-835.0628 339.3013,-847.9613 350.0182,-858.9844"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="347.6064,-861.5247 357.0867,-866.2549 352.6254,-856.6452 347.6064,-861.5247"/>
+</g>
+<!-- 20 -->
+<g id="node20" class="node" num="20">
+<ellipse fill="none" stroke="#000000" cx="64.3945" cy="-882" rx="59.5901" ry="18"/>
+<text text-anchor="middle" x="64.3945" y="-878.3" font-family="Times,serif" font-size="14.00" fill="#000000">MIP*_cme</text>
+</g>
+<!-- 17&#45;&gt;20 -->
+<g id="edge24" class="edge" num="17&#45;&gt;20">
+<path fill="none" stroke="#0000ff" d="M277.3741,-817.5692C239.3323,-829.0776 166.1105,-851.2288 116.2562,-866.3107"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="115.1723,-862.9819 106.6142,-869.2276 117.1993,-869.682 115.1723,-862.9819"/>
+</g>
+<!-- 21 -->
+<g id="node21" class="node" num="21">
+<ellipse fill="none" stroke="#000000" cx="196.3945" cy="-882" rx="48.9926" ry="18"/>
+<text text-anchor="middle" x="196.3945" y="-878.3" font-family="Times,serif" font-size="14.00" fill="#000000">MIP*_fe</text>
+</g>
+<!-- 17&#45;&gt;21 -->
+<g id="edge21" class="edge" num="17&#45;&gt;21">
+<path fill="none" stroke="#0000ff" d="M283.4438,-822.8722C268.1935,-833.2308 246.4208,-848.0198 228.4659,-860.2156"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="226.3092,-857.4494 220.0036,-865.9636 230.2424,-863.24 226.3092,-857.4494"/>
+</g>
+<!-- 17&#45;&gt;35 -->
+<g id="edge20" class="edge" num="17&#45;&gt;35">
+<path fill="none" stroke="#000000" d="M326.5451,-818.4002C360.0865,-830.0668 421.4137,-851.398 463.7355,-866.1186"/>
+<polygon fill="#000000" stroke="#000000" points="462.6626,-869.451 473.2574,-869.4306 464.9622,-862.8396 462.6626,-869.451"/>
+</g>
+<!-- 42 -->
+<g id="node42" class="node" num="42">
+<ellipse fill="none" stroke="#000000" cx="295.3945" cy="-882" rx="28.6953" ry="18"/>
+<text text-anchor="middle" x="295.3945" y="-878.3" font-family="Times,serif" font-size="14.00" fill="#000000">QIP</text>
+</g>
+<!-- 17&#45;&gt;42 -->
+<g id="edge23" class="edge" num="17&#45;&gt;42">
+<path fill="none" stroke="#0000ff" d="M300.6281,-828.1686C299.8794,-835.869 298.9892,-845.0257 298.1572,-853.5834"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="294.6688,-853.2949 297.1846,-863.5867 301.636,-853.9724 294.6688,-853.2949"/>
+</g>
+<!-- 18&#45;&gt;40 -->
+<g id="edge17" class="edge" num="18&#45;&gt;40">
+<path fill="none" stroke="#0000ff" d="M402.8737,-242.3669C427.8338,-251.5098 467.0875,-267.6117 497.3945,-288 516.6975,-300.9857 515.4579,-312.0097 535.3945,-324 578.3922,-349.8598 594.9089,-343.7935 642.3945,-360 645.4685,-361.0491 648.6432,-362.1371 651.8377,-363.2351"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="650.8045,-366.581 661.3993,-366.5302 653.0853,-359.963 650.8045,-366.581"/>
+</g>
+<!-- 60 -->
+<g id="node60" class="node" num="60">
+<ellipse fill="none" stroke="#000000" cx="378.3945" cy="-306" rx="30.5947" ry="18"/>
+<text text-anchor="middle" x="378.3945" y="-302.3" font-family="Times,serif" font-size="14.00" fill="#000000">SBP</text>
+</g>
+<!-- 18&#45;&gt;60 -->
+<g id="edge18" class="edge" num="18&#45;&gt;60">
+<path fill="none" stroke="#0000ff" d="M378.3945,-252.1686C378.3945,-259.869 378.3945,-269.0257 378.3945,-277.5834"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="374.8946,-277.5867 378.3945,-287.5867 381.8946,-277.5868 374.8946,-277.5867"/>
+</g>
+<!-- 18&#45;&gt;64 -->
+<g id="edge16" class="edge" num="18&#45;&gt;64">
+<path fill="none" stroke="#000000" d="M353.9756,-241.916C326.0492,-251.3552 279.2969,-268.3471 241.3945,-288 201.9564,-308.4491 159.6739,-337.4247 132.6806,-356.9242"/>
+<polygon fill="#000000" stroke="#000000" points="130.4994,-354.1829 124.4767,-362.8994 134.6206,-359.8411 130.4994,-354.1829"/>
+</g>
+<!-- 19&#45;&gt;25 -->
+<g id="edge36" class="edge" num="19&#45;&gt;25">
+<path fill="none" stroke="#0000ff" d="M375.1363,-899.9465C378.891,-924.5226 385.6707,-968.8992 390.1018,-997.9026"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="386.6479,-998.4706 391.6181,-1007.8273 393.5676,-997.4134 386.6479,-998.4706"/>
+</g>
+<!-- 51 -->
+<g id="node51" class="node" num="51">
+<ellipse fill="none" stroke="#000000" cx="594.3945" cy="-954" rx="53.8905" ry="18"/>
+<text text-anchor="middle" x="594.3945" y="-950.3" font-family="Times,serif" font-size="14.00" fill="#000000">QMIP_ne</text>
+</g>
+<!-- 19&#45;&gt;51 -->
+<g id="edge37" class="edge" num="19&#45;&gt;51">
+<path fill="none" stroke="#0000ff" d="M399.1729,-890.6849C435.4873,-902.4626 500.9775,-923.7026 546.0192,-938.3107"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="544.9922,-941.657 555.5842,-941.4129 547.1517,-934.9985 544.9922,-941.657"/>
+</g>
+<!-- 48 -->
+<g id="node48" class="node" num="48">
+<ellipse fill="none" stroke="#000000" cx="62.3945" cy="-954" rx="62.2891" ry="18"/>
+<text text-anchor="middle" x="62.3945" y="-950.3" font-family="Times,serif" font-size="14.00" fill="#000000">QMIP_cme</text>
+</g>
+<!-- 20&#45;&gt;48 -->
+<g id="edge11" class="edge" num="20&#45;&gt;48">
+<path fill="none" stroke="#0000ff" d="M63.8898,-900.1686C63.6759,-907.869 63.4215,-917.0257 63.1838,-925.5834"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="59.6851,-925.4934 62.9059,-935.5867 66.6824,-925.6878 59.6851,-925.4934"/>
+</g>
+<!-- 49 -->
+<g id="node49" class="node" num="49">
+<ellipse fill="none" stroke="#000000" cx="194.3945" cy="-954" rx="51.9908" ry="18"/>
+<text text-anchor="middle" x="194.3945" y="-950.3" font-family="Times,serif" font-size="14.00" fill="#000000">QMIP_fe</text>
+</g>
+<!-- 21&#45;&gt;49 -->
+<g id="edge41" class="edge" num="21&#45;&gt;49">
+<path fill="none" stroke="#0000ff" d="M195.8898,-900.1686C195.6759,-907.869 195.4215,-917.0257 195.1838,-925.5834"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="191.6851,-925.4934 194.9059,-935.5867 198.6824,-925.6878 191.6851,-925.4934"/>
+</g>
+<!-- 37 -->
+<g id="node37" class="node" num="37">
+<ellipse fill="none" stroke="#000000" cx="432.3945" cy="-738" rx="61.99" ry="18"/>
+<text text-anchor="middle" x="432.3945" y="-734.3" font-family="Times,serif" font-size="14.00" fill="#000000">P^Sharp&#45;P</text>
+</g>
+<!-- 22&#45;&gt;37 -->
+<g id="edge10" class="edge" num="22&#45;&gt;37">
+<path fill="none" stroke="#000000" d="M372.9345,-680.9184C382.6957,-690.2892 395.5218,-702.6022 406.762,-713.3928"/>
+<polygon fill="#000000" stroke="#000000" points="404.5953,-716.1646 414.2331,-720.5651 409.443,-711.1149 404.5953,-716.1646"/>
+</g>
+<!-- 24 -->
+<g id="node24" class="node" num="24">
+<ellipse fill="none" stroke="#000000" cx="498.3945" cy="-1170" rx="61.99" ry="18"/>
+<text text-anchor="middle" x="498.3945" y="-1166.3" font-family="Times,serif" font-size="14.00" fill="#000000">NEXP/poly</text>
+</g>
+<!-- 23&#45;&gt;24 -->
+<g id="edge99" class="edge" num="23&#45;&gt;24">
+<path fill="none" stroke="#000000" d="M498.3945,-1116.1686C498.3945,-1123.869 498.3945,-1133.0257 498.3945,-1141.5834"/>
+<polygon fill="#000000" stroke="#000000" points="494.8946,-1141.5867 498.3945,-1151.5867 501.8946,-1141.5868 494.8946,-1141.5867"/>
+</g>
+<!-- 55 -->
+<g id="node55" class="node" num="55">
+<ellipse fill="none" stroke="#000000" cx="295.3945" cy="-1170" rx="27" ry="18"/>
+<text text-anchor="middle" x="295.3945" y="-1166.3" font-family="Times,serif" font-size="14.00" fill="#000000">RE</text>
+</g>
+<!-- 23&#45;&gt;55 -->
+<g id="edge98" class="edge" num="23&#45;&gt;55">
+<path fill="none" stroke="#000000" d="M467.4658,-1109.1685C461.1582,-1111.4366 454.5646,-1113.8006 448.3945,-1116 407.3341,-1130.6366 360.0064,-1147.3103 328.9929,-1158.2097"/>
+<polygon fill="#000000" stroke="#000000" points="327.8001,-1154.9189 319.5255,-1161.5356 330.1203,-1161.5232 327.8001,-1154.9189"/>
+</g>
+<!-- 24&#45;&gt;5 -->
+<g id="edge28" class="edge" num="24&#45;&gt;5">
+<path fill="none" stroke="#000000" d="M488.798,-1187.9465C475.3965,-1213.0092 450.9838,-1258.664 435.5075,-1287.6067"/>
+<polygon fill="#000000" stroke="#000000" points="432.2595,-1286.2586 430.6305,-1296.7275 438.4324,-1289.5595 432.2595,-1286.2586"/>
+</g>
+<!-- 25&#45;&gt;4 -->
+<g id="edge43" class="edge" num="25&#45;&gt;4">
+<path fill="none" stroke="#0000ff" d="M394.3945,-1044.1686C394.3945,-1051.869 394.3945,-1061.0257 394.3945,-1069.5834"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="390.8946,-1069.5867 394.3945,-1079.5867 397.8946,-1069.5868 390.8946,-1069.5867"/>
+</g>
+<!-- 25&#45;&gt;23 -->
+<g id="edge42" class="edge" num="25&#45;&gt;23">
+<path fill="none" stroke="#0000ff" d="M418.2542,-1042.5183C433.0291,-1052.7471 452.1415,-1065.9787 467.9957,-1076.9547"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="466.206,-1079.9726 476.4202,-1082.787 470.1905,-1074.2172 466.206,-1079.9726"/>
+</g>
+<!-- 54 -->
+<g id="node54" class="node" num="54">
+<ellipse fill="none" stroke="#000000" cx="595.3945" cy="-378" rx="38.1938" ry="18"/>
+<text text-anchor="middle" x="595.3945" y="-374.3" font-family="Times,serif" font-size="14.00" fill="#000000">QSZK</text>
+</g>
+<!-- 26&#45;&gt;54 -->
+<g id="edge75" class="edge" num="26&#45;&gt;54">
+<path fill="none" stroke="#000000" d="M594.6468,-324.1686C594.7538,-331.869 594.8809,-341.0257 594.9998,-349.5834"/>
+<polygon fill="#000000" stroke="#000000" points="591.5001,-349.6363 595.1387,-359.5867 598.4994,-349.5391 591.5001,-349.6363"/>
+</g>
+<!-- 27&#45;&gt;26 -->
+<g id="edge40" class="edge" num="27&#45;&gt;26">
+<path fill="none" stroke="#0000ff" d="M506.6637,-249.0936C522.4712,-259.3471 543.6171,-273.0633 561.1877,-284.4605"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="559.7085,-287.6728 570.0029,-290.1784 563.5179,-281.8001 559.7085,-287.6728"/>
+</g>
+<!-- 63 -->
+<g id="node63" class="node" num="63">
+<ellipse fill="none" stroke="#000000" cx="457.3945" cy="-306" rx="30.5947" ry="18"/>
+<text text-anchor="middle" x="457.3945" y="-302.3" font-family="Times,serif" font-size="14.00" fill="#000000">SZK</text>
+</g>
+<!-- 27&#45;&gt;63 -->
+<g id="edge39" class="edge" num="27&#45;&gt;63">
+<path fill="none" stroke="#000000" d="M476.9675,-251.7978C474.0612,-259.8459 470.5601,-269.5412 467.3274,-278.4933"/>
+<polygon fill="#000000" stroke="#000000" points="463.9422,-277.5631 463.8376,-288.1575 470.5261,-279.9407 463.9422,-277.5631"/>
+</g>
+<!-- 28 -->
+<g id="node28" class="node" num="28">
+<ellipse fill="none" stroke="#000000" cx="375.3945" cy="-162" rx="27" ry="18"/>
+<text text-anchor="middle" x="375.3945" y="-158.3" font-family="Times,serif" font-size="14.00" fill="#000000">NP</text>
+</g>
+<!-- 28&#45;&gt;1 -->
+<g id="edge84" class="edge" num="28&#45;&gt;1">
+<path fill="none" stroke="#00ff00" d="M400.0477,-169.5546C412.8645,-173.2191 428.8513,-177.3834 443.3945,-180 605.5692,-209.1779 657.2889,-160.3738 812.3945,-216 853.0974,-230.5975 893.4152,-260.2944 919.025,-281.5856"/>
+<polygon fill="#00ff00" stroke="#00ff00" points="916.9115,-284.3822 926.8049,-288.1731 921.435,-279.04 916.9115,-284.3822"/>
+</g>
+<!-- 28&#45;&gt;13 -->
+<g id="edge82" class="edge" num="28&#45;&gt;13">
+<path fill="none" stroke="#000000" d="M352.9159,-172.1978C346.6541,-174.8836 339.8093,-177.6772 333.3945,-180 290.4147,-195.563 240.5759,-210.1881 204.0908,-220.2824"/>
+<polygon fill="#000000" stroke="#000000" points="202.8872,-216.9832 194.171,-223.0064 204.7409,-223.7334 202.8872,-216.9832"/>
+</g>
+<!-- 28&#45;&gt;18 -->
+<g id="edge83" class="edge" num="28&#45;&gt;18">
+<path fill="none" stroke="#0000ff" d="M376.1515,-180.1686C376.4723,-187.869 376.8539,-197.0257 377.2104,-205.5834"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="373.7139,-205.7411 377.6272,-215.5867 380.7078,-205.4497 373.7139,-205.7411"/>
+</g>
+<!-- 29&#45;&gt;41 -->
+<g id="edge108" class="edge" num="29&#45;&gt;41">
+<path fill="none" stroke="#0000ff" d="M886.357,-468.1686C884.6458,-475.869 882.611,-485.0257 880.7093,-493.5834"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="877.239,-493.0656 878.4863,-503.5867 884.0723,-494.5841 877.239,-493.0656"/>
+</g>
+<!-- 30 -->
+<g id="node30" class="node" num="30">
+<ellipse fill="none" stroke="#000000" cx="335.3945" cy="-18" rx="27" ry="18"/>
+<text text-anchor="middle" x="335.3945" y="-14.3" font-family="Times,serif" font-size="14.00" fill="#000000">P</text>
+</g>
+<!-- 59 -->
+<g id="node59" class="node" num="59">
+<ellipse fill="none" stroke="#000000" cx="375.3945" cy="-90" rx="27" ry="18"/>
+<text text-anchor="middle" x="375.3945" y="-86.3" font-family="Times,serif" font-size="14.00" fill="#000000">RP</text>
+</g>
+<!-- 30&#45;&gt;59 -->
+<g id="edge93" class="edge" num="30&#45;&gt;59">
+<path fill="none" stroke="#000000" d="M344.8739,-35.063C349.706,-43.7607 355.6834,-54.5201 361.064,-64.2052"/>
+<polygon fill="#000000" stroke="#000000" points="358.067,-66.0177 365.9831,-73.0595 364.1861,-62.6181 358.067,-66.0177"/>
+</g>
+<!-- 66 -->
+<g id="node66" class="node" num="66">
+<ellipse fill="none" stroke="#000000" cx="299.3945" cy="-90" rx="27" ry="18"/>
+<text text-anchor="middle" x="299.3945" y="-86.3" font-family="Times,serif" font-size="14.00" fill="#000000">UP</text>
+</g>
+<!-- 30&#45;&gt;66 -->
+<g id="edge94" class="edge" num="30&#45;&gt;66">
+<path fill="none" stroke="#000000" d="M326.6799,-35.4292C322.4348,-43.9193 317.2409,-54.3071 312.5282,-63.7326"/>
+<polygon fill="#000000" stroke="#000000" points="309.3705,-62.2218 308.0288,-72.7313 315.6315,-65.3523 309.3705,-62.2218"/>
+</g>
+<!-- 31&#45;&gt;1 -->
+<g id="edge97" class="edge" num="31&#45;&gt;1">
+<path fill="none" stroke="#000000" d="M793.6132,-245.8893C821.1475,-256.7225 862.3839,-272.9467 895.0785,-285.8101"/>
+<polygon fill="#000000" stroke="#000000" points="893.9023,-289.1085 904.4895,-289.5128 896.4653,-282.5945 893.9023,-289.1085"/>
+</g>
+<!-- 31&#45;&gt;10 -->
+<g id="edge96" class="edge" num="31&#45;&gt;10">
+<path fill="none" stroke="#000000" d="M763.3945,-252.1686C763.3945,-259.869 763.3945,-269.0257 763.3945,-277.5834"/>
+<polygon fill="#000000" stroke="#000000" points="759.8946,-277.5867 763.3945,-287.5867 766.8946,-277.5868 759.8946,-277.5867"/>
+</g>
+<!-- 32&#45;&gt;22 -->
+<g id="edge57" class="edge" num="32&#45;&gt;22">
+<path fill="none" stroke="#000000" d="M334.6566,-611.4292C338.1316,-619.7691 342.3695,-629.9402 346.2409,-639.2314"/>
+<polygon fill="#000000" stroke="#000000" points="343.0182,-640.5972 350.0952,-648.4818 349.4798,-637.9048 343.0182,-640.5972"/>
+</g>
+<!-- 34 -->
+<g id="node34" class="node" num="34">
+<ellipse fill="none" stroke="#000000" cx="486.3945" cy="-666" rx="46.2923" ry="18"/>
+<text text-anchor="middle" x="486.3945" y="-662.3" font-family="Times,serif" font-size="14.00" fill="#000000">PP/poly</text>
+</g>
+<!-- 32&#45;&gt;34 -->
+<g id="edge56" class="edge" num="32&#45;&gt;34">
+<path fill="none" stroke="#000000" d="M349.0111,-605.0272C353.7302,-607.3732 358.7131,-609.8037 363.3945,-612 390.6076,-624.7672 421.5976,-638.3669 445.6631,-648.7244"/>
+<polygon fill="#000000" stroke="#000000" points="444.2857,-651.9419 454.8557,-652.6681 447.0456,-645.5089 444.2857,-651.9419"/>
+</g>
+<!-- 33&#45;&gt;22 -->
+<g id="edge102" class="edge" num="33&#45;&gt;22">
+<path fill="none" stroke="#000000" d="M389.441,-611.063C384.3674,-619.7607 378.0911,-630.5201 372.4414,-640.2052"/>
+<polygon fill="#000000" stroke="#000000" points="369.292,-638.6581 367.2764,-649.0595 375.3384,-642.1852 369.292,-638.6581"/>
+</g>
+<!-- 33&#45;&gt;34 -->
+<g id="edge101" class="edge" num="33&#45;&gt;34">
+<path fill="none" stroke="#000000" d="M416.5829,-608.2249C428.5877,-618.1599 444.875,-631.6391 458.6982,-643.079"/>
+<polygon fill="#000000" stroke="#000000" points="456.5659,-645.8574 466.5014,-649.5368 461.0289,-640.4647 456.5659,-645.8574"/>
+</g>
+<!-- 36 -->
+<g id="node36" class="node" num="36">
+<ellipse fill="none" stroke="#000000" cx="776.3945" cy="-954" rx="72.2875" ry="18"/>
+<text text-anchor="middle" x="776.3945" y="-950.3" font-family="Times,serif" font-size="14.00" fill="#000000">PSPACE/poly</text>
+</g>
+<!-- 34&#45;&gt;36 -->
+<g id="edge63" class="edge" num="34&#45;&gt;36">
+<path fill="none" stroke="#000000" d="M502.4718,-683.0664C520.4638,-701.798 550.8455,-732.3493 579.3945,-756 643.4915,-809.0996 678.4286,-800.6306 732.3945,-864 748.0705,-882.4076 759.6962,-907.3628 767.0479,-926.3264"/>
+<polygon fill="#000000" stroke="#000000" points="763.8384,-927.7379 770.5963,-935.8977 770.4018,-925.3046 763.8384,-927.7379"/>
+</g>
+<!-- 35&#45;&gt;16 -->
+<g id="edge29" class="edge" num="35&#45;&gt;16">
+<path fill="none" stroke="#000000" d="M500.2484,-899.7978C496.0236,-908.019 490.9156,-917.959 486.2336,-927.0699"/>
+<polygon fill="#000000" stroke="#000000" points="483.0213,-925.6634 481.5636,-936.1575 489.2473,-928.8629 483.0213,-925.6634"/>
+</g>
+<!-- 35&#45;&gt;36 -->
+<g id="edge30" class="edge" num="35&#45;&gt;36">
+<path fill="none" stroke="#000000" d="M549.6561,-892.8571C594.18,-904.8635 666.3401,-924.3224 717.2784,-938.0586"/>
+<polygon fill="#000000" stroke="#000000" points="716.6022,-941.5012 727.1686,-940.7256 718.4248,-934.7426 716.6022,-941.5012"/>
+</g>
+<!-- 36&#45;&gt;24 -->
+<g id="edge26" class="edge" num="36&#45;&gt;24">
+<path fill="none" stroke="#000000" d="M754.1145,-971.3111C704.4804,-1009.8756 584.7735,-1102.8854 528.5357,-1146.5809"/>
+<polygon fill="#000000" stroke="#000000" points="526.1438,-1144.007 520.3947,-1152.9063 530.4387,-1149.5346 526.1438,-1144.007"/>
+</g>
+<!-- 37&#45;&gt;12 -->
+<g id="edge81" class="edge" num="37&#45;&gt;12">
+<path fill="none" stroke="#000000" d="M451.034,-755.4292C461.5937,-765.3031 474.8982,-777.7438 486.1365,-788.2523"/>
+<polygon fill="#000000" stroke="#000000" points="483.8328,-790.8899 493.5275,-795.1634 488.6138,-785.7769 483.8328,-790.8899"/>
+</g>
+<!-- 38 -->
+<g id="node38" class="node" num="38">
+<ellipse fill="none" stroke="#000000" cx="376.3945" cy="-450" rx="50.0912" ry="18"/>
+<text text-anchor="middle" x="376.3945" y="-446.3" font-family="Times,serif" font-size="14.00" fill="#000000">PostBPP</text>
+</g>
+<!-- 38&#45;&gt;14 -->
+<g id="edge103" class="edge" num="38&#45;&gt;14">
+<path fill="none" stroke="#000000" d="M364.2821,-467.7978C358.5263,-476.2552 351.5327,-486.5315 345.189,-495.853"/>
+<polygon fill="#000000" stroke="#000000" points="342.1003,-494.1706 339.3675,-504.407 347.8873,-498.109 342.1003,-494.1706"/>
+</g>
+<!-- 38&#45;&gt;33 -->
+<g id="edge104" class="edge" num="38&#45;&gt;33">
+<path fill="none" stroke="#000000" d="M381.4246,-468.3743C384.1156,-478.7639 387.2976,-492.0323 389.3945,-504 393.0064,-524.6148 395.566,-548.1272 397.191,-565.9489"/>
+<polygon fill="#000000" stroke="#000000" points="393.7096,-566.3164 398.0618,-575.976 400.6834,-565.7106 393.7096,-566.3164"/>
+</g>
+<!-- 39&#45;&gt;12 -->
+<g id="edge114" class="edge" num="39&#45;&gt;12">
+<path fill="none" stroke="#000000" d="M556.8232,-611.9771C553.155,-630.1781 547.1793,-659.1124 541.3945,-684 533.4903,-718.0056 523.4546,-756.9201 516.7492,-782.3952"/>
+<polygon fill="#000000" stroke="#000000" points="513.3527,-781.5492 514.1816,-792.1116 520.1204,-783.3377 513.3527,-781.5492"/>
+</g>
+<!-- 39&#45;&gt;34 -->
+<g id="edge115" class="edge" num="39&#45;&gt;34">
+<path fill="none" stroke="#000000" d="M543.9715,-609.9791C534.2845,-619.4043 521.8384,-631.514 510.9976,-642.0618"/>
+<polygon fill="#000000" stroke="#000000" points="508.5292,-639.5802 503.8026,-649.0623 513.4107,-644.5973 508.5292,-639.5802"/>
+</g>
+<!-- 43 -->
+<g id="node43" class="node" num="43">
+<ellipse fill="none" stroke="#000000" cx="630.3945" cy="-666" rx="41.6928" ry="18"/>
+<text text-anchor="middle" x="630.3945" y="-662.3" font-family="Times,serif" font-size="14.00" fill="#000000">QIP(2)</text>
+</g>
+<!-- 39&#45;&gt;43 -->
+<g id="edge116" class="edge" num="39&#45;&gt;43">
+<path fill="none" stroke="#0000ff" d="M576.2785,-610.3379C585.3671,-619.6862 596.9365,-631.5861 607.0431,-641.9815"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="604.6072,-644.4969 614.0875,-649.2271 609.6261,-639.6173 604.6072,-644.4969"/>
+</g>
+<!-- 40&#45;&gt;41 -->
+<g id="edge106" class="edge" num="40&#45;&gt;41">
+<path fill="none" stroke="#0000ff" d="M714.3454,-393.9607C746.0868,-419.3539 808.2502,-469.0846 845.0659,-498.5372"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="842.9648,-501.3385 852.96,-504.8524 847.3377,-495.8724 842.9648,-501.3385"/>
+</g>
+<!-- 45 -->
+<g id="node45" class="node" num="45">
+<ellipse fill="none" stroke="#000000" cx="631.3945" cy="-450" rx="34.394" ry="18"/>
+<text text-anchor="middle" x="631.3945" y="-446.3" font-family="Times,serif" font-size="14.00" fill="#000000">QMA</text>
+</g>
+<!-- 40&#45;&gt;45 -->
+<g id="edge105" class="edge" num="40&#45;&gt;45">
+<path fill="none" stroke="#0000ff" d="M679.4643,-395.063C671.4252,-404.2506 661.3731,-415.7387 652.5423,-425.8311"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="649.7348,-423.7245 645.7838,-433.5551 655.0029,-428.3341 649.7348,-423.7245"/>
+</g>
+<!-- 41&#45;&gt;34 -->
+<g id="edge86" class="edge" num="41&#45;&gt;34">
+<path fill="none" stroke="#000000" d="M804.3997,-524.1623C713.0556,-528.3742 559.8362,-540.6418 517.3945,-576 499.2298,-591.133 491.686,-617.4592 488.5653,-637.7422"/>
+<polygon fill="#000000" stroke="#000000" points="485.0876,-637.3463 487.3037,-647.7067 492.0321,-638.2256 485.0876,-637.3463"/>
+</g>
+<!-- 47 -->
+<g id="node47" class="node" num="47">
+<ellipse fill="none" stroke="#000000" cx="829.3945" cy="-594" rx="63.0888" ry="18"/>
+<text text-anchor="middle" x="829.3945" y="-590.3" font-family="Times,serif" font-size="14.00" fill="#000000">QMA/qpoly</text>
+</g>
+<!-- 41&#45;&gt;47 -->
+<g id="edge87" class="edge" num="41&#45;&gt;47">
+<path fill="none" stroke="#0000ff" d="M863.2709,-539.7978C858.0244,-548.1921 851.6581,-558.3782 845.8669,-567.6442"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="842.8781,-565.8224 840.5461,-576.1575 848.8141,-569.5325 842.8781,-565.8224"/>
+</g>
+<!-- 42&#45;&gt;16 -->
+<g id="edge76" class="edge" num="42&#45;&gt;16">
+<path fill="none" stroke="#000000" d="M317.9515,-893.3488C322.6884,-895.626 327.6784,-897.9477 332.3945,-900 363.8051,-913.669 399.8852,-927.5432 427.5503,-937.8053"/>
+<polygon fill="#000000" stroke="#000000" points="426.37,-941.1004 436.9634,-941.2782 428.7931,-934.5331 426.37,-941.1004"/>
+</g>
+<!-- 42&#45;&gt;48 -->
+<g id="edge77" class="edge" num="42&#45;&gt;48">
+<path fill="none" stroke="#0000ff" d="M272.2057,-892.8517C266.4488,-895.3588 260.2493,-897.903 254.3945,-900 229.4386,-908.9383 165.655,-926.5009 118.4149,-939.1744"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="117.3605,-935.8334 108.6054,-941.7998 119.1703,-942.5954 117.3605,-935.8334"/>
+</g>
+<!-- 42&#45;&gt;49 -->
+<g id="edge78" class="edge" num="42&#45;&gt;49">
+<path fill="none" stroke="#0000ff" d="M276.3971,-895.5426C262.0908,-905.7412 242.1684,-919.9433 225.5429,-931.7951"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="223.3077,-929.0902 217.1966,-937.745 227.3711,-934.7902 223.3077,-929.0902"/>
+</g>
+<!-- 50 -->
+<g id="node50" class="node" num="50">
+<ellipse fill="none" stroke="#000000" cx="315.3945" cy="-954" rx="51.1914" ry="18"/>
+<text text-anchor="middle" x="315.3945" y="-950.3" font-family="Times,serif" font-size="14.00" fill="#000000">QMIP_le</text>
+</g>
+<!-- 42&#45;&gt;50 -->
+<g id="edge80" class="edge" num="42&#45;&gt;50">
+<path fill="none" stroke="#0000ff" d="M300.3383,-899.7978C302.5332,-907.6995 305.1692,-917.189 307.6178,-926.0041"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="304.3198,-927.2085 310.3686,-935.9069 311.0644,-925.3349 304.3198,-927.2085"/>
+</g>
+<!-- 42&#45;&gt;51 -->
+<g id="edge79" class="edge" num="42&#45;&gt;51">
+<path fill="none" stroke="#0000ff" d="M317.2882,-893.8675C322.1585,-896.1611 327.3699,-898.3579 332.3945,-900 417.8277,-927.921 443.8534,-915.6289 531.3945,-936 535.6859,-936.9986 540.121,-938.1072 544.558,-939.2694"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="543.6529,-942.6503 554.2195,-941.878 545.4776,-935.8923 543.6529,-942.6503"/>
+</g>
+<!-- 44 -->
+<g id="node44" class="node" num="44">
+<ellipse fill="none" stroke="#000000" cx="630.3945" cy="-738" rx="41.6928" ry="18"/>
+<text text-anchor="middle" x="630.3945" y="-734.3" font-family="Times,serif" font-size="14.00" fill="#000000">QIP(3)</text>
+</g>
+<!-- 43&#45;&gt;44 -->
+<g id="edge107" class="edge" num="43&#45;&gt;44">
+<path fill="none" stroke="#0000ff" d="M630.3945,-684.1686C630.3945,-691.869 630.3945,-701.0257 630.3945,-709.5834"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="626.8946,-709.5867 630.3945,-719.5867 633.8946,-709.5868 626.8946,-709.5867"/>
+</g>
+<!-- 44&#45;&gt;42 -->
+<g id="edge2" class="edge" num="44&#45;&gt;42">
+<path fill="none" stroke="#0000ff" d="M619.2256,-755.4493C604.8455,-776.3429 577.8094,-810.6812 545.3945,-828 460.7138,-873.2435 423.8242,-834.7019 332.3945,-864 330.5067,-864.6049 328.5935,-865.2902 326.6824,-866.0313"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="325.0706,-862.9147 317.2739,-870.0885 327.8425,-869.3426 325.0706,-862.9147"/>
+</g>
+<!-- 45&#45;&gt;39 -->
+<g id="edge71" class="edge" num="45&#45;&gt;39">
+<path fill="none" stroke="#0000ff" d="M628.4489,-468.0788C624.8779,-486.8688 617.7475,-516.7277 605.3945,-540 599.6997,-550.7286 591.6309,-561.2774 583.8949,-570.1646"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="581.0824,-568.0559 576.9616,-577.8165 586.2698,-572.7561 581.0824,-568.0559"/>
+</g>
+<!-- 46 -->
+<g id="node46" class="node" num="46">
+<ellipse fill="none" stroke="#000000" cx="676.3945" cy="-882" rx="47.3916" ry="18"/>
+<text text-anchor="middle" x="676.3945" y="-878.3" font-family="Times,serif" font-size="14.00" fill="#000000">QMA(2)</text>
+</g>
+<!-- 45&#45;&gt;46 -->
+<g id="edge69" class="edge" num="45&#45;&gt;46">
+<path fill="none" stroke="#0000ff" d="M637.4547,-467.7348C648.8211,-502.0405 672.9533,-580.0963 681.3945,-648 687.3158,-695.6334 682.3463,-708.0094 681.3945,-756 680.7297,-789.5159 679.0713,-828.017 677.8458,-853.5483"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="674.3448,-853.4846 677.3512,-863.6439 681.3364,-853.8272 674.3448,-853.4846"/>
+</g>
+<!-- 45&#45;&gt;47 -->
+<g id="edge68" class="edge" num="45&#45;&gt;47">
+<path fill="none" stroke="#0000ff" d="M651.8382,-464.8682C686.5222,-490.0929 757.1087,-541.4285 798.0642,-571.2143"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="796.1843,-574.1749 806.3303,-577.226 800.3015,-568.5137 796.1843,-574.1749"/>
+</g>
+<!-- 52 -->
+<g id="node52" class="node" num="52">
+<ellipse fill="none" stroke="#000000" cx="173.3945" cy="-522" rx="45.4919" ry="18"/>
+<text text-anchor="middle" x="173.3945" y="-518.3" font-family="Times,serif" font-size="14.00" fill="#000000">QRG(1)</text>
+</g>
+<!-- 45&#45;&gt;52 -->
+<g id="edge67" class="edge" num="45&#45;&gt;52">
+<path fill="none" stroke="#000000" d="M597.7544,-454.4279C533.1765,-463.0465 387.4155,-483.0734 265.3945,-504 251.9728,-506.3018 237.4966,-509.0219 224.0891,-511.6408"/>
+<polygon fill="#000000" stroke="#000000" points="223.2133,-508.246 214.0797,-513.6153 224.5681,-515.1137 223.2133,-508.246"/>
+</g>
+<!-- 61 -->
+<g id="node61" class="node" num="61">
+<ellipse fill="none" stroke="#000000" cx="558.3945" cy="-522" rx="38.1938" ry="18"/>
+<text text-anchor="middle" x="558.3945" y="-518.3" font-family="Times,serif" font-size="14.00" fill="#000000">SBQP</text>
+</g>
+<!-- 45&#45;&gt;61 -->
+<g id="edge70" class="edge" num="45&#45;&gt;61">
+<path fill="none" stroke="#0000ff" d="M615.1934,-465.9791C605.5008,-475.5389 593.0081,-487.8606 582.2078,-498.5129"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="579.7183,-496.0523 575.0564,-505.5664 584.6338,-501.0361 579.7183,-496.0523"/>
+</g>
+<!-- 46&#45;&gt;15 -->
+<g id="edge44" class="edge" num="46&#45;&gt;15">
+<path fill="none" stroke="#000000" d="M677.5099,-900.1845C677.7269,-920.1912 674.9496,-952.1366 657.3945,-972 641.5572,-989.9196 580.2869,-1007.2968 539.1364,-1017.3058"/>
+<polygon fill="#000000" stroke="#000000" points="538.0633,-1013.9635 529.1478,-1019.6875 539.687,-1020.7726 538.0633,-1013.9635"/>
+</g>
+<!-- 46&#45;&gt;51 -->
+<g id="edge45" class="edge" num="46&#45;&gt;51">
+<path fill="none" stroke="#0000ff" d="M657.3759,-898.6992C646.6894,-908.0825 633.1741,-919.9496 621.4059,-930.2827"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="618.799,-927.9138 613.5939,-937.1419 623.4177,-933.1739 618.799,-927.9138"/>
+</g>
+<!-- 47&#45;&gt;36 -->
+<g id="edge92" class="edge" num="47&#45;&gt;36">
+<path fill="none" stroke="#000000" d="M827.7369,-612.1674C825.3936,-639.4608 821.3945,-692.6802 821.3945,-738 821.3945,-738 821.3945,-738 821.3945,-810 821.3945,-852.1737 803.5925,-898.262 790.3822,-926.6567"/>
+<polygon fill="#000000" stroke="#000000" points="787.105,-925.3966 785.9378,-935.9269 793.417,-928.4228 787.105,-925.3966"/>
+</g>
+<!-- 48&#45;&gt;55 -->
+<g id="edge74" class="edge" num="48&#45;&gt;55">
+<path fill="none" stroke="#ff0000" d="M81.068,-971.3111C123.2281,-1010.3952 225.7115,-1105.4012 272.0079,-1148.3197"/>
+<polygon fill="#ff0000" stroke="#ff0000" points="269.7431,-1150.9928 279.4561,-1155.2245 274.502,-1145.8593 269.7431,-1150.9928"/>
+</g>
+<!-- 49&#45;&gt;55 -->
+<g id="edge27" class="edge" num="49&#45;&gt;55">
+<path fill="none" stroke="#0000ff" d="M202.8319,-972.0445C220.6391,-1010.1272 262.132,-1098.8645 282.9771,-1143.444"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="279.9268,-1145.1838 287.3331,-1152.7599 286.2678,-1142.2187 279.9268,-1145.1838"/>
+</g>
+<!-- 50&#45;&gt;25 -->
+<g id="edge47" class="edge" num="50&#45;&gt;25">
+<path fill="none" stroke="#0000ff" d="M334.1164,-971.063C344.2742,-980.3208 356.9949,-991.9143 368.1292,-1002.0621"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="365.7846,-1004.6607 375.5332,-1008.81 370.4998,-999.4871 365.7846,-1004.6607"/>
+</g>
+<!-- 51&#45;&gt;23 -->
+<g id="edge38" class="edge" num="51&#45;&gt;23">
+<path fill="none" stroke="#0000ff" d="M584.4553,-971.9851C574.0601,-990.4414 556.9771,-1019.7993 540.3945,-1044 533.7126,-1053.7515 525.8777,-1064.0831 518.7964,-1073.0696"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="516.0589,-1070.8888 512.5598,-1080.8891 521.5315,-1075.2536 516.0589,-1070.8888"/>
+</g>
+<!-- 53 -->
+<g id="node53" class="node" num="53">
+<ellipse fill="none" stroke="#000000" cx="173.3945" cy="-594" rx="45.4919" ry="18"/>
+<text text-anchor="middle" x="173.3945" y="-590.3" font-family="Times,serif" font-size="14.00" fill="#000000">QRG(2)</text>
+</g>
+<!-- 52&#45;&gt;53 -->
+<g id="edge66" class="edge" num="52&#45;&gt;53">
+<path fill="none" stroke="#000000" d="M173.3945,-540.1686C173.3945,-547.869 173.3945,-557.0257 173.3945,-565.5834"/>
+<polygon fill="#000000" stroke="#000000" points="169.8946,-565.5867 173.3945,-575.5867 176.8946,-565.5868 169.8946,-565.5867"/>
+</g>
+<!-- 53&#45;&gt;35 -->
+<g id="edge25" class="edge" num="53&#45;&gt;35">
+<path fill="none" stroke="#000000" d="M192.5774,-610.5959C226.5509,-639.973 299.5486,-703.0281 361.3945,-756 403.328,-791.9166 452.1156,-833.3918 481.8667,-858.6488"/>
+<polygon fill="#000000" stroke="#000000" points="479.8429,-861.5218 489.7318,-865.3244 484.3726,-856.1849 479.8429,-861.5218"/>
+</g>
+<!-- 54&#45;&gt;35 -->
+<g id="edge13" class="edge" num="54&#45;&gt;35">
+<path fill="none" stroke="#000000" d="M625.9178,-389.1344C647.0095,-398.0775 674.5521,-412.3889 693.3945,-432 724.3788,-464.2485 738.3945,-477.2786 738.3945,-522 738.3945,-522 738.3945,-522 738.3945,-594 738.3945,-670.3268 726.8808,-694.7075 681.3945,-756 645.8597,-803.8829 586.9422,-841.3951 548.1387,-862.6289"/>
+<polygon fill="#000000" stroke="#000000" points="546.3715,-859.6051 539.2164,-867.4188 549.6825,-865.7725 546.3715,-859.6051"/>
+</g>
+<!-- 54&#45;&gt;43 -->
+<g id="edge12" class="edge" num="54&#45;&gt;43">
+<path fill="none" stroke="#000000" d="M625.0398,-389.6887C642.8461,-398.4394 664.004,-412.3118 674.3945,-432 710.5993,-500.6023 670.0848,-594.3627 645.8708,-639.5377"/>
+<polygon fill="#000000" stroke="#000000" points="642.7411,-637.9653 640.9846,-648.4135 648.8733,-641.3411 642.7411,-637.9653"/>
+</g>
+<!-- 55&#45;&gt;3 -->
+<g id="edge65" class="edge" num="55&#45;&gt;3">
+<path fill="none" stroke="#000000" d="M314.0156,-1183.5426C329.0879,-1194.5044 350.5199,-1210.0912 367.4632,-1222.4136"/>
+<polygon fill="#000000" stroke="#000000" points="365.7108,-1225.4669 375.8568,-1228.5181 369.8281,-1219.8057 365.7108,-1225.4669"/>
+</g>
+<!-- 56 -->
+<g id="node56" class="node" num="56">
+<ellipse fill="none" stroke="#000000" cx="100.3945" cy="-450" rx="37.8943" ry="18"/>
+<text text-anchor="middle" x="100.3945" y="-446.3" font-family="Times,serif" font-size="14.00" fill="#000000">RG(1)</text>
+</g>
+<!-- 56&#45;&gt;52 -->
+<g id="edge8" class="edge" num="56&#45;&gt;52">
+<path fill="none" stroke="#000000" d="M116.9593,-466.3379C126.4374,-475.6862 138.5026,-487.5861 149.0424,-497.9815"/>
+<polygon fill="#000000" stroke="#000000" points="146.8111,-500.6968 156.3886,-505.2271 151.7267,-495.713 146.8111,-500.6968"/>
+</g>
+<!-- 57 -->
+<g id="node57" class="node" num="57">
+<ellipse fill="none" stroke="#000000" cx="72.3945" cy="-522" rx="37.8943" ry="18"/>
+<text text-anchor="middle" x="72.3945" y="-518.3" font-family="Times,serif" font-size="14.00" fill="#000000">RG(2)</text>
+</g>
+<!-- 56&#45;&gt;57 -->
+<g id="edge9" class="edge" num="56&#45;&gt;57">
+<path fill="none" stroke="#000000" d="M93.4731,-467.7978C90.3096,-475.9325 86.4917,-485.7499 82.9793,-494.7819"/>
+<polygon fill="#000000" stroke="#000000" points="79.6957,-493.5688 79.3332,-504.1575 86.2198,-496.106 79.6957,-493.5688"/>
+</g>
+<!-- 57&#45;&gt;53 -->
+<g id="edge4" class="edge" num="57&#45;&gt;53">
+<path fill="none" stroke="#000000" d="M93.814,-537.2693C108.0804,-547.4395 127.0441,-560.9581 142.8808,-572.2477"/>
+<polygon fill="#000000" stroke="#000000" points="141.1331,-575.3001 151.3076,-578.2549 145.1965,-569.6001 141.1331,-575.3001"/>
+</g>
+<!-- 58 -->
+<g id="node58" class="node" num="58">
+<ellipse fill="none" stroke="#000000" cx="103.3945" cy="-738" rx="37.8943" ry="18"/>
+<text text-anchor="middle" x="103.3945" y="-734.3" font-family="Times,serif" font-size="14.00" fill="#000000">RG(3)</text>
+</g>
+<!-- 57&#45;&gt;58 -->
+<g id="edge3" class="edge" num="57&#45;&gt;58">
+<path fill="none" stroke="#000000" d="M74.9842,-540.0445C80.3864,-577.6856 92.8908,-664.8133 99.3581,-709.8754"/>
+<polygon fill="#000000" stroke="#000000" points="95.9051,-710.4536 100.7903,-719.8549 102.8341,-709.4591 95.9051,-710.4536"/>
+</g>
+<!-- 58&#45;&gt;16 -->
+<g id="edge46" class="edge" num="58&#45;&gt;16">
+<path fill="none" stroke="#000000" d="M141.0098,-740.3851C189.3442,-744.8034 274.613,-757.2567 338.3945,-792 395.7187,-823.2259 438.3478,-889.8871 458.8367,-927.233"/>
+<polygon fill="#000000" stroke="#000000" points="455.7564,-928.895 463.5642,-936.0566 461.9266,-925.5891 455.7564,-928.895"/>
+</g>
+<!-- 59&#45;&gt;8 -->
+<g id="edge14" class="edge" num="59&#45;&gt;8">
+<path fill="none" stroke="#000000" d="M394.7027,-102.8722C411.3589,-113.9763 435.6515,-130.1713 454.603,-142.8057"/>
+<polygon fill="#000000" stroke="#000000" points="452.8918,-145.8713 463.1538,-148.5062 456.7747,-140.047 452.8918,-145.8713"/>
+</g>
+<!-- 59&#45;&gt;28 -->
+<g id="edge15" class="edge" num="59&#45;&gt;28">
+<path fill="none" stroke="#0000ff" d="M375.3945,-108.1686C375.3945,-115.869 375.3945,-125.0257 375.3945,-133.5834"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="371.8946,-133.5867 375.3945,-143.5867 378.8946,-133.5868 371.8946,-133.5867"/>
+</g>
+<!-- 60&#45;&gt;6 -->
+<g id="edge49" class="edge" num="60&#45;&gt;6">
+<path fill="none" stroke="#0000ff" d="M394.9363,-321.2693C405.9414,-331.4279 420.5657,-344.9273 432.7876,-356.209"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="430.6879,-359.0341 440.41,-363.2451 435.4359,-353.8904 430.6879,-359.0341"/>
+</g>
+<!-- 60&#45;&gt;38 -->
+<g id="edge48" class="edge" num="60&#45;&gt;38">
+<path fill="none" stroke="#000000" d="M378.1412,-324.2377C377.8,-348.799 377.1896,-392.7526 376.7883,-421.6459"/>
+<polygon fill="#000000" stroke="#000000" points="373.285,-421.8627 376.6457,-431.9104 380.2843,-421.96 373.285,-421.8627"/>
+</g>
+<!-- 60&#45;&gt;61 -->
+<g id="edge50" class="edge" num="60&#45;&gt;61">
+<path fill="none" stroke="#0000ff" d="M402.6738,-317.2341C435.6462,-332.5283 490.7108,-358.2202 492.3945,-360 528.4253,-398.0881 545.8752,-458.4798 553.419,-493.7712"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="550.0464,-494.7531 555.4517,-503.8654 556.9086,-493.3712 550.0464,-494.7531"/>
+</g>
+<!-- 61&#45;&gt;33 -->
+<g id="edge62" class="edge" num="61&#45;&gt;33">
+<path fill="none" stroke="#000000" d="M530.6988,-534.5414C503.0405,-547.066 460.5651,-566.3001 431.4605,-579.4795"/>
+<polygon fill="#000000" stroke="#000000" points="429.8093,-576.385 422.1436,-583.6985 432.6969,-582.7617 429.8093,-576.385"/>
+</g>
+<!-- 62 -->
+<g id="node62" class="node" num="62">
+<ellipse fill="none" stroke="#000000" cx="294.3945" cy="-162" rx="29.795" ry="18"/>
+<text text-anchor="middle" x="294.3945" y="-158.3" font-family="Times,serif" font-size="14.00" fill="#000000">SPP</text>
+</g>
+<!-- 62&#45;&gt;7 -->
+<g id="edge51" class="edge" num="62&#45;&gt;7">
+<path fill="none" stroke="#000000" d="M293.8879,-180.2377C293.2056,-204.799 291.9847,-248.7526 291.1821,-277.6459"/>
+<polygon fill="#000000" stroke="#000000" points="287.6761,-277.817 290.897,-287.9104 294.6734,-278.0115 287.6761,-277.817"/>
+</g>
+<!-- 63&#45;&gt;6 -->
+<g id="edge113" class="edge" num="63&#45;&gt;6">
+<path fill="none" stroke="#000000" d="M457.1421,-324.1686C457.0352,-331.869 456.908,-341.0257 456.7891,-349.5834"/>
+<polygon fill="#000000" stroke="#000000" points="453.2895,-349.5391 456.6502,-359.5867 460.2888,-349.6363 453.2895,-349.5391"/>
+</g>
+<!-- 63&#45;&gt;54 -->
+<g id="edge112" class="edge" num="63&#45;&gt;54">
+<path fill="none" stroke="#000000" d="M480.4926,-318.0512C502.2644,-329.4104 535.195,-346.5916 560.229,-359.6528"/>
+<polygon fill="#000000" stroke="#000000" points="558.9123,-362.9135 569.3972,-364.4362 562.1503,-356.7074 558.9123,-362.9135"/>
+</g>
+<!-- 64&#45;&gt;56 -->
+<g id="edge110" class="edge" num="64&#45;&gt;56">
+<path fill="none" stroke="#000000" d="M103.3851,-396.1686C102.9573,-403.869 102.4486,-413.0257 101.9732,-421.5834"/>
+<polygon fill="#000000" stroke="#000000" points="98.4776,-421.408 101.4174,-431.5867 105.4668,-421.7963 98.4776,-421.408"/>
+</g>
+<!-- 64&#45;&gt;65 -->
+<g id="edge109" class="edge" num="64&#45;&gt;65">
+<path fill="none" stroke="#000000" d="M129.6647,-390.3772C152.0364,-401.3348 185.0815,-417.5202 211.0987,-430.2633"/>
+<polygon fill="#000000" stroke="#000000" points="209.8131,-433.5308 220.3333,-434.7863 212.8922,-427.2444 209.8131,-433.5308"/>
+</g>
+<!-- 65&#45;&gt;14 -->
+<g id="edge6" class="edge" num="65&#45;&gt;14">
+<path fill="none" stroke="#000000" d="M269.7919,-467.4292C279.4779,-476.6054 291.5038,-487.9983 302.0581,-497.9971"/>
+<polygon fill="#000000" stroke="#000000" points="299.762,-500.6431 309.4287,-504.9798 304.5762,-495.5614 299.762,-500.6431"/>
+</g>
+<!-- 66&#45;&gt;2 -->
+<g id="edge89" class="edge" num="66&#45;&gt;2">
+<path fill="none" stroke="#000000" d="M275.5904,-98.9733C241.8085,-111.7078 179.8203,-135.0751 141.5523,-149.5007"/>
+<polygon fill="#000000" stroke="#000000" points="140.0212,-146.3374 131.8985,-153.1398 142.4904,-152.8875 140.0212,-146.3374"/>
+</g>
+<!-- 66&#45;&gt;28 -->
+<g id="edge90" class="edge" num="66&#45;&gt;28">
+<path fill="none" stroke="#0000ff" d="M315.1417,-104.9184C325.8414,-115.055 340.1754,-128.6346 352.1782,-140.0056"/>
+<polygon fill="#0000ff" stroke="#0000ff" points="350.0007,-142.764 359.6674,-147.1007 354.815,-137.6823 350.0007,-142.764"/>
+</g>
+<!-- 66&#45;&gt;62 -->
+<g id="edge88" class="edge" num="66&#45;&gt;62">
+<path fill="none" stroke="#000000" d="M298.1328,-108.1686C297.598,-115.869 296.9621,-125.0257 296.3678,-133.5834"/>
+<polygon fill="#000000" stroke="#000000" points="292.8744,-133.3683 295.6732,-143.5867 299.8576,-133.8533 292.8744,-133.3683"/>
+</g>
+</g>
+</svg>
+
+<br/>
+<br/>
+<table>
+  <tr>
+    <th>Preferred Name</th>
+    <th>Alternate Names</th>
+  </tr>
+  <tr>
+    <td>EXP_plo</td>
+    <td>QRG, RG</td>
+  </tr>
+  <tr>
+    <td>PP</td>
+    <td>PostBQP</td>
+  </tr>
+  <tr>
+    <td>PSPACE</td>
+    <td>AP, BQPSPACE, IPP, NPSPACE, PPSPACE</td>
+  </tr>
+  <tr>
+    <td>P^Sharp-P</td>
+    <td>P^PP</td>
+  </tr>
+  <tr>
+    <td>PostBPP</td>
+    <td>BPP_path</td>
+  </tr>
+  <tr>
+    <td>cocap-RE</td>
+    <td>R</td>
+  </tr>
+  <tr>
+    <td>cocap-RP</td>
+    <td>ZPP</td>
+  </tr>
+</table></body>
+    </html>

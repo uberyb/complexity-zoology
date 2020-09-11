@@ -1,0 +1,32 @@
+\section{To-do List Inference Algorithm} \label{todo}
+
+Both the primary inference engine and the propagation of operator partial
+functions follow the same basic procedure. We begin with some database $D_0$,
+which can be taken to be a set of propositions that are regarded as true. We
+also assume that there is a set $R$ of inference rules, which are tuples of the
+form
+\[
+\varphi_1,\varphi_2,\ldots,\varphi_n\vdash\psi
+\]
+for a positive integer $n$ (although for our purposes $n\leq 2$). The inference 
+algorithm that Complexity Zoology employs is as follows:
+\begin{enumerate}
+\item Populate a list $L$ with the propositions in $D_0$, and set
+  $D=\emptyset$.
+\item While $L$ is nonempty, carry out the steps (3) through (6).
+\item Remove the top proposition $\varphi$ from $L$.
+\item If $\varphi\in D$, return to step (3).
+\item Add $\varphi$ to the set $D$.
+\item For each inference rule $\varphi_1,\varphi_2,\ldots,\varphi_n\vdash\psi$
+  and all $\varphi_1^\prime,\varphi_2^\prime,\ldots,\varphi_{n-1}^\prime\in D$,
+  check whether some permutation of
+  $\varphi,\varphi_1^\prime,\ldots,\varphi_{n-1}^\prime$ matches
+  $\varphi_1,\varphi_2,\ldots,\varphi_n$. If it does, append $\psi$ to $L$.
+\end{enumerate}
+The resulting database $D$ has $D_0$ as a subset and is closed under inference
+rules. Moreover, this algorithm eventually terminates, because when a proposition
+has been removed from $L$ once, it cannot again result in any additional
+proposition being appended to $L$. Thus, the algorithm deduces all logical
+consequences of the initial database $D_0$, and it does so faster than the naive
+approach of repeatedly applying all inference rules to all the propositions in
+$D$ until $D$ grows no further.

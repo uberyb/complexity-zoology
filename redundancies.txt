@@ -1,0 +1,114 @@
+Upper bound for redundant inclusions:
+
+BQP/mpoly < QMA/mpoly
+NP/poly < QMA/mpoly
+BQP/qpoly < QCMA/qpoly
+QRG(2) < QRG
+QIP < QRG
+EXP < NEXP
+BQP < QSZK
+BQP < NIQSZK
+BQP < QCMA
+S_2P < QRG
+S_2P < Sigma_2P
+S_2P < EXP
+QAM < PP/poly
+QAM < QIP
+SZK < AM
+RG(2) < PSPACE
+QSZK < PSPACE
+QSZK < QIP(2)
+NPSPACE < NEXP
+NEXP < R
+QMA < QMA/mpoly
+AWPP < A_0PP
+Delta_2P < Sigma_2P
+EXP_plo < NEXP_plo
+BPP < MA
+BPP < NISZK
+BPP < QMIP_le
+BPP < Sigma_2P
+BPP < AWPP
+BPP < SZK
+RG(1) < PSPACE
+MIP < NEXP_plo
+IP < PSPACE
+P < UP
+
+Redundant initial formulas:
+
+('p', 'A', 'Sigma_2P', 'Delta_3P')
+('-p', 'T', 'RP', 'P')
+('-d', 'R', 'BQP', 'MIP')
+('-p', 'T', 'RG(3)', 'P')
+('-p', 'T', 'EXP^NP', 'BPP')
+('-p', 'T', 'MAEXP', '(NP-cap-coNP)/poly')
+('d', 'A', 'NP', 'co.IP')
+('-p', 'A', 'BQP/qpoly', 'BQP/mpoly')
+('-p', 'A', 'QMA(2)', 'QCMA')
+('-p', 'T', 'NP', 'P')
+('-d', 'R', '(NP-cap-coNP)/poly', 'P/poly')
+('p', 'A', 'QRG(2)', 'EXP_plo')
+('-d', 'T', 'cocap.QMA(2)', 'PSPACE/poly')
+('-d', 'T', 'cocap.QAM', 'P^Sharp-P')
+('-p', 'T', 'MAEXP', 'cocap.SBP')
+('-d', 'T', 'QRG(1)', 'PP/poly')
+('-p', 'A', 'QMA', 'QCMA')
+('p', 'A', 'Delta_2P', 'Sigma_2P')
+('-d', 'T', 'cocap.NP', 'AWPP')
+('-d', 'T', 'RG(3)', 'PSPACE/poly')
+('-p', 'T', 'QMA(2)', 'P')
+('-p', 'T', 'EXP', 'cocap.UP')
+('-d', 'T', 'UP', 'P')
+('p', 'A', 'IP', 'PSPACE')
+('-d', 'R', 'cocap.IP', 'PP/poly')
+('-d', 'T', 'NP', 'co.A_0PP')
+('-p', 'AA', 'NP', 'co.AM')
+('-d', 'R', 'BQP', 'BPP')
+('-p', 'T', 'NEXP/poly', 'P/poly')
+('-p', 'R', 'BQP', 'P')
+('-p', 'A', 'BQP', 'MIP')
+('-d', 'T', 'NP', 'P')
+('d', 'A', 'BQP', 'MA')
+('d', 'R', 'NP', 'P')
+('-p', 'T', 'MAEXP', 'BQP')
+('-d', 'T', 'BQP', 'NP/poly')
+('-d', 'T', 'cocap.NIQSZK', 'QMA/qpoly')
+('-p', 'A', 'QMA/qpoly', 'QCMA/qpoly')
+('-p', 'T', 'PostBPP', 'Sigma_2P')
+('-d', 'R', 'QMIP_le', 'co.NEXP')
+('d', 'A', 'NP/poly', '(NP-cap-coNP)/poly')
+('p', 'A', 'S_2P', 'EXP_plo')
+('-p', 'T', 'UP', 'P')
+('-d', 'T', 'P^Sharp-P', 'MP')
+('-p', 'T', 'PSPACE', 'P')
+('-p', 'A', 'NISZK', 'co.NIQSZK')
+('-p', 'A', 'PSPACE', 'CH')
+('-p', 'T', 'NEXP', 'SPP')
+('p', 'A', 'S_2P', 'PSPACE')
+('-d', 'T', 'cocap.NIQSZK', 'CH')
+('p', 'E', 'NEXP', '+P')
+('-p', 'R', 'QMA/qpoly', 'NP/poly')
+('-p', 'A', 'cocap.MIP', 'EXP')
+('-d', 'T', 'NEXP', 'SPP')
+('-d', 'R', 'BQP', '+P')
+('-p', 'T', 'MAEXP', 'cocap.NISZK')
+('p', 'A', 'BQP', 'QSZK')
+('-d', 'R', 'BQP', 'P')
+('-d', 'R', 'cocap.IP', 'QMA/qpoly')
+('-p', 'T', 'MAEXP', 'Delta_2P')
+('-d', 'T', 'UP', 'co.QMA(2)')
+('p', 'A', 'NP/poly', 'QMA/mpoly')
+('-d', 'T', 'cocap.NISZK', 'PP')
+('-p', 'A', 'QMA(2)', 'QMA')
+('p', 'A', 'QMA', 'QMA/mpoly')
+('-d', 'T', 'cocap.MA', '(NP-cap-coNP)/poly')
+('-d', 'T', 'cocap.QMA/qpoly', 'PP/poly')
+('-d', 'T', 'BPP', 'Delta_2P')
+('p', 'A', 'S_2P', 'EXP')
+('-d', 'T', 'NEXP', 'co.MAEXP')
+('-p', 'R', 'BQP', 'IP')
+('-d', 'T', 'BQP', 'PH')
+('-p', 'R', 'QSZK', 'P')
+('-d', 'T', 'NISZK', 'co.NIQSZK')
+('p', 'A', 'BPP', 'SZK')

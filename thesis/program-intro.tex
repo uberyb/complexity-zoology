@@ -1,0 +1,23 @@
+In this chapter, we describe the algorithm that Complexity Zoology follows. Here is a high-level description of the procedure:
+\begin{enumerate}
+    \item \textbf{Read input:} The program parses the plain-text input files (one  
+      for classes and one for operators).
+    \item \textbf{Process equalities:} The input file contains statements of the 
+      form $\mathtt{C1=C2}$, where $\mathtt{C1}$ and $\mathtt{C2}$ are names for 
+      complexity classes. Statements of this form are understood to indicate that 
+      the two classes are equal with respect to every oracle. Complexity Zoology 
+      uses the transitivity of equality to learn which classes are equal and then 
+      chooses an official name for each class according to preferences specified in 
+      the input file.
+    \item \textbf{Expand operators:} Zoology understands each operator as a partial 
+      function on the set of unique classes in the data set. Using the rules 
+      specified in the input file for operators, the program expands each partial 
+      function to be as large as possible.
+    \item \textbf{Deduce:} The system applies its list of inference rules to deduce 
+      inclusions, oracle separations, and open problems.
+    \item \textbf{Postprocess:} The program prepares the expanded knowledge database
+      for output. In particular, Complexity Zoology computes the relations that must
+      be shown on the final diagram.
+    \item \textbf{Output:} Zoology produces an HTML file with clickable diagrams 
+      showing complexity class relationships in each modal world.
+\end{enumerate}

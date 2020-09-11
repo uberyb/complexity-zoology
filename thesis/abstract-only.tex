@@ -1,0 +1,27 @@
+\input{LayoutPreamble.tex}
+\input{MacrosPreamble.tex}
+
+\begin{document}
+   \frontmatter
+
+   %%%\pagestyle{prelim}
+   
+   % Redefine plain page style so that the first pages of chapters
+   % have desired page style.
+   %
+   \fancypagestyle{plain}{%
+      \fancyhf{}
+      \rhead{-\thepage-}
+   }%
+   %%%\input{TitlePage.tex}
+   %%%\newpage
+   
+   % Begin Double Spacing
+   %
+   \doublespacing
+	
+	 \pagestyle{abstract2}
+   
+	 \thispagestyle{abstract1}
+   \input{Abstract.tex}
+\end{document}

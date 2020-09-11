@@ -1,0 +1,46 @@
+Upper bound for redundant inclusions:
+
+BQP < QSZK
+BQP < QCMA
+BQP < AWPP
+BQP < NIQSZK
+QSZK < QIP(2)
+QSZK < QIP
+BQP/qpoly < QCMA/qpoly
++P < MP
+UP < Delta_2P
+NPSPACE < NEXP
+SZK < AM
+Delta_2P < Sigma_2P
+EXP < NEXP
+QAM < QIP
+PP < MP
+P < UP
+PH < MP
+BPP < MA
+BPP < QMIP_le
+BPP < AWPP
+BPP < NISZK
+BPP < SZK
+S_2P < Sigma_2P
+S_2P < QRG
+S_2P < EXP
+RG(1) < PSPACE
+RG(2) < PSPACE
+EXP_plo < NEXP_plo
+SPP < AWPP
+SPP < MP
+QRG(2) < QRG
+
+Redundant initial formulas:
+
+('p', 'A', 'BPP', 'QMIP_le')
+('p', 'A', 'Delta_2P', 'Sigma_2P')
+('p', 'A', 'BPP', 'SZK')
+('p', 'A', 'PSPACE', 'NEXP')
+('p', 'A', 'BQP', 'QSZK')
+('d', 'E', 'ALL', 'AH')
+('p', 'A', 'RG(2)', 'PSPACE')
+('p', 'A', 'UP', 'Delta_2P')
+('d', 'R', 'NP', 'P')
+('p', 'A', 'QSZK', 'QIP')

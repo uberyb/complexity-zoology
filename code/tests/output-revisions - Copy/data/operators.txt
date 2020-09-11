@@ -1,0 +1,28 @@
+id : identity
+co : complementation
+cocap : intersection of a class and its complement : idempotent
+cocap < co
+cocap < id
+
+co.co = id
+co p= cocap
+poly : polynomial advice : idempotent
+id < poly
++ : parity : idempotent
+BP : bounded probabilistic : idempotent
+P : probabilistic
+N : non-deterministic : idempotent
+
+BP < P
+id < +,BP,P,N
+
+co z= BP,P,poly
+poly z= +,N,P
+
+co p= +
+P^ : P with class oracle : idempotent
+
+id,co < P^
+poly z= P^
+P^ z= BP
+co p= P^

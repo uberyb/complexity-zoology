@@ -1,0 +1,135 @@
+\documentclass[12pt]{amsart}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{lmodern}
+\usepackage{amsmath,amsthm,amssymb,mathrsfs}
+
+\title{Extremal Unknowns}
+\date{}
+\author{Robert Sanders}
+
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{proposition}{Proposition}
+\newtheorem*{corollary}{Corollary}
+
+\theoremstyle{definition}
+\newtheorem*{definition}{Definition}
+
+\theoremstyle{remark}
+\newtheorem*{claim}{Claim}
+\newtheorem*{remark}{Remark}
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\start}{\mathtt{start}}
+\newcommand{\halt}{\mathtt{halt}}
+\newcommand{\Left}{\mathsf{L}}
+\newcommand{\Stay}{\mathsf{S}}
+\newcommand{\Right}{\mathsf{R}}
+\newcommand{\A}{\mathsf{A}}
+\newcommand{\sC}{\mathsf{C}}
+\newcommand{\co}{\mathsf{co}}
+\newcommand{\cocap}{\mathsf{cocap}}
+\newcommand{\NP}{\mathsf{NP}}
+\newcommand{\sP}{\mathsf{P}}
+\newcommand{\poly}{\mathsf{poly}}
+\newcommand{\msf}[1]{\mathsf{#1}}
+\newcommand{\id}{\msf{id}}
+\newcommand{\AND}{\mathbin{\&}}
+\newcommand{\OR}{\mathbin{\text{or}}}
+\newcommand{\Oh}{\mathcal{O}}
+\newcommand{\inner}[1]{\left\langle#1\right\rangle}
+\newcommand{\op}{\msf{op}}
+\newcommand{\sN}{\msf{N}}
+\newcommand{\BP}{\msf{BP}}
+\newcommand{\exppad}{\msf{exppad}}
+\newcommand{\FP}{\msf{FP}}
+\newcommand{\CZ}{\msf{CZ}}
+\newcommand{\subsetequ}{\stackrel{?}{\subseteq}}
+
+\begin{document}
+\maketitle
+
+Identifying key missing information is an important part of the survey process.
+Complexity Zoology has the capacity to identify a subset of unknown inclusions
+that are sufficient to decide all other unknowns. To be precise, recall that
+an inclusion $\sC_1\subseteq_W\sC_2$ can exist in one of three possible states:
+proven, disproven, or open. However, since Complexity Zoology's data set is
+incomplete, it is possible that the system cannot infer which of the three
+possibilities applies to a given inclusion. When this occurs, we say that the
+inclusion is \textit{unknown}, not to be confused with the inclusion being
+open. In short, to say that an inclusion is open is to say that it does not
+have a known proof or disproof, while to say that an inclusion is unknown
+means that Complexity Zoology itself does not know the status. We denote an
+unknown inclusion by $\sC_1\subsetequ_W\sC_2$.
+
+Ideally, we would like to complete the data set so that there are no unknown
+inclusions. However, this is a process that potentially involves a great deal
+of redundancy, since listing a formerly unknown inclusion as proven (for
+example) may decide several other unknown inclusions. Therefore, it is helpful
+to identify a subset of unknown inclusions that are sufficient to decide all
+others. We refer to these as \textit{extremal unknowns}.
+
+A \textit{most likely extremal unknown} is, roughly, an unknown inclusion that,
+if it were listed as proven, would not result in any other inclusions being
+listed as proven. Complexity Zoology considers extremal unknowns separately for
+each of the worlds, and for simplicity inference rules involving multiple
+worlds or involving operatros are not considered. Thus, the only inference
+rules that are relevant to determining whether Complexity Zoology considers an
+unknown inclusion to be a most likely extremal are
+\begin{align*}
+p(\sC_1\subseteq_W\sC_2)\AND p(\sC_2\subseteq_{W^*}\sC_3)&\Longrightarrow
+p(\sC_1\subseteq_W\sC_3), \\
+p(\sC_1\subseteq_W\sC_2)\AND p(\sC_2\subseteq_{W^*}\sC_3)&\Longrightarrow
+p(\sC_1\subseteq_W\sC_3),
+\end{align*}
+where $W$ is the world under consideration and $W^*$ is the transitive dual. In
+testing whether an unknown inclusion $\sC_1\subsetequ_W\sC_2$ is a most likely
+extremal, Complexity Zoology tests whether there exists a third class $\sC_3$
+that is distinct from $\sC_1$ and $\sC_2$ in $W$ satisfying one of the
+following two conditions:
+\begin{align*}
+\sC_1\subsetequ_W\sC_3\AND p(\sC_2\subseteq_{W^*}\sC_3), \\
+\sC_3\subsetequ_W\sC_2\AND p(\sC_3\subseteq_{W^*}\sC_1).
+\end{align*}
+If such a $\sC_3$ exists, then the system concludes that the unknown is
+\textit{not} most likely extremal.
+
+Similarly, a \textit{least likely extremal unknown} is intended to be an
+unknown inclusion that, if listed as disproven, would not result in any other
+unknown inclusions being decided as disproven. In this case, the relevant
+inference rules are
+\begin{align*}
+d(\sC_1\subseteq_W\sC_2)\AND p(\sC_3\subseteq_{W^*}\sC_2)&\Longrightarrow
+p(\sC_1\subseteq_W\sC_3), \\
+d(\sC_1\subseteq_W\sC_2)\AND p(\sC_1\subseteq_{W^*}\sC_3)&\Longrightarrow
+p(\sC_3\subseteq_W\sC_2).
+\end{align*}
+Complexity Zoology checks whether a given unknown inclusion
+$\sC_1\subsetequ_W\sC_2$ is a least likely extremal by checking whether there
+exists a class $\sC_3$ that is distinct from $\sC_1$ and $\sC_2$ in $W$ and
+satisfies at least one of the following:
+\begin{align*}
+\sC_1\subsetequ_W\sC_3\AND p(\sC_3\subseteq_{W^*}\sC_2), \\
+\sC_3\subsetequ_W\sC_2\AND p(\sC_1\subseteq_{W^*}\sC_3).
+\end{align*}
+Complexity Zoology lists extremal unknowns of both types for each world. It
+also specifies whether each extremal is provable, disprovable, or completely
+unknown (neither provable nor disprovable).
+\begin{proposition}
+Deciding the extremal unknowns is sufficient to decide all the unknowns for a
+world.
+\end{proposition}
+The unknowns that Complexity Zoology has identified as extremal have resulted
+in several interesting questions. They have also been extremely useful in
+filling in large portions of the data very quickly, in particular, a disproof
+for a most likely inclusion or a proof for a least likely inclusion tend to
+settle many other unknowns.
+
+\end{document}

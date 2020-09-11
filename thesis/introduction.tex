@@ -1,0 +1,66 @@
+This document is a description of a computer program called \textit{Complexity
+Zoology}. The program is an \textit{expert system}: it is equipped with a
+database of information about which complexity classes are subsets of other
+complexity classes along with an inference engine that the program uses to
+deduce new conclusions from the existing information. Complexity Zoology then
+outputs a diagram of the relationships between the complexity classes in the
+input file.
+
+Complexity Zoology takes its name from the Complexity Zoo, an online wiki of
+information about complexity classes written and maintained by Scott
+Aaronson \cite{aaronsonZoo}. This version of Complexity Zoology was written from scratch; however,
+some of the design choices---particularly the input syntax and the
+functionality of the output diagram---are based on an earlier version by Greg
+Kuperberg.
+
+The purpose and motivation of Complexity Zoology is to be a partially automated
+survey of complexity theory. The scope of a field as well-developed as
+complexity theory is so large that it can be difficult to quickly determine the
+status of a proposition of the form ``the complexity class $\sC_1$ is contained
+in the complexity class $\sC_2$.'' Complexity Zoology aims to help with this
+problem, at least for the most fundamental complexity classes. More
+specifically, the project aims to:
+\begin{itemize}
+\item summarize a large portion of the known complexity class inclusions and
+  oracle separations;
+\item identify redundant results (i.e., the results that follow logically from
+  other known results);
+\item answer questions about complexity class relations automatically when the
+  answer is a corollary of established results.
+\end{itemize}
+Complexity Zoology has proved itself useful in identifying when a result is a 
+corollary of other results and in falsifying conjectures, but the demonstrated 
+strength of the program has been the identification of stimulating open problems. 
+Among the questions that the project has raised are these:
+\begin{enumerate}
+\item We know that $\msf{NP}\subseteq\msf{IP}\subseteq\msf{MIP}$, and these classes 
+  are believed to be distinct. Is there an oracle relative to which 
+  $\msf{MIP}\not\subseteq\msf{IP}$? Does $\msf{IP}=\NP$ relative to the random 
+  oracle?
+\item Is there an oracle relative to which 
+  $\msf{NISZK}\not\subseteq\co\msf{NIQSZK}$?
+\item Is there an oracle relative to which $\msf{SZK}\not\subseteq S_2\sP$?
+\item Is there an oracle relative to which $\msf{BQP}\not\subseteq \msf{IP}$?
+\end{enumerate}
+
+To make Complexity Zoology an effective tool, it has been necessary to limit its
+scope in a few ways. First, the system's expertise does not lie in reasoning 
+about complexity theory as such. It knows nothing of the standard techniques 
+used to prove results in complexity theory, such as diagonalization. It does not
+even understand what complexity classes are: common classes such as $\sP$, 
+$\NP$, and $\msf{BPP}$ are understood only in terms of their relationships to 
+other complexity classes. Instead, the strength of Complexity Zoology consists 
+of understanding results and open problems in the field. For example, if it is 
+known that $\sC_1\subseteq\sC_2$ is proven and $\sC_1\subseteq\sC_3$ is an open 
+question, then Complexity Zoology can conclude that $\sC_2\subseteq\sC_3$ is 
+unproven -- either it has been disproven, or it is itself open. In essence, the 
+system can be thought of as a diligent student conducting a broad overview of 
+the field, drawing connections between results and attempting to fill in all 
+possible gaps without examining the details.
+
+Second, the project has been deliberately limited to a core collection of
+important complexity classes. The program has the capacity to identify critical
+gaps in its knowledge, and by choosing a conservative list of classes we
+increase the chance that the questions Complexity Zoology asks are of
+theoretical interest. The system's input syntax makes it easy to add and remove
+classes as needed, so adjustments can be made as necessary.

@@ -1,0 +1,45 @@
+\section{Operator Propogation and Inference}
+
+Operators in Complexity Zoology are implemented as partial funtions on the set
+of all distinct complexity classes. Processing of operators occurs after the
+processing of equality statements, so we can assume that we have a quotient map
+$q:\mathcal{N}\rightarrow\cC$, where $\mathcal{N}$ is the set of all names for complexity
+classes, $\cC$ is the set of all distinct complexity classes, and $q(x)=q(y)$ if
+and only if $x$ and $y$ are names for the same class. The system's understanding
+of a complexity class operator $\op$ is a partial function
+$op:\cC\rightharpoonup\cC$; i.e., a function whose domain is a subset of $\cC$
+that takes values in $\cC$. The function that defines $\op$ is necessarily a
+partial one, because for a given complexity class $\sC$, the class $\op\cdot\sC$
+might not be declared in Complexity Zoology's data set.
+
+Initially, we assume that the following is true of our operator partial
+functions:
+\begin{enumerate}
+\item $\id(x)=x$ for all $x\in\cC$.
+\item If a class $x$ has a name of the form $\mathtt{op.y}$, where $y\in\mathcal{N}$ and
+  $\mathtt{op}$ is the name of an operator, then we set $op(q(y))=x$.
+\end{enumerate}
+Then, the partial functions are expanded according to the quadratic relations
+specified in the input file. More specifically, suppose that one such relation
+is
+\[
+\op_1\cdot\op_2=\op_3\cdot\op_4.
+\]
+Then, the operator partial functions can be expanded according to the following
+rules:
+\begin{enumerate}
+\item If $op_1(op_2(x))$ and $y=op_4(x)$ are defined, then define
+  $op_3(y):=op_1(op_2(x))$.
+\item If $op_3(op_4(x))$ and $y=op_2(x)$ are defined, then define
+  $op_1(y):=op_3(op_4(x))$.
+\end{enumerate}
+These rules are applied iteratively until the partial functions can be expanded
+no further. This process uses the same task list-based system that is used in
+the primary inference engine (see Section \ref{todo}).
+
+While the partial functions are expanding, it is possible that Complexity Zoology 
+learns that $op(x)=y$ and $op(x)=z$, where $y$ and $z$ are different names for 
+complexity classes. If this occurs, then Complexity Zoology stops and produces an 
+error, because it is expected that all equalities between complexity classes are 
+learned through explicit statements in the data file and the transitivity of the 
+equality relation.

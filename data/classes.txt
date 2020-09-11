@@ -1,0 +1,476 @@
++EXP : parity-EXP : symmetric, preferred, ignore
++EXP = exppad.+P
++EXP < ER
+
++P : parity-P : symmetric, preferred
++P = +.P [definition]
++P < MP [GKR+95]
++P rsep PP/poly [Scott-in-person]
++P t<? PP/poly [Lance-email-feb-19]
+
+A_0PP : One-sided analog of AWPP : preferred
+A_0PP < PP [immediate]
+
+AH : arithmetic hierarchy : symmetric,preferred
+AH = exppad.AH
+AH < ALL [immediate]
+AH t< AH_plo [immediate]
+
+AH_plo : AH with polynomial-length limited oracles : symmetric
+AH_plo < AH [immediate]
+AH_plo o< P [Greg-in-person]
+AH_plo rsep NEXP/poly,RE [Scott-in-person-mar-24]
+
+ALL : every language : symmetric, preferred
+
+AM : Arthur-Merlin : preferred(2)
+AM < QAM,IP,RG(2) [immediate]
+AM osep PP [Ver92]
+AM < co.Sigma_2P [Bab85]
+AM r< NP [BM88]
+
+AP : alternating polynomial time : preferred(2)
+AP = PSPACE [CKS81]
+
+AWPP : almost wide PP : symmetric
+AWPP < A_0PP [Vya03]
+
+BPP : bounded error probabilistic polynomial-time : symmetric,preferred(2)
+BPP = BP.P [definition]
+BPP < AWPP,BQP,MA,NISZK,QMIP_le,SZK,MIP*
+BPP osep Delta_2P
+BPP r< P [BGR]
+BPP < Sigma_2P [Lau83]
+BPP t<? Delta_2P [Scott-email-feb-19]
+
+BPP_path : alternate name for PostBPP
+BPP_path = PostBPP [definition]
+
+BQP : bounded error quantum polyomial-time : symmetric
+BQP < AWPP [FR98]
+BQP < BQP/mpoly [immediate]
+BQP < NIQSZK,QCMA,QSZK
+BQP osep +P,PH
+BQP osep MA [Wat00]
+BQP osep NP/poly [Scott-email-feb-18]
+BQP osep PH [RT18]
+BQP osep PostBPP [Aar10]
+BQP osep SZK [CCD+03]
+BQP r<? BPP [AAN]
+BQP r<? IP,MIP,P,PH
+BQP t<? PH,NP/poly [Scott-email-feb-19]
+BQP <? MIP [Scott-email-feb-18]
+BQP r<? +P,NP/poly [Scott-in-person-mar-24]
+
+BQP/mpoly : BQP with polynomial-size deterministic Merlin-like advice : symmetric
+BQP/mpoly < BQP/qpoly,QMA/mpoly [immediate]
+
+BQP/poly : BQP with polynomial advice : ignore
+BQP/poly = poly.BQP [definition]
+BQP/poly < BQP/mpoly [immediate]
+
+BQP/qpoly : BQP with quantum polynomial advice : symmetric
+BQP/qpoly < QCMA/qpoly [immediate]
+BQP/qpoly <? BQP/mpoly [AK07]
+BQP/qpoly t<? BQP/mpoly [Scott-email-feb-19]
+
+BQPSPACE : bounded error quantum PSPACE
+BQPSPACE = PSPACE
+
+CH : counting hierarchy : symmetric
+CH = P^.CH [immediate]
+CH < PSPACE
+CH r<? P^Sharp-P [Scott-email-mar-25]
+
+cocap-RE : RE cap co-RE : symmetric
+cocap-RE = cocap.RE [definition]
+cocap-RE = R [immediate]
+
+cocap-RP : RP cap co-RP : symmetric, preferred(3)
+cocap-RP = cocap.RP [definition]
+cocap-RP = ZPP
+
+Delta_2P : P With NP Oracle : symmetric, preferred
+Delta_2P = P^.NP [definition]
+Delta_2P < S_2P [RS98]
+Delta_2P < Sigma_2P [immediate]
+Delta_2P osep PP [Bei94]
+Delta_2P xsep PP [AW09]
+Delta_2P rsep PostBPP [Lance-email-mar-16]
+Delta_2P t<? PP [Scott-email-apr-10]
+
+Delta_3P : P with Sigma_2P oracle : symmetric
+Delta_3P = P^.Sigma_2P [definition]
+Delta_3P < PH [immediate]
+Delta_3P rsep Delta_2P [RST15]
+Delta_3P t<? PostBPP
+
+ER : iterated exponential time : symmetric,ignore
+ER < PR
+ER < R [immediate]
+
+EXP : exponential-time : symmetric,preferred(1)
+EXP = exppad.P
+EXP < +EXP,NEXP [immediate]
+EXP rsep PSPACE/poly,AH_plo [oracle]
+EXP t< EXP_plo [immediate]
+EXP o< ZPP [Hel84]
+EXP sep P [doc-diag]
+EXP o< cocap.UP [Lance-email-mar-15]
+EXP t<? ZPP,cocap.UP [Scott-email-apr-11]
+
+EXP^NP : EXP with NP oracle : symmetric, preferred
+EXP^NP = exppad.Delta_2P [immediate]
+EXP^NP o< BPP [BT00]
+EXP^NP o< SPP [Lance-email-feb-25]
+EXP^NP sep P^.NP [diagonalization]
+EXP^NP rsep NEXP/poly [Scott-in-person-mar-24]
+EXP^NP t<? NEXP/poly [Scott-email-apr-10]
+EXP^NP t<? BPP,SPP [Scott-email-apr-11]
+
+EXP_plo : limited oracle EXP : symmetric, preferred(2)
+EXP_plo < EXP,NEXP_plo [immediate]
+
+IP : interactive proof
+IP < QIP,MIP,MIP*,MIP*_cme,MIP*_fe [immediate]
+IP < PSPACE
+cocap.IP r<? PP/poly,QMA/qpoly,CH,QMA(2) [Scott-email-mar-16]
+cocap.IP osep PH [AGH90]
+
+IPP : unbounded interactive proof
+IPP = PSPACE [Sha92]
+
+MA : Merlin-Arthur
+MA < QCMA,SBP
+MA < S_2P [RS98]
+cocap.MA t<? (NP-cap-coNP)/poly [Lance-email-feb-19]
+
+MAEXP : Exponential MA
+MAEXP = exppad.MA [definition]
+MAEXP o< +P,Delta_2P,P/poly [BFT98]
+cocap.MAEXP sep MA [translation]
+cocap.MAEXP tsep P/poly  [BFT98]
+cocap.MAEXP asep P/poly [AW09]
+MAEXP t<? (NP-cap-coNP)/poly,BQP,Delta_2P,SPP,cocap.NISZK,cocap.SBP [lance-email-apr-12]
+
+MIP : multi-prover interactive proof
+MIP < NEXP_plo,QMIP_ne
+MIP <? co.MAEXP [Scott-email-feb-20]
+MIP r<? co.NEXP [Scott-email-feb-20]
+cocap.MIP <? EXP [Scott-email-feb-20]
+cocap.MIP r<? EXP
+
+MIP* : MIP with quantum provers : ignore
+MIP* < QMIP
+
+MIP*_cme : MIP with quantum provers (commuting measure entanglement) : ignore
+MIP*_cme < QMIP_cme [immediate]
+
+MIP*_fe : MIP with quantum provers (finite entanglement) : ignore
+MIP*_fe < QMIP_fe [immediate]
+
+MP : middle-bit P : symmetric
+MP < P^PP
+
+NBPP : non-deterministic BPP : ignore
+NBPP = N.BPP [definition]
+
+NEXP : non-deterministic EXP : preferred
+NEXP = exppad.NP
+NEXP < R,PEXP [immediate]
+NEXP o< +P [Aar06]
+cocap.NEXP sep NP [translation]
+NEXP t<? SPP
+NEXP t< NEXP_plo [immediate]
+NEXP rsep co.NEXP [password]
+NEXP t<? co.MAEXP [Scott-Lance-email-apr-12]
+
+NEXP_plo : NEXP with polynomial-length limited oracles : preferred
+NEXP_plo < AH_plo,NEXP [immediate]
+NEXP_plo t< MIP [BFL91]
+NEXP_plo a< MIP [AW09]
+NEXP_plo a< QMIP_le [IV12]
+NEXP_plo <? MP [Greg-email-apr-17]
+
+NEXP/poly : NEXP with advice : preferred,symmetric
+NEXP/poly = poly.NEXP [definition]
+NEXP/poly < ALL [immediate]
+NEXP/poly t<? P/poly
+
+NIQSZK : non-interactive QSZK
+NIQSZK < QSZK [immediate]
+cocap.NIQSZK t<? CH,PP/poly,QMA/qpoly [Scott-email-apr-11]
+
+NISZK : non-interactive SZK
+NISZK < NIQSZK,SZK [immediate]
+cocap.NISZK osep PP [BCH+17]
+NISZK t<? co.NIQSZK [Scott-Lance-email-apr-12]
+cocap.NISZK osep BQP/qpoly [Scott-in-person-mar-24]
+cocap.NISZK t<? BQP/qpoly,PP,QMA(2),QRG(1) [Scott-email-apr-11]
+NISZK t<? co.NIQSZK [Scott-Lance-email-apr-12]
+NISZK osep co.NISZK [LZ17]
+NISZK <? co.NIQSZK [Zhang-email-apr-19]
+
+cocap.NISZK t<? (NP-cap-coNP)/poly [Scott-Lance-email-apr-12]
+
+NP : non-deterministic polynomial-time : preferred
+NP < MA [immediate]
+NP rsep UP [Bei89]
+NP rsep BQP [BBBV97]
+cocap.NP osep BQP [BBBV97]
+NP osep BQP/qpoly [Aar04]
+NP xsep BQP,co.MA [AW09]
+NP rsep P [RST15]
+NP osep co.IP
+cocap.NP osep AWPP [Greg-email-feb-20]
+NP osep co.A_0PP [Greg-email-apr-19]
+cocap.NP r<? P [Scott-email-dec-30]
+NP t<? co.NP,P
+NP t<? co.A_0PP [Scott-email-apr-10]
+cocap.NP t<? AWPP [Scott-email-apr-10]
+NP a<? co.AM [Scott-email-mar-26]
+
+
+(NP-cap-coNP)/poly : NP-cap-coNP with advice : symmetric,preferred
+(NP-cap-coNP)/poly = poly.cocap.NP [definition]
+(NP-cap-coNP)/poly r<? P/poly
+
+NP/poly : NP with advice : preferred
+NP/poly = poly.NP [definition]
+NP/poly = poly.AM
+NP/poly < QCMA/qpoly
+NP/poly < QMA/mpoly [immediate]
+NP/poly osep (NP-cap-coNP)/poly [FFKL03]
+
+NPSPACE : non-deterministic PSPACE
+NPSPACE = N.PSPACE [definition]
+NPSPACE = PSPACE
+NPSPACE < NEXP [immediate]
+
+P : polynomial-time : symmetric,preferred
+P < UP,ZPP [immediate]
+
+P/poly : P with advice : symmetric,preferred
+P/poly = poly.P [definition]
+P/poly = poly.BPP
+P/poly < BQP/mpoly
+P/poly sep AH [count]
+
+P^PP : P with PP oracle : symmetric
+P^PP = P^Sharp-P
+P^PP = P^.PP [definition]
+P^PP < CH
+
+P^Sharp-P : P with Sharp-P oracle : symmetric, preferred
+P^Sharp-P r<? MP [Scott-email-mar-25]
+P^Sharp-P t<? MP [Scott-email-apr-10]
+
+PEXP : probabilistic EXP : preferred, symmetric, ignore
+PEXP < R
+
+PH : polynomial-time hierarchy : symmetric
+PH < MP [GKR+95]
+PH < PP/poly
+PH r< SPP [For99]
+PH rsep Delta_3P [RST15]
+PH t<? Delta_3P
+
+PostBPP : BPP with postselection : symmetric, preferred
+PostBPP < Delta_3P,PP
+PostBPP r< Delta_2P [Lance-email-mar-16]
+PostBPP t<? Sigma_2P [Scott-email-feb-19]
+
+PostBQP : BQP with postselection : symmetric
+PostBQP = PP [Aar05]
+
+PP : probabilistic polynomial-time : symmetric, preferred
+PP = P.P [definition]
+PP < MP
+PP rsep +P [Raz87b]
+
+PP/poly : PP with advice : symmetric, preferred
+PP/poly = poly.P.P [definition]
+
+PPSPACE : probabilistic PSPACE : symmetric
+PPSPACE = P.PSPACE [definition]
+PPSPACE = PSPACE
+
+PR : primitive recursive languages : symmetric,ignore
+PR < R [immediate]
+
+PSPACE : polynomial-space : symmetric,preferred
+PSPACE < RG
+PSPACE rsep PH [Cai86]
+PSPACE a< IP [AW09]
+PSPACE t< RG(2) [FK97b]
+PSPACE t<? P
+PSPACE <? CH
+
+PSPACE/poly : PSPACE with advice : symmetric, preferred
+PSPACE/poly = poly.PSPACE [definition]
+
+QAM : quantum AM
+QAM < CH,PP/poly,QIP,QIP(2),QRG(2)
+QAM r< QMA [Scott-in-person-mar-24]
+QAM < QMA/mpoly [Scott-in-person-mar-24]
+cocap.QAM t<? P^Sharp-P [Scott-Lance-email-apr-12]
+
+QCMA : quantum classical MA
+QCMA < QMA,QCMA/qpoly
+QCMA r<? co.A_0PP
+
+QCMA/qpoly : QCMA with polynomial-size quantum advice
+QCMA/qpoly < QMA/mpoly [AD14]
+
+QIP : quantum IP : preferred(2)
+QIP < QRG,QMIP_cme,QMIP_fe,QMIP_le,QMIP_ne [immediate]
+QIP < PSPACE [JJUW09]
+
+QIP(2) : two-message QIP
+QIP(2) < QIP(3) [immediate]
+
+QIP(3) : three-message QIP
+QIP(3) = QIP [MW05]
+
+QMA : quantum MA : preferred
+QMA < QAM,QMA(2),QMA/mpoly [immediate]
+QMA < QRG(1),SBQP
+QMA <? QCMA
+QMA t<? QCMA
+cocap.QMA t<? QCMA/qpoly [Scott-email-apr-10]
+
+QMA(2) : QMA with multiple certificates
+QMA(2) < EXP_plo,QMIP_ne
+QMA(2) <? QMA
+QMA(2) <? QCMA
+QMA(2) t<? P [Scott-email-apr-11]
+cocap.QMA(2) t<? PSPACE/poly,RG(3) [Scott-Lance-email-apr-12]
+
+QMA/mpoly : QMA with polynomial-size Merlin-like advice
+QMA/mpoly < PP/poly [probably]
+QMA/mpoly < QMA/qpoly [immediate]
+
+QMA/qpoly : QMA with polynomial-size quantum advice
+QMA/qpoly < PSPACE/poly
+QMA/qpoly <? QCMA/qpoly
+QMA/qpoly r<? NP/poly [Scott-chat-apr-5]
+cocap.QMA/qpoly r<? P/poly [Scott-chat-apr-5]
+cocap.QMA/qpoly t<? PP/poly [Scott-Lance-email-apr-12]
+
+QMIP : quantum MIP : ignore
+QMIP < ALL
+
+QMIP_cme : quantum MIP (commuting measure entanglement) : ignore
+QMIP_cme < co.RE
+
+QMIP_fe : quantum MIP (finite entanglement) : ignore
+QMIP_fe < RE
+
+QMIP_le : quantum MIP (limited prior entanglement)
+QMIP_le < NEXP_plo
+QMIP_le r<? NP [Scott-chat-apr-4]
+QMIP_le <? IP [Scott-email-apr-5]
+QMIP_le r<? co.NEXP
+cocap.QMIP_le t<? EXP [Scott-email-apr-10]
+
+QMIP_ne : quantum MIP (no entanglement)
+QMIP_ne < NEXP_plo
+QMIP_ne r<? NP [Scott-chat-apr-4]
+QMIP_ne <? IP [Scott-email-apr-5]
+
+QRG : Quantum Refereed Games [Gut05] : symmetric
+QRG = EXP_plo [probably]
+
+QRG(1) : one-turn quantum refereed games : symmetric
+QRG(1) < QRG(2)
+QRG(1) t<? CH,PP/poly [Scott-Lance-email-apr-12]
+
+QRG(2) : two-turn quantum refereed games : symmetric
+QRG(2) < PSPACE,QRG
+
+QSZK : quantum SZK : symmetric
+QSZK < QIP(2),PSPACE
+QSZK r<? P [Scott-email-mar-16]
+QSZK <? cocap.NIQSZK [Zhang-Lovett-email-apr-19]
+
+R : Recursive (Computable) Languages : symmetric, preferred
+R = +.R,BP.R,P.R,N.R,P^.R
+R osep PR
+R sep MAEXP,EXP^NP [diagonalization]
+R sep NEXP/poly [probably]
+
+RE : Recursively Enumerable Languages
+RE = exppad.RE,P.RE
+RE < AH [immediate]
+RE sep co.RE [Tur36]
+
+RG : Refereed Games : symmetric
+RG = EXP_plo
+
+RG(1) : one-turn refereed games : symmetric
+RG(1) < PSPACE,QRG(1),RG(2)
+RG(1) = S_2P [FIKU08]
+
+RG(2) : two-turn refereed games : symmetric
+RG(2) < PSPACE,QRG(2),RG(3)
+
+RG(3) : three-turn refereed games : symmetric
+RG(3) < RG [immediate]
+RG(3) t<? PSPACE/poly [Scott-Lance-email-apr-12]
+RG(3) t<? P [Lance-email-apr-12]
+
+RP : randomized polynomial-time
+RP < BPP,NP
+RP osep co.NP [conspiracy] [probably]
+RP t<? P,co.NP [Scott-email-feb-19]
+RP xsep P [AW09]
+
+S_2P : second level of the symmetric hierarchy : symmetric,preferred
+S_2P < EXP,QRG,Sigma_2P
+S_2P r< Delta_2P [Lance-email-mar-16]
+
+SBP : Small Bounded-Error Probability [BGM02] : asymmetric
+SBP < AM,PostBPP,SBQP
+SBP osep Sigma_2P [BGM02]
+cocap.SBP osep QMA [AKKT19]
+SBP t<? Sigma_2P [Scott-email-apr-10]
+cocap.SBP osep S_2P [combine-oracles]
+cocap.SBP t<? QMA(2),QRG(1) [Scott-Lance-email-apr-12]
+
+SBQP : small bounded-error quantum polynomial-time
+SBQP = A_0PP [Kup09]
+
+Sigma_2EXP : alternate name for EXP^NP
+Sigma_2EXP = EXP^NP [definition]
+
+Sigma_2P : NP With NP Oracle : asymmetric,preferred
+Sigma_2P = N.co.NP,N.Delta_2P
+Sigma_2P < Delta_3P,RG(3) [immediate]
+Sigma_2P rsep co.Sigma_2P [RST15]
+
+SPP : stoic PP : symmetric
+SPP < +P,AWPP [definition]
+SPP rsep PH [For99]
+SPP t<? PH [Lance-email-feb-19]
+SPP t<? QRG(1) [Scott-Lance-email-apr-12]
+
+SZK : statistical zero knowledge : symmetric,preferred
+SZK < AM,QSZK
+SZK osep BQP [Aar02]
+SZK <? S_2P [Thaler-email-apr-19]
+
+UP : unambiguous polynomial time
+UP < SPP,NP [immediate]
+cocap.UP osep BQP [BBBV97] # redundant with cocap.UP osep BQP/qpoly
+cocap.UP osep BQP/qpoly [Scott-email-feb-24]
+cocap.UP osep P/poly [PW]
+UP rsep co.QMIP_le,co.QMIP_ne,co.QMA/qpoly [Scott-email-feb-24]
+UP t<? P
+UP t<? co.QIP(2),co.QMA(2),co.QMA/qpoly [Scott-email-apr-10]
+cocap.UP t<? BQP/qpoly [Scott-email-apr-10]
+cocap.UP osep QSZK [combine-oracles]
+cocap.UP t<? QSZK [Scott-Lance-email-apr-12]
+
+ZPP : zero-error probabilistic polynomial time : symmetric, preferred(2)
+ZPP osep +P [BBF98]
+ZPP t<? +P [Lance-email-feb-19]

@@ -1,0 +1,179 @@
+\documentclass[12pt]{amsart}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{lmodern}
+\usepackage{amsmath,amsthm,amssymb,mathrsfs}
+
+\title{The Logic of Complexity Zoology}
+\date{}
+\author{Robert Sanders}
+
+\newtheorem*{theorem}{Theorem}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{proposition}{Proposition}
+\newtheorem*{corollary}{Corollary}
+
+\theoremstyle{definition}
+\newtheorem*{definition}{Definition}
+
+\theoremstyle{remark}
+\newtheorem*{claim}{Claim}
+\newtheorem*{remark}{Remark}
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\start}{\mathtt{start}}
+\newcommand{\halt}{\mathtt{halt}}
+\newcommand{\Left}{\mathsf{L}}
+\newcommand{\Stay}{\mathsf{S}}
+\newcommand{\Right}{\mathsf{R}}
+\newcommand{\A}{\mathsf{A}}
+\newcommand{\sC}{\mathsf{C}}
+\newcommand{\co}{\mathsf{co}}
+\newcommand{\cocap}{\mathsf{cocap}}
+\newcommand{\NP}{\mathsf{NP}}
+\newcommand{\sP}{\mathsf{P}}
+\newcommand{\poly}{\mathsf{poly}}
+\newcommand{\msf}[1]{\mathsf{#1}}
+\newcommand{\id}{\msf{id}}
+\newcommand{\AND}{\mathbin{\&}}
+\newcommand{\OR}{\mathbin{\text{or}}}
+\newcommand{\Oh}{\mathcal{O}}
+\newcommand{\inner}[1]{\left\langle#1\right\rangle}
+\newcommand{\op}{\msf{op}}
+\newcommand{\sN}{\msf{N}}
+\newcommand{\BP}{\msf{BP}}
+\newcommand{\exppad}{\msf{exppad}}
+\newcommand{\FP}{\msf{FP}}
+\newcommand{\CZ}{\msf{CZ}}
+
+\begin{document}
+\maketitle
+
+Propositions in Complexity Zoology are inclusions of the form
+$\sC_1\subseteq\sC_2$, where $\sC_1$ and $\sC_2$ are complexity classes. Each
+such inclusion is true or false in a particular \textit{world} in the sense of
+modal logic: for a world $W$, we write $\sC_1\subseteq_W\sC_2$ to indicate that
+the inclusion is true in $W$. Each world $W$ has a transitive dual $W^*$ with
+respect to which the following inference rules are true:
+\begin{align*}
+\sC_1\subseteq_W\sC_2\AND\sC_2\subseteq_{W^*}\sC_3
+&\Longrightarrow\sC_1\subseteq_W\sC_3, \\
+\sC_1\subseteq_{W^*}\sC_2\AND\sC_2\subseteq_W\sC_3
+&\Longrightarrow\sC_1\subseteq_W\sC_3.
+\end{align*}
+Additionally, there is a partial ordering $\rightarrow$ on the set of worlds
+such that if $W_1\rightarrow W_2$, then the following inference rule is true:
+\[
+\sC_1\subseteq_{W_1}\sC_2\Longrightarrow\sC_1\subseteq_{W_2}\sC_2.
+\]
+In the current version of Complexity Zoology, there are six worlds:
+\begin{align*}
+E &\longleftrightarrow\text{every oracle}, \\
+A &\longleftrightarrow\text{every algebraic oracle}, \\
+X &\longleftrightarrow\text{some algebraic oracle}, \\
+R &\longleftrightarrow\text{the random oracle}, \\
+T &\longleftrightarrow\text{the trivial oracle}, \\
+O &\longleftrightarrow\text{some oracle}.
+\end{align*}
+For example, we write $\sC_1\subseteq_X\sC_2$ if $\sC_1^A\subseteq\sC_2^A$ for
+some algebraic oracle $A$. The worlds $E$, $A$, $R$, and $T$ are all
+\textit{transitive} worlds in the sense that they are their own transitive
+duals: $E^*=E$, $A^*=A$, $R^*=R$, and $T^*=T$. On the other hand $X^*=A$ and
+$O^*=E$.
+
+The remaining inference rules pertain to complexity class operators. For each
+operator $\op$ and world $W$,
+\[
+\sC_1\subseteq_W\sC_2\Longrightarrow\op\cdot\sC_1\subseteq_W\op\cdot\sC_2
+\]
+is an inference rule. There is also a special pair of inference rules involving
+the $\co$ and $\cocap$ operators: for a complexity class $\sC$, $\cocap\cdot\sC$
+is the \textit{meet} of $\sC$ and $\co\cdot\sC$. For each world $W$, we have
+\begin{align*}
+\sC_1\subseteq_W\sC_2\AND\sC_1\subseteq_{W^*}\sC_2
+&\Longleftrightarrow\sC_1\subseteq_W\cocap\cdot\sC_2, \\
+\sC_1\subseteq_{W^*}\sC_2\AND\sC_1\subseteq_W\sC_2
+&\Longleftrightarrow\sC_1\subseteq_W\cocap\cdot\sC_2.
+\end{align*}
+
+This logical framework -- the propositions that specify inclusions, the worlds,
+and the inference rules -- represents the basic knowledge and reasoning of which
+Complexity Zoology is capable. However, since the purpose of Complexity Zoology
+is to partially automate the process of surveying complexity theory, it requires
+a formal system that can describe not merely whether a statement is true or
+false, but whether it is regarded as proven, unproven, or open.
+
+Each of the statements that we have described so far, along with the inference
+rules, can be formally expressed in the language of set theory. We assume that
+there is a set $P$ of inclusion statements and negations thereof that are
+regarded as \textit{proven}. We assume that $P$ is closed under the logical
+system of Complexity Zoology. In other words, if $CZ$ is the set of formalized
+inference rules that Complexity Zoology uses, and if $CZ\cup P\vdash\varphi$
+($\varphi$ is a logical consequence of $CZ\cup P$), where $\varphi$ is a
+formalized inclusion of complexity classes, then $\varphi\in P$. Thus, we regard
+$CZ$ as a system that is simple enough so that any of its implications from
+proven facts should also be regarded as proven.
+
+A formal inclusion $\varphi$ is regarded as \textit{proven} if it lies in $P$,
+\textit{disproven} if its negation $\neg\varphi$ lies in $P$, and \textit{open}
+if it is neither proven nor disproven. A statement is also sometimes called
+\textit{provable} if it is not disproven and \textit{disprovable} if it is not
+proven. We use the following notation:
+\begin{align*}
+P(\varphi) &\longleftrightarrow\varphi\text{ is proven}, \\
+D(\varphi) &\longleftrightarrow\varphi\text{ is disproven}, \\
+p(\varphi) &\longleftrightarrow\varphi\text{ is provable}, \\
+d(\varphi) &\longleftrightarrow\varphi\text{ is disprovable}, \\
+O(\varphi) &\longleftrightarrow\varphi\text{ is open}.
+\end{align*}
+The data input is a partial description of the set $P$ in the form of a list of
+statements that are proven, disproven, or open. Complexity Zoology then attempts
+to deduce as much as it can about which inclusions are proven, disproven, or
+open. Complexity Zoology has no understanding of complexity theory as such; its
+strength is in organizing the state of knowledge in the field -- that is,
+Complexity Zoology is an expert at surveying complexity theory, not in
+complexity theory itself.
+
+Internally, Complexity Zoology represents propositions as a quadruple
+\[
+(\text{status}, \text{world}, \sC_1, \sC_2),
+\]
+where the status is either proven, disproven, provable, or disprovable; the
+quadruple is interpreted as ``the inclusion $\sC_1\subseteq\sC_2$ has the
+specified status in the specified world.'' Then, from the base inference rules
+of the system $CZ$, we generate the full set of inference rules as follows:
+\begin{enumerate}
+\item For any formalized inclusion $\varphi$, $P(\varphi)\Longrightarrow
+  p(\varphi)$ and $D(\varphi)\Longrightarrow d(\varphi)$.
+\item If $\varphi_1\AND\cdots\AND\varphi_n\Longrightarrow\psi$ is an
+  inference rule, then
+  \[
+  P(\varphi_1)\AND\cdots\AND P(\varphi_n)\Longrightarrow P(\psi).
+  \]
+\item The partial involutions $P\mapsto D\mapsto P$ and
+  $P\mapsto d\mapsto P,D\mapsto p\mapsto D$ are implication-reversing. For
+  example, if $P(\varphi)\Longrightarrow P(\psi)$, then
+  $D(\psi)\Longrightarrow D(\varphi)$, and if
+  \[
+  P(\varphi_1)\AND\cdots\AND P(\varphi_n)\Longrightarrow P(\psi),
+  \]
+  then
+  \[
+  P(\varphi_1)\AND\cdots\AND d(\psi)\Longrightarrow d(\varphi_n).
+  \]
+\end{enumerate}
+For instance, if $\sC_1^A\subseteq\sC_2^A$ for every oracle $A$ and
+$\sC_1^A\not\subseteq\sC_3^A$ for some oracle $A$, then
+$\sC_2^A\not\subseteq\sC_3^A$ for some oracle $A$. In our notation,
+\[
+P(\sC_1\subseteq_E\sC_2)\AND D(\sC_1\subseteq_E\sC_3)\Longrightarrow
+D(\sC_2\subseteq_E\sC_3).
+\]  
+
+\end{document}

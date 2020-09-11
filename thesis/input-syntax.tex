@@ -1,0 +1,122 @@
+\section{Input Files and Syntax}
+
+Complexity Zoology reads its initial data from two plain text files: one
+consisting of complexity classes and their inclusions and oracle separations
+(\texttt{classes.txt}), and another consisting of complexity class operators
+and their relations (\texttt{operators.txt}). Both classes and operators must be
+declared in their respective files before they can be used. If an undeclared
+class or operator is used in some inclusion, separation, or relation, Complexity
+Zoology will halt and print an error. A declaration consists of a line of text
+having the following form:
+\[
+\texttt{NAME : description : keyword1, keyword2, keyword3}
+\]
+Here, \texttt{NAME} is the name by which the class or operator is referenced
+both internally and in the output. Any alphanumeric characters, as well as
+hyphens, can be used for names. The \texttt{description} is a short phrase
+used to indicate the nature of the class or operator to a human reader; the
+program itself does not use the description. Like names, descriptions should
+consist of alphanumeric characters and hyphens, although whitespace is also
+allowed. Finally, keywords can optionally be included in a declaration.
+Keywords follow the same naming rules as class and operator names, and multiple
+keywords must be separated by commas, which can be surrounded by any amount of
+whitespace. If there are no keywords, the second colon must be omitted.
+
+Keywords are used to provide additional information about the class or
+operator being declared. Most often, a keyword is shorthand for commonly
+arising relations. For example, the class keyword \texttt{symmetric} is
+equivalent to including the line \texttt{C = co.C}, where \texttt{C} is the
+name of the declared class. The following keywords are defined for complexity
+classes:
+\begin{itemize}
+\item \texttt{hidden} -- The class is suppressed in the final output, but it is
+  still included for the purposes of calculation and deduction.
+\item \texttt{ignore} -- The class is not included in calculation or output;
+  any relations involving the class are effectively commented out.
+\item \texttt{preferred} -- If this class is equal to another, this class should
+  be the preferred name.
+\item \texttt{preferred[\#]} -- Here, the symbol \texttt{\#} should be replaced
+  with a positive integer and indicates the \textit{preference rank} of the
+  declared class. When Complexity Zoology chooses a name for equal complexity
+  classes, it favors those with the smaller preference rank. The
+  \texttt{preferred} keyword is equivalent to \texttt{preferred[1]}.
+\item \texttt{symmetric} -- The class is \textit{symmetric} in the sense of
+  being equivalent to its complement: for a complexity class $\sC$, this means
+  that $\sC=\co\cdot\sC$ relative to every oracle.
+\end{itemize}
+For operators, there is currently only one keyword:
+\begin{itemize}
+\item \texttt{idempotent} -- Applying the operator to a class a second time has
+  the same effect as applying it once. This keyword is equivalent to the
+  relation \texttt{op.op = op}.
+\end{itemize}
+
+Aside from class and operator declarations, the input files also include
+\textit{relations} describing what is (initially) known about the classes and
+operators. For complexity classes, relations are either statements of equality,
+statements of inclusion, or statements of oracle separation. Suppose that
+$\sC_1$ and $\sC_2$ are classes declared with the names \texttt{C1} and
+\texttt{C2}, respectively. Then we have these valid relations:
+\begin{itemize}
+\item \texttt{C1 = C2} $\leftrightarrow$ $\sC_1^A=\sC_2^A$ for every oracle 
+  $A$.
+\item \texttt{C1 < C2} $\leftrightarrow$ $\sC_1^A\subseteq\sC_2^A$ for every
+  oracle $A$.
+\item \texttt{C1 r< C2} $\leftrightarrow$ $\sC_1^A\subseteq\sC_2^A$ with 
+  probability 1 for a random oracle $A$.
+\item \texttt{C1 a< C2} $\leftrightarrow$ $\sC_1^A\subseteq\sC_2^A$ for 
+  every algebraic oracle $A$.
+\item \texttt{C1 t< C2} $\leftrightarrow$ $\sC_1\subseteq\sC_2$ relative to 
+  the trivial oracle.
+\item \texttt{C1 x< C2} $\leftrightarrow$ $\sC_1^A\subseteq\sC_2^A$ for some
+  algebraic oracle $A$.
+\item \texttt{C1 o< C2} $\leftrightarrow$ $\sC_1^A\subseteq\sC_2^A$ for some
+  oracle $A$.
+\item \texttt{C1 osep C2} $\leftrightarrow$ $\sC_1^A\not\subseteq\sC_2^A$ 
+  for some oracle $A$.
+\item \texttt{C1 rsep C2} $\leftrightarrow$ $\sC_1^A\not\subseteq\sC_2^A$ 
+  with probability 1 for a random oracle $A$.
+\item \texttt{C1 xsep C2} $\leftrightarrow$ $\sC_1^A\not\subseteq\sC_2^A$ 
+  for some algebraic oracle $A$.
+\item \texttt{C1 tsep C2} $\leftrightarrow$ $\sC_1\not\subseteq\sC_2$ 
+  relative to the trivial oracle.
+\item \texttt{C1 asep C2} $\leftrightarrow$ $\sC_1^A\not\subseteq\sC_2^A$ 
+  for every algebraic oracle $A$.
+\item \texttt{C1 sep C2} $\leftrightarrow$ $\sC_1^A\not\subseteq\sC_2^A$ for
+  every oracle $A$.
+\end{itemize}
+For operators $\op_1$, $\op_2$, $\op_3$ and $\op_4$ with declared names
+\texttt{op1}, \texttt{op1}$, \texttt{op1}$, and \texttt{op1},
+respectively, we have these relations:
+\begin{itemize}
+\item \texttt{op1.op2 = op3.op4} $\leftrightarrow$ 
+  $\op_1\cdot\op_2=\op_3\cdot\op_4$. Omitting
+  one of the operators on either side of the equation is allowed; e.g.,
+  \texttt{op1.op2 = op3}, which is interpreted as $\op_1\cdot\op_2=\op_3$.
+  Complexity Zoology implements this by replacing the missing operator with the
+  identity operator $\id$.
+\item \texttt{op1 z= op2} $\leftrightarrow$ $\op_1$ and $\op_2$ commute. 
+  This is equivalent to including the line \texttt{op1.op2 = op2.op1}.
+\item \texttt{op1 p= op2} $\leftrightarrow$ $\op_2$ absorbs $\op_1$ on the 
+  left and right. This is equivalent to including the lines \texttt{op1.op2 = 
+  op2} and \texttt{op2.op1 = op2}.
+\item \texttt{op1 < op2} $\leftrightarrow$ $\op_1\leq\op_2$; i.e.,
+  $\op_1\cdot\sC\subseteq\op_2\cdot\sC$ for every complexity class $\sC$.
+\end{itemize}
+For all relations, with the exception of the quadratic operator relations of the
+form \texttt{op1.op2 = op3.op4}, it is possible to include multiple classes or
+operators separated by commas:
+\[
+\texttt{C1,C2 = C3,C4,C5}
+\]
+This example is equivalent to including six lines: \texttt{C1 = C3},
+\texttt{C1 = C4}, \texttt{C1 = C5}, \texttt{C2 = C3}, \texttt{C2 = C4}, and
+\texttt{C2 = C5}.
+
+Lastly, there are two ways to include text that Complexity Zoology will ignore:
+\textit{comments} and \textit{citations}. Comments consist of the character
+\texttt{\#} followed by all text up to the end of the current line. Citations
+consist of text surrounded by square brackets. In the current version of the
+input files, citations are used both to refer to this documentation's
+bibliography and to annotate common arguments.
+

@@ -1,0 +1,433 @@
+\section{Models of Computation}
+
+\subsection{Complexity Classes and Decision Problems}
+
+A computational problem is a question about a particular object of input, such
+as ``Is the input $x$ a prime number?'' or ``What is the greatest common divisor
+of the integers $x$ and $y$?'' It is assumed that the input to the question, as
+well as the answer, can be encoded as a finite string of zeros and ones---i.e.,
+as an element of $\Sigma^*$. (We denote by $\Sigma$ the set $\{0,1\}$ and by
+$S^*$ the set of all finite strings whose characters consist of elements of the
+set $S$.) Thus, a computational problem can be modeled as a function
+$f:\Sigma^*\ra\Sigma^*$.
+
+In general, a complexity class is a set of computational problems
+$f:\Sigma^*\ra\Sigma^*$, usually interpreted as the set of all problems that are
+tractable within a specified computational model. For this project, we are
+interested in \textit{decision problems}, which are computational problems whose
+answer is either yes or no (encoded as 1 and 0, respectively). Within the
+functional framework, decision problems are formalized as functions
+$d:\Sigma^*\ra\Sigma$. Such functions can be identified with the set
+$\{x\in\Sigma^*:d(x)=1\}$. For this reason, we will identify decision problems
+with \textit{languages}, or subsets $\cL$ of $\Sigma^*$. We will also conflate 
+a language with its corresponding decision function when it is convenient to do
+so.
+
+\subsection{Notation and Conventions}
+
+At this point, it will be useful to identify some conventions. The set $\N$ of
+natural numbers is assumed to contain zero. We use big-O notation to describe
+the size of functions: for a pair of functions $f:\N\ra\N$ and $g:\N\ra\N$, we
+write $f=\Oh(g)$ (or sometimes $f(n)=\Oh(g(n))$) if there exists a real constant
+$C$ such that $f(n)\leq Cg(n)$ for every $n\in\N$. We also write $f(n)=\Oh(n^*)$
+to indicate that that there exists $k\in\N$ such that $f(n)=\Oh(n^k)$. Exponents
+are used to write strings having the same character repeated multiple times, so
+that $0^4=0000$, for example.
+
+\subsection{Classical Computation} \label{classical-models}
+
+The most commonly used model of computation in classical complexity theory is
+the \textit{Turing machine}. A (deterministic) \textit{Turing machine} with
+$k\geq 2$ tapes, abbreviated TM, is a triple $M=(\Gamma, Q, \delta)$ containing 
+the following data:
+\begin{enumerate}[(i)]
+\item A set $\Gamma$ of \textit{symbols}, called the \textit{alphabet}, which
+  must include the blank symbol $\square$, the start symbol $\triangleright$,
+  and the numerals 0 and 1;
+\item A set $Q$ of \textit{states} of $M$, one of which is the starting state
+  $q_\start$, and another of which is the halting state $q_\halt$;
+\item A \textit{transition function} $\delta:Q\times\Gamma^k\ra
+  Q\times\Gamma^{k-1}\times\{\Left,\Stay,\Right\}^k$ satisfying
+  \[
+  \delta(q_\halt,s_1,\ldots,s_k)= (q_\halt,s_2,\ldots,s_k,\Stay,\ldots,\Stay)
+  \]
+  for every $s_i\in\Gamma$.
+\end{enumerate}
+
+A \textit{configuration} for a Turing machine $M=(\Gamma, Q, \delta)$ with $k$
+tapes is a tuple $c=(q,i_1,\ldots,i_k,t)$, where $q\in Q$, $i_1,\ldots,i_k$ are
+natural numbers, and $t:\{1,\ldots,k\}\times\N\ra\Gamma$ is a \textit{tape
+function} such that $t(j,\ell)=\square$ for all sufficiently large $\ell$.
+
+An \textit{initial configuration} is a configuration $c=(q_\start,0,\ldots,0,t)$
+satisfying the following conditions:
+\begin{enumerate}[(i)]
+\item $t(j,0)=\triangleright$ for $j\in\{1,\ldots,k\}$;
+\item $t(j,\ell)=\square$ for $j>1$ and $\ell\in\N$;
+\item There exists a natural number $N\geq 1$ such that $t(1,\ell)\neq\square$
+  for all $\ell<N$ and $t(1,\ell)=\square$ for all $\ell\geq N$.
+\end{enumerate}
+The string $t(1,1)\ldots t(1,N-1)$ is the \textit{input}. If $N=1$, the input is
+considered to be the empty string $\epsilon$.
+
+A \textit{halted configuration} is a configuration with $q=q_\halt$. If there
+exists a natural number $N$ such that $t(k,\ell)\neq\square$ for $\ell\leq N$
+and $t(k,\ell)=\square$ for $\ell>N$, then the string $t(k,0)\ldots t(k,N)$ is
+the \textit{output}; otherwise, $\epsilon$ is the output.
+
+Let $c=(q,i_1,\ldots,i_k,t)$ and
+$c^\prime=(q^\prime,i_1^\prime,\ldots,i_k^\prime,t^\prime)$ be configurations
+for $M=(\Gamma, Q,\delta)$. The configuration $c^\prime$ \textit{succeeds} $c$
+($c\ra c^\prime$) if
+\[
+\delta(q,t(1,i_1),\ldots,t(k,i_k))=
+(q^\prime,t^\prime(2,i_2),\ldots,t^\prime(k,i_k),
+\mathsf{X}_1,\ldots,\mathsf{X}_k),
+\]
+where $t(j,\ell)=t^\prime(j,\ell)$ if $j=1$ or $\ell\not\in\{i_2,\ldots,i_k\}$,
+and
+\begin{align*}
+i_j^\prime &=\max\{0,i_j-1\}\text{ if }\mathsf{X}_j=\Left, \\
+i_j^\prime &=i_j\text{ if }\mathsf{X}_j=\Stay, \\
+i_j^\prime &=i_j+1\text{ if }\mathsf{X}_j=\Right.
+\end{align*}
+A \textit{computation} for a machine $M$ is a sequence $c_0\ra c_1\ra\ldots\ra 
+c_n$, where $c_0$ is an initial configuration and $c_n$ is a halted 
+configuration. The input of $c_0$ and the output of $c_n$ are the \textit{input}
+and \textit{output} of the computation, respectively. The machine $M$ 
+\textit{computes} the function $f:\Sigma^*\ra\Sigma$ if the computation for $M$ 
+with input $x$ has output $f(x)$. We also write $M(x)$ to indicate the output of
+$M$ with input $x$. If $M(x)=1$, the machine \textit{accepts} the input; if
+$M(x)=0$, the machine \textit{rejects} the input.
+
+The \textit{computation time} $T_M(x)$ of the machine $M$ with input $x$ is the 
+length of the computation of $M$ with input $x$. For a function $f:\N\ra\N$, $M$
+\textit{runs in $f(n)$-time} if there exists a constant $C$ such that 
+$T_M(x)\leq C\cdot f(|x|)$ for every $x\in\Sigma^*$. $M$ runs in 
+\textit{polynomial time} if it runs in $f(n)$-time for some $f(n)=\Oh(n^*)$. The 
+function class of all $f:\Sigma^*\ra\Sigma^*$ that are polynomial-time 
+computable is given by $\msf{FP}$.
+
+There are several variations of the Turing machine concept. In a 
+\textit{non-deterministic} Turing machine, there are two transition functions, 
+and a computation is a tree of configurations rather than a sequence. A 
+probabilistic Turing machine also has two transition functions, but at each 
+stage of the computation the machine tosses a coin to decide which transition 
+function it uses. These variations are often useful, but it is usually enough to
+use a standard, deterministic Turing machine along with an additional string 
+$y\in\Sigma^*$ placed alongside the input. $y$ can then represent either a 
+sequence of random bits/coin tosses or a particular branch of a 
+non-deterministic computation.
+
+All Turing machines are assumed to have an alphabet consisting entirely of
+$\Sigma=\{0,1\}$. Any additional symbols are assumed to be encoded in some
+way. For example, if the input is a tuple, such as $\inner{x,y}$ for
+$x,y\in\Sigma^*$, then we could encode the symbol 0 as 00, 1 as 01, and the
+separating comma as 10. We will also occasionally want to consider a natural
+number as being the input or output of a computational process. We therefore fix
+a bijection $e:\N\ra\Sigma^*$ allowing us to identify natural numbers with the
+strings in $\Sigma^*$. For definiteness, we can take $e(n)$ to be the result of
+removing the initial 1 from the binary representation of $n+1$.
+
+Another classical model of computation is the \textit{Boolean circuit}. A
+Boolean circuit is an acyclic graph with one or more sources (vertices with no
+incoming edges) and exactly one sink (a vertex with no outgoing edges). Each
+vertex that is not a source is labeled with $\wedge$, $\vee$, or
+$\neg$ and represent the \textit{gates} of the circuit. Vertices labeled with 
+$\neg$ must have a fanin---i.e., number of
+incoming edges---of 1. Each source is labeled with a unique element of
+$\{1,\ldots,n\}$, where $n$ is the number of sources.
+
+For a Boolean circuit $C$, a \textit{value function} $v:V\ra\Sigma$ is a
+function on the set $V$ of vertices of $C$ satisfying the following properties:
+\begin{itemize}
+\item If the vertex $x$ is labeled with $\wedge$, then $v(x)=1$ if and only if
+  $v(y)=1$ for every predecessor $y$ of $x$.
+\item If the vertex $x$ is labeled with $\vee$, then $v(x)=1$ if and only if
+  $v(y)=1$ for some predecessor $y$ of $x$.
+\item If the vertex $x$ is labeled with $\neg$, then $v(x)=1$ if and only if
+  $v(y)=0$, where $y$ is the unique predecessor of $x$.
+\end{itemize}
+For each assignment of 0 or 1 to a source vertex, there is a unique value
+function that matches the assignment. (Since $C$ is finite and acyclic, if this
+were not the case there would be a minimal vertex for which a unique value of
+$v$ is not determined, but such a vertex is either a source or determined by its
+predecessors by minimality.)
+
+Thus, given a Boolean circuit $C$, we can define a function $\bar
+C:\Sigma^n\ra\Sigma$ according to the following procedure for $x\in\Sigma^n$,
+let $v:V\ra\Sigma$ be the value function that assigns the $k$th bit of $x$ to
+the source with the label $k$; then, set $\bar C(x)=v(y)$, where $y$ is the sink
+of $C$. In this way, the circuit $C$ can be thought of as computing the function
+$\bar C$.
+
+Unlike Turing machines, Boolean circuits require the input to be of fixed 
+length. A natural solution to this problem is to consider a family $\{C_n:n\geq 
+1\}$ of circuits, which is then considered to compute  the function $\bar 
+C:\Sigma^*\ra\Sigma$ defined by $\bar C(x)=\bar C_n(x)$ for all $x\in\Sigma^*$, 
+where $n$ is the length of $x$. However, this model is actually more powerful 
+than a Turing machine, because it can compute any unary language (languages 
+consisting entirely of strings of 1s). When the size of $C_n$ is limited to a 
+polynomial of $n$, the resulting complexity class is the uncountable class 
+$\sP/\poly$ rather than the usual polynomial-time computable class $\sP$. 
+Intuitively, since there is a separate circuit for each possible input length 
+$n$, it is possible to encode an amount of advice into each circuit that is a 
+polynomial of $n$ in length.
+
+\subsection{Quantum Computation}\label{quantum-model}
+
+It remains to define a computational model for quantum computation. Rather than
+using classical bits, which must exist in a state of 0 or 1, quantum computation
+uses quantum bits, or \textit{qubits}. A qubit is a normalized element
+$a\ket{0}+b\ket{1}$ of $\C^2$, where $a,b\in\C$ and $\ket{0}$ and $\ket{1}$ are
+orthonormal with respect to the usual inner product on $\C^2$ (so that
+$|a|^2+|b|^2=1$). There are several possible models by which the qubits can be
+employed for computation; for definiteness, the quantum circuit will be our
+standard choice. Just as the 0-1 values are changed as they move through a
+classical circuit, the qubits of a quantum circuit are transformed unitarily as
+they pass through the vertices of a circuit.
+
+\begin{definition}
+A \textit{quantum circuit} is a finite acyclic graph satisfying the following
+properties:
+\begin{itemize}
+\item There are $n$ sources, each of which is labeled with an element of the set
+  $\{1,\ldots,n\}$.
+\item Each source has a fanout of 1, and each sink has a fanin of 1.
+\item If a vertex is neither a sink nor a source, then its fanin must equal its
+  fanout, which can be at most 3.
+\item Each vertex $x$ that is neither a sink nor a source is labeled with a
+  $2^{k_x}$-dimensional unitary transformation, where $k_x$ is the fanin of
+  $x$. The vertex is also labeled with a bijective function $f_x:E_i^x\ra
+  E_o^x$, where $E_i^x$ is the set of incoming edges for $x$ and $E_o^x$ is the
+  set of outgoing edges for $x$.
+\end{itemize}
+\end{definition}
+Note that, from each source, there is a canonical path to follow:
+\begin{itemize}
+\item From the source, follow the only edge forward.
+\item When arriving at the vertex $x$ from the edge $e$, follow the edge
+  $f_x(e)$ forward.
+\item The path ends when a sink is reached.
+\end{itemize}
+Each such path terminates at a different sink, and every sink is the terminal
+vertex of some such path. Thus, there is a natural bijection between sources and
+sinks, and we can assign the corresponding element of $\{1,\ldots,n\}$  to
+each of the sinks.
+
+As with classical circuits, the input to a quantum circuit is a string of
+bits---in this case, a direct product of qubits of the form $\ket{j}$,
+$j=0,1$ (we denote
+$\ket{j_1}\otimes\ldots\otimes\ket{j_n}=\ket{j_1}\ldots\ket{j_n}=\ket{j_1\ldots 
+j_n}$. The qubits then travel along the circuit according to the canonical
+paths, being transformed by the unitary maps at each vertex. Once each qubit
+reaches its sink, the initial bit string will have been transformed into a new
+state $\sum\alpha_{j_1j_2\ldots j_n}\ket{j_1j_2\ldots j_n}$. For a circuit $C$
+and initial state $\varphi$, we denote the final state by $\bar
+C(\ket{\varphi})$.
+
+To be explicit, this is the procedure by which the initial state $\ket{\varphi}$
+is transformed into $\bar C(\ket{\varphi})$:
+\begin{enumerate}
+\item If necessary, add vertices so that all canonical paths have the same
+  length and each vertex occurs at the same length along any canonical path
+  passing through it. We do this by introducing new vertices with fanin 1 and
+  labeling new non-terminal vertices with the identity transformation. Denote
+  the new length of each canonical path by $N$.
+\item For $1\leq k\leq N$, define a unitary transformation $U_k$:
+  \begin{enumerate}
+  \item Reorder the set $\{1,\ldots,n\}$ so that canonical paths passing
+    through the same $k$th vertex are assigned adjacent numbers. Denote the
+    resulting permutation of qubits by $W$.
+  \item Number the transformations labeling each $k$th vertex so that they
+    appear in the same order indicated by the permutation $W$:
+    $V_1,V_2,\ldots,V_{r_k}$.
+  \item Set $U_k=W^*(V_1\otimes V_2\otimes\ldots\otimes V_{r_k})W$.
+  \end{enumerate}
+\item Set $\bar C(\ket{\varphi})=U_N\ldots U_2U_1\ket{\varphi}$.
+\end{enumerate}
+Finally, we obtain the result of the computation from $\bar C(\ket{\varphi})$ by
+\textit{measuring} it. If $\bar C(\ket{\varphi})=\Sigma_x\alpha_x\ket{x}$, where
+the sum is over all elements of $\Sigma^n$, then the result of the measurements
+is $\ket{x}$ with probability $|\alpha_x|^2$.
+
+To make meaningful discussion of quantum complexity theory possible, it is 
+necessary to restrict the permitted operations to a finite set of 
+\textit{universal operations}. This means that any unitary matrix (of dimension 
+$\geq 3$) can be approximated to arbitrary precision by the finite collection of
+operators, in the same way that $\wedge$, $\vee$, and $\neg$ gates suffice for 
+the purposes of classical computation. Moreover, this approximation can be 
+accomplished efficiently:
+\begin{theorem}[Solovay-Kitaev, \cite{kitaev1997quantum}]
+There exists a finite set $F$ of unitary operators, each having dimension $\leq 
+3$, such that $F$ is an \textit{efficient universal gate set}, in the following 
+sense:
+
+Let $d\geq 3$ be an integer, and let $\epsilon>0$. There exists a positive 
+integer $\ell\leq 100(d\log 1/\epsilon)^3$ such that for every $d\times d$ 
+unitary matrix $U=(U_{jk})$, there exist unitary matrices $U_1,\ldots,U_\ell$ 
+such that for each $j,k\in\{1,\ldots,d\}$,
+\[
+|U_{jk}-(U_\ell\ldots U_1)_{jk}|<\epsilon,
+\]
+where each $U_j$ corresponds to applying an operation from $F$ to at most 3 of 
+$d$ qubits.
+\end{theorem}
+One possible choice of universal operators is the Hadamard gate
+$H=\frac{1}{\sqrt{2}}\left(\begin{smallmatrix}
+1 & 1 \\ 1 & -1\end{smallmatrix}\right)$,
+the Toffoli gate 
+$I_6\oplus\left(\begin{smallmatrix}
+0 & 1 \\ 1 & 0\end{smallmatrix}\right)$
+(where $I_6$ denotes the $6\times 6$ identity matrix), and the phase shift gate
+$\left(\begin{smallmatrix}
+1 & 0 \\ 0 & i\end{smallmatrix}\right)$.
+
+\begin{definition}
+Let $\{C_n:n\geq 1\}$ be a family of quantum circuits such that $C_n$ has
+$m_n\geq n$ sources. $\{C_n:n\geq 1\}$ \textit{computes $f:\Sigma^*\ra\Sigma$
+with probability $p$} if for every $x\in\Sigma^*$, when $\bar
+C_n(\ket{x0^{m_n-n}})$ is measured, the first bit is equal to $f(x)$ with
+probability $\geq p$.
+\end{definition}
+
+As in the classical case, to define the class of problems that are quantum
+computable in polynomial time, it is not only necessary to restrict the size of
+$C_n$ to a polynomial of $n$, but also to require that it is possible to
+classically compute a description of $C_n$ from an input of $n$ in
+polynomial time. Without this restriction, we would admit as computable many
+languages that are not generally thought of as computable. This restriction of
+circuits also works in the classical case, reducing the resulting complexity
+class from $\sP/\poly$ to $\sP$.
+
+Many complexity classes of interest are derived from more traditional complexity
+classes by replacing the classical method of computation with the quantum
+one. Doing so to the class $\sP$ results in the class $\msf{BQP}$, doing so to
+the class $\msf{MA}$ results in the class $\msf{QMA}$, and so on. Using this
+observation as a basis allows us to imagine a non-rigorous ``pseudo-operator''
+$\sC\mapsto\mathpzc{Q}\cdot\sC$ that transforms a classical complexity class $\sC$
+into its quantum counterpart $\mathpzc{Q}\cdot\sC$. Since operators must be able to
+act on complexity classes independently of the underlying means of computation,
+we cannot make $\mathpzc{Q}$ into a rigorously defined operator. Nevertheless, it is
+intuitively useful to think of $\mathpzc{Q}$ as an operator and note one property in
+particular: $\sC\subseteq\mathpzc{Q}\cdot\sC$ for every $\sC$. In other words, any
+computations that are possible classically must also be possible in the quantum 
+world. This is not immediately obvious from our models of computation, because, 
+for example, classical circuits allow for non-reversible operations (e.g. one 
+cannot determine from the value of an $\wedge$-vertex the value of its 
+predecessors) while quantum operations are unitary and therefore reversible by 
+necessity. However, any classical operations have reversible quantum versions, 
+generally implemented by means of additional ``scratch qubits'' that are assumed
+to be zero at the outset. For instance to implement the $\wedge$-operator, we 
+apply the unitary mapping
+\[
+\ket{xy}\ket{z}\mapsto\ket{xy}\ket{z+_2xy},
+\]
+where $+_2$ indicates addition modulo 2. As long as the scratch qubit
+$\ket{z}$ is initialized to 0, the bit $\ket{z+_2xy}$ will be equal to the
+classical $\wedge$-operator on $x$ and $y$. The need for extra scratch bits is
+the reason we allow trailing zeros in the input to a quantum circuit.
+
+\subsection{Universal Turing Machines}
+
+Turing machines should likewise be encoded as elements of $\Sigma^*$. We fix a
+surjective mapping $\alpha\mapsto M_\alpha$ from $\Sigma^*$ to the set of Turing
+machines. For convenience, this mapping should have the property that for every
+Turing machine $M$ there exist infinitely many $\alpha$ such that
+$M=M_\alpha$. The encoding is chosen so that the following theorem is true:
+\begin{theorem}\label{universal-machine}
+There exists a Turing machine $U$ such that $U(x,\alpha)=M_\alpha(x)$ for all
+$x,\alpha\in\Sigma^*$ with the property that if $T(x,\alpha)$ is the computation
+time for $M_\alpha(x)$, then the computation time for $U(x,\alpha)$ is
+$CT(x,\alpha)\log T(x,\alpha)$, where $C$ depends only on the number of tapes
+and states of $M_\alpha$.
+\end{theorem}
+Functions are generally restricted to those that are
+\textit{time-constructible}, meaning that the function $T:\N\ra\N$ can be
+computed by a Turing machine in time $\Oh(T(n))$ and $T(n)\geq n$ for all
+$n\in\N$.
+
+\section{Operators and Relativization}
+
+Each class in Complexity Zoology's data set can be
+\textit{relativized}. Informally, relativization is the process of taking a
+particular computational problem $f:\Sigma^*\ra\Sigma^*$ as a black box that
+can be given any input, and the answer is instantaneously given. The black box
+is called the \textit{oracle} and the process of giving an input to the black
+box is referred to as \textit{querying} the oracle. For a complexity class
+$\sC$, we denote by $\sC^f$ the complexity class with the same computational
+model as $\sC$, but for which queries to an oracle $f$ are allowed. At a
+minimum, this means that if $f:\Sigma^*\ra\Sigma$ is a decision function, then
+the associated language $\cL$ lies in $\sC^f$. Moreover, we expect that
+$\sC\subseteq\sC^f$, since the oracle can simply be ignored during any
+computation. For a pair of complexity classes $\sC_1,\sC_2$, we also set 
+$\sC_1^{\sC_2}=\bigcup_{f\in\sC_2}\sC_1^f$.
+
+Each of the computational models we consider is powerful enough to encode finite
+changes to an oracle. For this reason, if $f$ and $g$ are oracles that 
+differ only on a finite subset of $\Sigma^*$, then $\sC^f=\sC^{g}$. This 
+fact is crucial to the concept of a \textit{random oracle}.
+\begin{lemma}[\cite{fortnow2018zero}]
+Let $r:\Sigma^*\ra\Sigma$ be chosen uniformly at random, so that $\Pr[r(x)=1]=1/2$ 
+for each $x\in\Sigma^*$. If $\mathcal{F}$ is any set of functions 
+$\Sigma^*\ra\Sigma$ that is closed under finite differences between functions, then
+$\Pr[r\in\mathcal{F}]=0\text{ or }1$.
+\end{lemma}
+\begin{proof}
+The \textit{Kolmogorov zero-one law} states that if $S=\{X_j:j\in\N\}$ is a 
+countable set of independent random variables and $E$ is an event that is 
+independent of each finite subset of $S$, then $\Pr[E]=0\text{ or }1$. For our 
+purposes, $X_j=r(j)$ and $E$ is the event $r\in\mathcal{F}$. This event is 
+independent of finitely many choices of values $r(j)$, because the closure property
+of $\mathcal{F}$ implies that changing finitely many $r(j)$ does not affect whether
+$r\in\mathcal{F}$. Thus, the zero-one law proves the lemma.
+\end{proof}
+By the previous remark, the set
+\[
+\mathcal{F}=\{f:f\text{ is a function }\Sigma^*\ra\Sigma\text{ such that }
+\sC_1^f\subseteq\sC_1^f\}
+\]
+for a pair of complexity classes $\sC_1$ and $\sC_2$ is closed under finite 
+differences. We therefore have the following result:
+\begin{theorem}
+If $r:\Sigma^*\ra\Sigma$ is chosen uniformly at random, then 
+$\sC_1^r\subseteq\sC_2^r$ with probability $0$ or $1$.
+\end{theorem}
+As a consequence of this theorem, we can consider whether $\sC_1^r\subseteq\sC_2^r$
+with respect to ``the'' random oracle $r$.
+
+Contrary to what the notation would suggest, $\sC\mapsto\sC^f$ is not a map on 
+the set of complexity classes. For example, there is an oracle $f$ such that 
+$\sP^f\neq\NP^f$, but if $\sC\mapsto\sC^f$ were a function on the set of 
+complexity classes, this would imply $\sP\neq\NP$, which is an open problem. 
+Instead, the action $\sC\mapsto\sC^f$ transforms the computational model 
+itself. In the case of complexity classes involving Turing machines, the Turing
+machines are replaced with \textit{oracle Turing machines} capable of querying 
+an oracle.
+
+Unfortunately, there is no uniform way to define $\sC^f$ from $\sC$ that works
+for every complexity class in the data set. Thus, we formally consider a
+complexity class to be a family of sets $\sC=\{\sC^f:f\text{ is a function 
+}\Sigma^*\ra\Sigma^*\}$. We often identify $\sC$ with $\sC^t$, where $t$ is the 
+trivial oracle defined by $t(x)=0$ for all $x\in\Sigma^*$, and the definition of
+$\sC^f$ will depend on the computational model for the class in question. For 
+classes defined in terms of Turing machines, we use \textit{oracle} Turing 
+machines, which have a special oracle tape which can be used to query the oracle 
+and receive a response. In circuit models of computation, special gates are used 
+to query the oracle.
+
+Oracle relativization has been useful in assessing the viability of several common 
+proof techniques for answering complexity theoretic questions. For example, the 
+celebrated theorem of Baker, Gill, and Solovay states that there exist oracles $f$ 
+and $g$ such that $\sP^f=\NP^f$ and $\sP^g\neq\NP^g$ 
+\cite{baker1975relativizations}. (For definitions of the classes $\sP$ and $\NP$, 
+see Subsection \ref{class-definitions}.) Therefore, if a proof technique 
+relativizes---that is, if the proof is independent of any oracles that are applied 
+to the complexity classes involved---it cannot be used to settle the $\sP$ vs. 
+$\NP$ question. This obstacle is known as the \textit{relativization barrier}.
+
+Later, Aaronson and Wigdersons introduced a refinement known as the 
+\textit{algebrization barrier} \cite{aaronson2009algebrization}. More recently, 
+Aydinlio\u{g}lu and Bach reformulated the idea of an algebrizing proof into one 
+that relativizes with respect to a class of oracles they refer to as 
+\textit{affine}. In this thesis, we refer to these oracles as \textit{algebraic}.

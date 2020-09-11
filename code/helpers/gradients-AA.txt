@@ -1,0 +1,96 @@
+<defs>
+<linearGradient id="AA_Sel"><stop offset="100%" stop-color="#0076ff" /></linearGradient>
+<linearGradient id="AA_Err"><stop offset="100%" stop-color="#ff7b00" /></linearGradient>
+<linearGradient id="AA_DDD"><stop offset="100%" stop-color="#ff0000" /></linearGradient>
+<linearGradient id="AA_DPD"><stop offset="33%" stop-color="#ff0000" /><stop offset="34%" stop-color="#00b712" /><stop offset="66%" stop-color="#00b712" /><stop offset="67%" stop-color="#ff0000" /></linearGradient>
+<linearGradient id="AA_DPP"><stop offset="49%" stop-color="#ff0000" /><stop offset="50%" stop-color="#00b712" /><stop offset="51%" stop-color="#00b712" /></linearGradient>
+<linearGradient id="AA_DPO"><stop offset="33%" stop-color="#ff0000" /><stop offset="34%" stop-color="#00b712" /><stop offset="66%" stop-color="#00b712" /><stop offset="67%" stop-color="#b2ac00" /></linearGradient>
+<linearGradient id="AA_DPU"><stop offset="33%" stop-color="#ff0000" /><stop offset="34%" stop-color="#00b712" /><stop offset="66%" stop-color="#00b712" /><stop offset="67%" stop-color="#848484" /></linearGradient>
+<linearGradient id="AA_DPV"><stop offset="33%" stop-color="#ff0000" /><stop offset="34%" stop-color="#00b712" /><stop offset="66%" stop-color="#00b712" /><stop offset="67%" stop-color="#528452" /></linearGradient>
+<linearGradient id="AA_DPW"><stop offset="33%" stop-color="#ff0000" /><stop offset="34%" stop-color="#00b712" /><stop offset="66%" stop-color="#00b712" /><stop offset="67%" stop-color="#845252" /></linearGradient>
+<linearGradient id="AA_DOD"><stop offset="33%" stop-color="#ff0000" /><stop offset="34%" stop-color="#b2ac00" /><stop offset="66%" stop-color="#b2ac00" /><stop offset="67%" stop-color="#ff0000" /></linearGradient>
+<linearGradient id="AA_DOO"><stop offset="33%" stop-color="#ff0000" /><stop offset="34%" stop-color="#b2ac00" /><stop offset="66%" stop-color="#b2ac00" /><stop offset="67%" stop-color="#b2ac00" /></linearGradient>
+<linearGradient id="AA_DOW"><stop offset="33%" stop-color="#ff0000" /><stop offset="34%" stop-color="#b2ac00" /><stop offset="66%" stop-color="#b2ac00" /><stop offset="67%" stop-color="#845252" /></linearGradient>
+<linearGradient id="AA_DUD"><stop offset="33%" stop-color="#ff0000" /><stop offset="34%" stop-color="#848484" /><stop offset="66%" stop-color="#848484" /><stop offset="67%" stop-color="#ff0000" /></linearGradient>
+<linearGradient id="AA_DUO"><stop offset="33%" stop-color="#ff0000" /><stop offset="34%" stop-color="#848484" /><stop offset="66%" stop-color="#848484" /><stop offset="67%" stop-color="#b2ac00" /></linearGradient>
+<linearGradient id="AA_DUU"><stop offset="33%" stop-color="#ff0000" /><stop offset="34%" stop-color="#848484" /><stop offset="66%" stop-color="#848484" /><stop offset="67%" stop-color="#848484" /></linearGradient>
+<linearGradient id="AA_DUV"><stop offset="33%" stop-color="#ff0000" /><stop offset="34%" stop-color="#848484" /><stop offset="66%" stop-color="#848484" /><stop offset="67%" stop-color="#528452" /></linearGradient>
+<linearGradient id="AA_DUW"><stop offset="33%" stop-color="#ff0000" /><stop offset="34%" stop-color="#848484" /><stop offset="66%" stop-color="#848484" /><stop offset="67%" stop-color="#845252" /></linearGradient>
+<linearGradient id="AA_DVD"><stop offset="33%" stop-color="#ff0000" /><stop offset="34%" stop-color="#528452" /><stop offset="66%" stop-color="#528452" /><stop offset="67%" stop-color="#ff0000" /></linearGradient>
+<linearGradient id="AA_DVO"><stop offset="33%" stop-color="#ff0000" /><stop offset="34%" stop-color="#528452" /><stop offset="66%" stop-color="#528452" /><stop offset="67%" stop-color="#b2ac00" /></linearGradient>
+<linearGradient id="AA_DVU"><stop offset="33%" stop-color="#ff0000" /><stop offset="34%" stop-color="#528452" /><stop offset="66%" stop-color="#528452" /><stop offset="67%" stop-color="#848484" /></linearGradient>
+<linearGradient id="AA_DVV"><stop offset="33%" stop-color="#ff0000" /><stop offset="34%" stop-color="#528452" /><stop offset="66%" stop-color="#528452" /><stop offset="67%" stop-color="#528452" /></linearGradient>
+<linearGradient id="AA_DVW"><stop offset="33%" stop-color="#ff0000" /><stop offset="34%" stop-color="#528452" /><stop offset="66%" stop-color="#528452" /><stop offset="67%" stop-color="#845252" /></linearGradient>
+<linearGradient id="AA_DWD"><stop offset="33%" stop-color="#ff0000" /><stop offset="34%" stop-color="#845252" /><stop offset="66%" stop-color="#845252" /><stop offset="67%" stop-color="#ff0000" /></linearGradient>
+<linearGradient id="AA_DWO"><stop offset="33%" stop-color="#ff0000" /><stop offset="34%" stop-color="#845252" /><stop offset="66%" stop-color="#845252" /><stop offset="67%" stop-color="#b2ac00" /></linearGradient>
+<linearGradient id="AA_DWW"><stop offset="33%" stop-color="#ff0000" /><stop offset="34%" stop-color="#845252" /><stop offset="66%" stop-color="#845252" /><stop offset="67%" stop-color="#845252" /></linearGradient>
+<linearGradient id="AA_PPD"><stop offset="49%" stop-color="#00b712" /><stop offset="50%" stop-color="#ff0000" /><stop offset="51%" stop-color="#ff0000" /></linearGradient>
+<linearGradient id="AA_PPP"><stop offset="100%" stop-color="#00b712" /></linearGradient>
+<linearGradient id="AA_PPO"><stop offset="49%" stop-color="#00b712" /><stop offset="50%" stop-color="#b2ac00" /><stop offset="51%" stop-color="#b2ac00" /></linearGradient>
+<linearGradient id="AA_PPU"><stop offset="49%" stop-color="#00b712" /><stop offset="50%" stop-color="#848484" /><stop offset="51%" stop-color="#848484" /></linearGradient>
+<linearGradient id="AA_PPV"><stop offset="49%" stop-color="#00b712" /><stop offset="50%" stop-color="#528452" /><stop offset="51%" stop-color="#528452" /></linearGradient>
+<linearGradient id="AA_PPW"><stop offset="49%" stop-color="#00b712" /><stop offset="50%" stop-color="#845252" /><stop offset="51%" stop-color="#845252" /></linearGradient>
+<linearGradient id="AA_OPD"><stop offset="33%" stop-color="#b2ac00" /><stop offset="34%" stop-color="#00b712" /><stop offset="66%" stop-color="#00b712" /><stop offset="67%" stop-color="#ff0000" /></linearGradient>
+<linearGradient id="AA_OPP"><stop offset="49%" stop-color="#b2ac00" /><stop offset="50%" stop-color="#00b712" /><stop offset="51%" stop-color="#00b712" /></linearGradient>
+<linearGradient id="AA_OPO"><stop offset="33%" stop-color="#b2ac00" /><stop offset="34%" stop-color="#00b712" /><stop offset="66%" stop-color="#00b712" /><stop offset="67%" stop-color="#b2ac00" /></linearGradient>
+<linearGradient id="AA_OPU"><stop offset="33%" stop-color="#b2ac00" /><stop offset="34%" stop-color="#00b712" /><stop offset="66%" stop-color="#00b712" /><stop offset="67%" stop-color="#848484" /></linearGradient>
+<linearGradient id="AA_OPV"><stop offset="33%" stop-color="#b2ac00" /><stop offset="34%" stop-color="#00b712" /><stop offset="66%" stop-color="#00b712" /><stop offset="67%" stop-color="#528452" /></linearGradient>
+<linearGradient id="AA_OPW"><stop offset="33%" stop-color="#b2ac00" /><stop offset="34%" stop-color="#00b712" /><stop offset="66%" stop-color="#00b712" /><stop offset="67%" stop-color="#845252" /></linearGradient>
+<linearGradient id="AA_OOD"><stop offset="33%" stop-color="#b2ac00" /><stop offset="34%" stop-color="#b2ac00" /><stop offset="66%" stop-color="#b2ac00" /><stop offset="67%" stop-color="#ff0000" /></linearGradient>
+<linearGradient id="AA_OOO"><stop offset="100%" stop-color="#b2ac00" /></linearGradient>
+<linearGradient id="AA_OOW"><stop offset="33%" stop-color="#b2ac00" /><stop offset="34%" stop-color="#b2ac00" /><stop offset="66%" stop-color="#b2ac00" /><stop offset="67%" stop-color="#845252" /></linearGradient>
+<linearGradient id="AA_OVD"><stop offset="33%" stop-color="#b2ac00" /><stop offset="34%" stop-color="#528452" /><stop offset="66%" stop-color="#528452" /><stop offset="67%" stop-color="#ff0000" /></linearGradient>
+<linearGradient id="AA_OVO"><stop offset="33%" stop-color="#b2ac00" /><stop offset="34%" stop-color="#528452" /><stop offset="66%" stop-color="#528452" /><stop offset="67%" stop-color="#b2ac00" /></linearGradient>
+<linearGradient id="AA_OVU"><stop offset="33%" stop-color="#b2ac00" /><stop offset="34%" stop-color="#528452" /><stop offset="66%" stop-color="#528452" /><stop offset="67%" stop-color="#848484" /></linearGradient>
+<linearGradient id="AA_OVV"><stop offset="33%" stop-color="#b2ac00" /><stop offset="34%" stop-color="#528452" /><stop offset="66%" stop-color="#528452" /><stop offset="67%" stop-color="#528452" /></linearGradient>
+<linearGradient id="AA_OVW"><stop offset="33%" stop-color="#b2ac00" /><stop offset="34%" stop-color="#528452" /><stop offset="66%" stop-color="#528452" /><stop offset="67%" stop-color="#845252" /></linearGradient>
+<linearGradient id="AA_UPD"><stop offset="33%" stop-color="#848484" /><stop offset="34%" stop-color="#00b712" /><stop offset="66%" stop-color="#00b712" /><stop offset="67%" stop-color="#ff0000" /></linearGradient>
+<linearGradient id="AA_UPP"><stop offset="49%" stop-color="#848484" /><stop offset="50%" stop-color="#00b712" /><stop offset="51%" stop-color="#00b712" /></linearGradient>
+<linearGradient id="AA_UPO"><stop offset="33%" stop-color="#848484" /><stop offset="34%" stop-color="#00b712" /><stop offset="66%" stop-color="#00b712" /><stop offset="67%" stop-color="#b2ac00" /></linearGradient>
+<linearGradient id="AA_UPU"><stop offset="33%" stop-color="#848484" /><stop offset="34%" stop-color="#00b712" /><stop offset="66%" stop-color="#00b712" /><stop offset="67%" stop-color="#848484" /></linearGradient>
+<linearGradient id="AA_UPV"><stop offset="33%" stop-color="#848484" /><stop offset="34%" stop-color="#00b712" /><stop offset="66%" stop-color="#00b712" /><stop offset="67%" stop-color="#528452" /></linearGradient>
+<linearGradient id="AA_UPW"><stop offset="33%" stop-color="#848484" /><stop offset="34%" stop-color="#00b712" /><stop offset="66%" stop-color="#00b712" /><stop offset="67%" stop-color="#845252" /></linearGradient>
+<linearGradient id="AA_UUD"><stop offset="33%" stop-color="#848484" /><stop offset="34%" stop-color="#848484" /><stop offset="66%" stop-color="#848484" /><stop offset="67%" stop-color="#ff0000" /></linearGradient>
+<linearGradient id="AA_UUO"><stop offset="33%" stop-color="#848484" /><stop offset="34%" stop-color="#848484" /><stop offset="66%" stop-color="#848484" /><stop offset="67%" stop-color="#b2ac00" /></linearGradient>
+<linearGradient id="AA_UUU"><stop offset="100%" stop-color="#848484" /></linearGradient>
+<linearGradient id="AA_UUV"><stop offset="33%" stop-color="#848484" /><stop offset="34%" stop-color="#848484" /><stop offset="66%" stop-color="#848484" /><stop offset="67%" stop-color="#528452" /></linearGradient>
+<linearGradient id="AA_UUW"><stop offset="33%" stop-color="#848484" /><stop offset="34%" stop-color="#848484" /><stop offset="66%" stop-color="#848484" /><stop offset="67%" stop-color="#845252" /></linearGradient>
+<linearGradient id="AA_UVD"><stop offset="33%" stop-color="#848484" /><stop offset="34%" stop-color="#528452" /><stop offset="66%" stop-color="#528452" /><stop offset="67%" stop-color="#ff0000" /></linearGradient>
+<linearGradient id="AA_UVO"><stop offset="33%" stop-color="#848484" /><stop offset="34%" stop-color="#528452" /><stop offset="66%" stop-color="#528452" /><stop offset="67%" stop-color="#b2ac00" /></linearGradient>
+<linearGradient id="AA_UVU"><stop offset="33%" stop-color="#848484" /><stop offset="34%" stop-color="#528452" /><stop offset="66%" stop-color="#528452" /><stop offset="67%" stop-color="#848484" /></linearGradient>
+<linearGradient id="AA_UVV"><stop offset="33%" stop-color="#848484" /><stop offset="34%" stop-color="#528452" /><stop offset="66%" stop-color="#528452" /><stop offset="67%" stop-color="#528452" /></linearGradient>
+<linearGradient id="AA_UVW"><stop offset="33%" stop-color="#848484" /><stop offset="34%" stop-color="#528452" /><stop offset="66%" stop-color="#528452" /><stop offset="67%" stop-color="#845252" /></linearGradient>
+<linearGradient id="AA_VPD"><stop offset="33%" stop-color="#528452" /><stop offset="34%" stop-color="#00b712" /><stop offset="66%" stop-color="#00b712" /><stop offset="67%" stop-color="#ff0000" /></linearGradient>
+<linearGradient id="AA_VPP"><stop offset="49%" stop-color="#528452" /><stop offset="50%" stop-color="#00b712" /><stop offset="51%" stop-color="#00b712" /></linearGradient>
+<linearGradient id="AA_VPO"><stop offset="33%" stop-color="#528452" /><stop offset="34%" stop-color="#00b712" /><stop offset="66%" stop-color="#00b712" /><stop offset="67%" stop-color="#b2ac00" /></linearGradient>
+<linearGradient id="AA_VPU"><stop offset="33%" stop-color="#528452" /><stop offset="34%" stop-color="#00b712" /><stop offset="66%" stop-color="#00b712" /><stop offset="67%" stop-color="#848484" /></linearGradient>
+<linearGradient id="AA_VPV"><stop offset="33%" stop-color="#528452" /><stop offset="34%" stop-color="#00b712" /><stop offset="66%" stop-color="#00b712" /><stop offset="67%" stop-color="#528452" /></linearGradient>
+<linearGradient id="AA_VPW"><stop offset="33%" stop-color="#528452" /><stop offset="34%" stop-color="#00b712" /><stop offset="66%" stop-color="#00b712" /><stop offset="67%" stop-color="#845252" /></linearGradient>
+<linearGradient id="AA_VVD"><stop offset="33%" stop-color="#528452" /><stop offset="34%" stop-color="#528452" /><stop offset="66%" stop-color="#528452" /><stop offset="67%" stop-color="#ff0000" /></linearGradient>
+<linearGradient id="AA_VVO"><stop offset="33%" stop-color="#528452" /><stop offset="34%" stop-color="#528452" /><stop offset="66%" stop-color="#528452" /><stop offset="67%" stop-color="#b2ac00" /></linearGradient>
+<linearGradient id="AA_VVU"><stop offset="33%" stop-color="#528452" /><stop offset="34%" stop-color="#528452" /><stop offset="66%" stop-color="#528452" /><stop offset="67%" stop-color="#848484" /></linearGradient>
+<linearGradient id="AA_VVV"><stop offset="100%" stop-color="#528452" /></linearGradient>
+<linearGradient id="AA_VVW"><stop offset="33%" stop-color="#528452" /><stop offset="34%" stop-color="#528452" /><stop offset="66%" stop-color="#528452" /><stop offset="67%" stop-color="#845252" /></linearGradient>
+<linearGradient id="AA_WPD"><stop offset="33%" stop-color="#845252" /><stop offset="34%" stop-color="#00b712" /><stop offset="66%" stop-color="#00b712" /><stop offset="67%" stop-color="#ff0000" /></linearGradient>
+<linearGradient id="AA_WPP"><stop offset="49%" stop-color="#845252" /><stop offset="50%" stop-color="#00b712" /><stop offset="51%" stop-color="#00b712" /></linearGradient>
+<linearGradient id="AA_WPO"><stop offset="33%" stop-color="#845252" /><stop offset="34%" stop-color="#00b712" /><stop offset="66%" stop-color="#00b712" /><stop offset="67%" stop-color="#b2ac00" /></linearGradient>
+<linearGradient id="AA_WPU"><stop offset="33%" stop-color="#845252" /><stop offset="34%" stop-color="#00b712" /><stop offset="66%" stop-color="#00b712" /><stop offset="67%" stop-color="#848484" /></linearGradient>
+<linearGradient id="AA_WPV"><stop offset="33%" stop-color="#845252" /><stop offset="34%" stop-color="#00b712" /><stop offset="66%" stop-color="#00b712" /><stop offset="67%" stop-color="#528452" /></linearGradient>
+<linearGradient id="AA_WPW"><stop offset="33%" stop-color="#845252" /><stop offset="34%" stop-color="#00b712" /><stop offset="66%" stop-color="#00b712" /><stop offset="67%" stop-color="#845252" /></linearGradient>
+<linearGradient id="AA_WOD"><stop offset="33%" stop-color="#845252" /><stop offset="34%" stop-color="#b2ac00" /><stop offset="66%" stop-color="#b2ac00" /><stop offset="67%" stop-color="#ff0000" /></linearGradient>
+<linearGradient id="AA_WOO"><stop offset="33%" stop-color="#845252" /><stop offset="34%" stop-color="#b2ac00" /><stop offset="66%" stop-color="#b2ac00" /><stop offset="67%" stop-color="#b2ac00" /></linearGradient>
+<linearGradient id="AA_WOW"><stop offset="33%" stop-color="#845252" /><stop offset="34%" stop-color="#b2ac00" /><stop offset="66%" stop-color="#b2ac00" /><stop offset="67%" stop-color="#845252" /></linearGradient>
+<linearGradient id="AA_WUD"><stop offset="33%" stop-color="#845252" /><stop offset="34%" stop-color="#848484" /><stop offset="66%" stop-color="#848484" /><stop offset="67%" stop-color="#ff0000" /></linearGradient>
+<linearGradient id="AA_WUO"><stop offset="33%" stop-color="#845252" /><stop offset="34%" stop-color="#848484" /><stop offset="66%" stop-color="#848484" /><stop offset="67%" stop-color="#b2ac00" /></linearGradient>
+<linearGradient id="AA_WUU"><stop offset="33%" stop-color="#845252" /><stop offset="34%" stop-color="#848484" /><stop offset="66%" stop-color="#848484" /><stop offset="67%" stop-color="#848484" /></linearGradient>
+<linearGradient id="AA_WUV"><stop offset="33%" stop-color="#845252" /><stop offset="34%" stop-color="#848484" /><stop offset="66%" stop-color="#848484" /><stop offset="67%" stop-color="#528452" /></linearGradient>
+<linearGradient id="AA_WUW"><stop offset="33%" stop-color="#845252" /><stop offset="34%" stop-color="#848484" /><stop offset="66%" stop-color="#848484" /><stop offset="67%" stop-color="#845252" /></linearGradient>
+<linearGradient id="AA_WVD"><stop offset="33%" stop-color="#845252" /><stop offset="34%" stop-color="#528452" /><stop offset="66%" stop-color="#528452" /><stop offset="67%" stop-color="#ff0000" /></linearGradient>
+<linearGradient id="AA_WVO"><stop offset="33%" stop-color="#845252" /><stop offset="34%" stop-color="#528452" /><stop offset="66%" stop-color="#528452" /><stop offset="67%" stop-color="#b2ac00" /></linearGradient>
+<linearGradient id="AA_WVU"><stop offset="33%" stop-color="#845252" /><stop offset="34%" stop-color="#528452" /><stop offset="66%" stop-color="#528452" /><stop offset="67%" stop-color="#848484" /></linearGradient>
+<linearGradient id="AA_WVV"><stop offset="33%" stop-color="#845252" /><stop offset="34%" stop-color="#528452" /><stop offset="66%" stop-color="#528452" /><stop offset="67%" stop-color="#528452" /></linearGradient>
+<linearGradient id="AA_WVW"><stop offset="33%" stop-color="#845252" /><stop offset="34%" stop-color="#528452" /><stop offset="66%" stop-color="#528452" /><stop offset="67%" stop-color="#845252" /></linearGradient>
+<linearGradient id="AA_WWD"><stop offset="33%" stop-color="#845252" /><stop offset="34%" stop-color="#845252" /><stop offset="66%" stop-color="#845252" /><stop offset="67%" stop-color="#ff0000" /></linearGradient>
+<linearGradient id="AA_WWO"><stop offset="33%" stop-color="#845252" /><stop offset="34%" stop-color="#845252" /><stop offset="66%" stop-color="#845252" /><stop offset="67%" stop-color="#b2ac00" /></linearGradient>
+<linearGradient id="AA_WWW"><stop offset="100%" stop-color="#845252" /></linearGradient>
+</defs>

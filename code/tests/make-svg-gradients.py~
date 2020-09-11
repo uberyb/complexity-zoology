@@ -1,0 +1,34 @@
+color = {}
+color['proven'] = '#00b712'
+color['disproven'] = '#ff0000'
+color['open'] = '#b2ac00'
+color['unknown'] = '#848484'
+color['unknown_provable'] = '#528452'
+color['unknown_disprovable'] = '#845252'
+
+def get_possible_gradients():
+    possibilities = []
+    statuses = ('D', 'P', 'O', 'U', 'V', 'W')
+
+    for L in statuses:
+        for M in statuses:
+            for R in statuses:
+                is_possible = True
+                if (L == 'P' or R == 'P') and M != 'P': is_possible = False
+                if M == 'D' and (L != 'D' or R != 'D'): is_possible = False
+                if L in ('O', 'V') or M in ('O', 'V'):
+                    if M not in ('O', 'P', 'V'): is_possible = False
+                if M in ('O', 'W'):
+                    if L not in ('D', 'O', 'W') or R not in ('D', 'O', 'W'):
+                        is_possible = False
+                if is_possible: possibilities.append(L+M+R)
+
+    return possibilities
+
+
+def make_dem_gradients(world):
+    global color
+
+    meaning = {'D', 'P', 'O', 'U', 'V', 'W'}
+    
+    possibilities = get_possible_gradients()

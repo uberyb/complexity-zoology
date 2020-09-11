@@ -1,0 +1,365 @@
+\documentclass[12pt]{article}
+
+\usepackage[margin=1in]{geometry}
+\usepackage{lmodern}
+\usepackage{amsmath,amsthm,amssymb,mathrsfs}
+\usepackage{enumerate}
+\usepackage{listings}
+\usepackage{url}
+
+\title{Complexity Zoology}
+\author{Robert Sanders}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newtheorem{corollary}[theorem]{Corollary}
+
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+
+\theoremstyle{remark}
+\newtheorem{claim}[theorem]{Claim}
+\newtheorem{remark}[theorem]{Remark}
+
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\ra}{\rightarrow}
+\newcommand{\cL}{\mathcal{L}}
+\newcommand{\start}{\mathtt{start}}
+\newcommand{\halt}{\mathtt{halt}}
+\newcommand{\Left}{\mathsf{L}}
+\newcommand{\Stay}{\mathsf{S}}
+\newcommand{\Right}{\mathsf{R}}
+\newcommand{\A}{\mathsf{A}}
+\newcommand{\co}{\mathsf{co}}
+\newcommand{\cocap}{\mathsf{cocap}}
+\newcommand{\NP}{\mathsf{NP}}
+\newcommand{\sP}{\mathsf{P}}
+\newcommand{\poly}{\mathsf{poly}}
+\newcommand{\msf}[1]{\mathsf{#1}}
+\newcommand{\id}{\msf{id}}
+\newcommand{\AND}{\mathbin{\&}}
+\newcommand{\Oh}{\mathcal{O}}
+\newcommand{\inner}[1]{\left\langle#1\right\rangle}
+
+\begin{document}
+\maketitle
+
+\section{Overview and Preliminaries}
+
+Complexity Zoology is an expert system for studying inclusions and oracle
+separations of complexity classes. The system reads a text file describing an
+initial set of inclusions and separations, then deduces all logical
+consequences. For a potential inclusion $\msf{A}\subseteq\msf{B}$, the system is
+capable of understanding that the inclusion is true, false, or unknown relative
+to (a) all oracles, (b) the random oracle, (c) the trivial oracle, (d) all
+affine oracles (see \cite{aydinlioglu2018affine}), (e) some affine oracle, or
+(f) an arbitrary oracle.
+
+We use the notation $\Sigma=\{0,1\}$, and for a set $S$ we use $S^*$ to indicate
+the set of all finite sequences in $S$. For definiteness, meanings of standard
+concepts in complexity theory, such as Turing machines and commonly arising
+complexity classes are taken from \cite{arora2009computational}.
+
+\section{Complexity Classes and Oracles}
+
+For the purposes of this system, a complexity class is not a set of languages
+but a family of sets of languages indexed by the set of all oracles, where
+oracles are considered to be decision functions $f:\Sigma^*\ra\Sigma$. For
+example, we consider $\sP$ to be the class
+$\sP=\{\sP^f:f:\Sigma^*\ra\Sigma\}$,
+where $\sP^f$ is $\sP$ relative to the oracle $f$. This allows for a
+consistent notion of what it means for an inclusion or separation to hold for
+all, none, or some oracles, avoiding the need for a universal definition of
+$\A^f$ for an arbitrary complexity class $\A$ and an oracle $f$.
+
+If a complexity class $\A$ is defined in terms of Turing machines, then $\A^f$
+can be defined in the same way, replacing references to Turing machines with
+references to oracle Turing machines that query the $f$-oracle. Formally, let
+$TM$ denote the set of all Turing machines, and let $TM_f$ denote the set of all
+$f$-oracle Turing machines. Then if $\A$ is defined to be
+\[
+\A=\{L\subseteq\Sigma^*:(\exists M\in TM)\varphi(L,M)\}
+\]
+for a binary predicate $\varphi(x,y)$, we consider $\A^f$ to be defined to be
+\[
+\A^f=\{L\subseteq\Sigma^*:(\exists M\in TM_f)\varphi(L,M)\}.
+\]
+
+\section{Operators on Complexity Classes}
+
+An \textit{operator} on the set of all complexity classes is an
+inclusion-preserving automorphism.
+
+We first define a complexity class operator that, while not implemented in
+Complexity Zoology, is necessary for defining a key property of the classes in
+the system.
+\begin{definition}
+For a complexity class $\A$, define
+\[
+\msf{P_{prep}}\cdot\A=\{f(\cL):\cL\in\A\AND f:\Sigma^*\ra\Sigma^*\text{ is
+computable in polynomial-time.}\}.
+\]
+\end{definition}
+For the complexity classes in this project, it is the case that
+$\msf{P_{prep}}\cdot\A=\A$. The operator inclusions and quadratic relations
+that the system uses for knowledge propogation can fail if this condition is not
+satisfied.
+
+\begin{definition}
+The operators $\id$, $\co$, and $\cocap$ are given by
+\begin{align*}
+\id\cdot\A&=\A, \\
+\co\cdot\A&=\{\cL\subseteq\Sigma^*:\Sigma^*\setminus\cL\in\A\}, \\
+\cocap\cdot\A&=\A\cap\co\cdot\A.
+\end{align*}
+\end{definition}
+
+It is immediate from these definitions that $\co\cdot\co\cdot\A=\A$,
+$\cocap\cdot\A\subseteq\A$, and $\cocap\cdot\A\subseteq\co\cdot\A$ for every
+$\A$. Additionally, the $\cocap$ operator absorbs the $\co$ operator, because
+\begin{align*}
+\cocap\cdot\co\cdot\A&=(\co\cdot\A)\cap(\co\cdot\co\cdot\A) \\
+&=\A\cap\co\cdot\A \\
+&=\cocap\cdot\A
+\end{align*}
+and
+\begin{align*}
+\co\cdot\cocap\cdot\A&=\{\cL\subseteq\Sigma^*:\Sigma^*\setminus\cL\in\cocap\cdot
+\A\} \\
+&=\{\cL\subseteq\Sigma^*:\Sigma^*\setminus\cL\in\A
+\AND\Sigma^*\setminus\cL\in\co\cdot\A\} \\
+&=\{\cL\subseteq\Sigma^*:\cL\in\co\cdot\A\AND\cL\in\A\} \\
+&=\cocap\cdot\A.
+\end{align*}
+
+It follows that $\cocap$ is idempotent, because
+$\cocap\cdot\cocap\cdot\A=\cocap\cdot\A\cap\co\cdot\cocap\cdot\A=\cocap\cdot\A$.
+
+The next operator defines \textit{polynomial advice}.
+
+\begin{definition}
+For a complexity class $\A$, define
+\[
+\poly(\A)=\{\cL\subseteq\Sigma^*:(\exists\cL^\prime\in\A, f:\N\ra\Sigma^*)
+[|f(n)|=\Oh(n^k)\AND(x\in\cL\Leftrightarrow\langle
+x,f(|x|)\rangle\in\cL^\prime)]\}.
+\]
+\end{definition}
+For the models of computation in this project, it is possible to ignore the
+advice string $f(n)$, so in practice $\A\subseteq\poly\cdot\A$ for each
+complexity class $\A$ of interest.
+
+Furthermore, observe that $\cL\subseteq\poly\cdot\poly\cdot\A$ if and only if
+there exist $\cL^\prime\in\A$ and $f,g:\N\ra\Sigma^*$ with
+$|f(n)|,|g(n)|=\Oh(n^k)$ such that
+\[
+x\in\cL\Longleftrightarrow
+\inner{\inner{x,f(|x|)},g(|\inner{x,f(|x|)}|)}\in\cL^\prime.
+\]
+The models of computation we consider are unaffected by slight changes to the
+encoding of tuples, so for the complexity classes studied here, the above is
+equivalent to the existence of $\cL^\prime,f,g$ such that
+\[
+x\in\cL\Longleftrightarrow
+\langle x,
+\underbrace{\inner{f(|x|),g(|\inner{x,f(|x|)}|)}}_{h(|x|)}\rangle\in\cL^\prime.
+\]
+Then $h:\N\ra\Sigma^*$ satisfies $|h(n)|=\Oh(n^k)$, and hence
+$\cL\in\poly\cdot\poly\cdot\A\Rightarrow\cL\in\poly\cdot\A$. Thus, we also
+regard $\poly$ as an idempotent operator.
+
+The remaining operators are well defined for all complexity classes but are
+intended for those involving polynomial-time computations.
+
+\begin{definition}
+For a complexity class $\A$, say that $\cL\in\msf{N}\cdot\A$ if there is exists a
+polynomial $p:\N\ra(0,\infty)$ and a language $\cL^\prime\in\A$ such that
+\begin{align*}
+x\in\cL&\Longleftrightarrow\inner{x,y}\in\cL^\prime\text{ for some }y
+\in\Sigma^{p(|x)}.
+\end{align*}
+\end{definition}
+
+\begin{definition}
+For a complexity class $\A$, a language $\cL$ lies in $\oplus\cdot\A$ if there
+exists a language $\cL^\prime\in\A$ and a function $p:\N\ra(0,\infty)$
+satisfying $p(n)=\Oh(n^k)$ for some positive integer $k$ such that for every
+$x\in\Sigma^*$,
+\[
+x\in\cL\Longleftrightarrow|\{y\in\Sigma^{p(|x|)}:\inner{x,y}\in\cL^\prime\}|
+\equiv 1\text{ (mod 2)}.
+\]
+\end{definition}
+
+$\msf{BP}$ and $\msf{P}$ are the probabilistic operators:
+
+\begin{definition}
+For a complexity class $\A$, say that $\cL\in\msf{BP}\cdot\A$ if there is
+exists a polynomial $p:\N\ra(0,\infty)$ and a language $\cL^\prime\in\A$ such
+that
+\begin{align*}
+x\in\cL&\Longrightarrow\inner{x,y}\in\cL^\prime\text{ for }>2/3\text{ of all
+ }y\in\Sigma^{p(|x)}; \\
+x\notin\cL&\Longrightarrow\inner{x,y}\notin\cL^\prime\text{ for }>2/3\text{
+of all }y\in\Sigma^{p(|x)}.
+\end{align*}
+The $\msf{P}$ is defined similarly, except that $2/3$ is replaced with $1/2$.
+\end{definition}
+
+\section{Annotations}
+
+This list consists of annotations used in the input files of Complexity
+Zoology. These annotations denote recurring footnotes too small for their own
+section in this document.
+
+\begin{itemize}
+
+\item \textbf{[count]}: The complexity classes can be separated because they
+have different cardinalities.
+\item \textbf{[def]}: This statement is true by definition.
+\item \textbf{[immediate]}: This result is immediate from the definitions of the
+respective complexity classes.
+\item \textbf{[probably]}: This result is believed to be true, but it needs to
+be checked.
+\item \textbf{[rel?]}: It should be double-checked that this statement
+relativizes.
+
+\end{itemize}
+
+\section{Diagonalization (diag)}
+
+The method of diagonalization can be used to unconditionally separate several
+complexity classes. In its standard form, it can be used to prove the
+\textit{time hierarchy theorem}.
+
+\begin{theorem}
+If $f,g:\N\ra\N$ are time-constructible functions satisfying
+$f(n)\log f(n)=o(g(n))$, then
+\[
+\msf{DTIME}(f(n))\subsetneq\msf{DTIME}(g(n)).
+\]
+\end{theorem}
+To prove this theorem, construct a TM $D$ that carries out the following
+procedure: on input $x$, compute $M_x(x)$ on a suitable universal TM for
+$g(|x|)$ steps, where $M_x$ is the Turing machine encoded by $x$. If the
+computation finishes, output $1-M_x(x)$. Otherwise, output $0$. Next, assume the
+language $\cL$ that $D$ determines lies in $\msf{DTIME}(f(n))$. Then, there
+exists a TM $M$ that decides $\cL$ in $\Oh(f(n))$-time. Then $M$ has some
+encoding, and in fact can be assumed to have infinitely many encodings, so we
+fix some encoding $y$ that is long enough so that $f(|y|)\log f(|y|)$ is much
+less than $g(|y|)$. Then the universal Turing machine can simulate $M_y$ on
+input $y$ within $g(|y|)$ steps, and so $D(y)=1-M_y(y)=1-M(y)$. But since $D$
+and $M$ both decide $\cL$, we should have $D(y)=M(y)$, so this is a
+contradiction.
+
+\section{$\msf{AWPP}\subseteq\msf{PP}$(AWPPvPP)}
+
+$\msf{AWPP}$ can be defined in terms of functions in $\msf{GapP}$; i.e.,
+functions $f:\Sigma^*\ra\Z$ such that for a non-deterministic TM $M$, $f(x)$ is
+the difference between the number of accepting paths and the number of rejecting
+paths for $M$ with input $x$ \cite{fenner1994gap}. Specifically, a language
+$\cL$ lies in $\msf{AWPP}$ if and only if for every polynomial $p$, there exists
+a function $f\in\msf{GapP}$ and an everywhere nonzero function $g:\Sigma^*\ra\N$
+in $\msf{FP}$ such that
+\begin{align*}
+x\in\cL&\Longrightarrow 1-2^{-p(|x|)}\leq f(x)/g(x)\leq 1, \\
+x\notin\cL&\Longrightarrow 0\leq f(x)/g(x)\leq 2^{-p(|x|)}.
+\end{align*}
+Also, note that $\mathcal{L}\in\msf{PP}$ if and only if there is a function
+$f\in\msf{GapP}$ such that
+\begin{align*}
+x\in\cL&\Longrightarrow f(x)\geq 0, \\
+x\notin\cL&\Longrightarrow f(x)<0.
+\end{align*}
+Suppose that $\cL\in\msf{GapP}$. Then fix $p=2$ in the definition of
+$\msf{AWPP}$; there must exist functions $f\in\msf{GapP}$ and $g:\Sigma^*\ra\N$
+in $\msf{FP}$ such that
+\begin{align*}
+x\in\cL&\Longrightarrow 3/4\leq f(x)/g(x)\leq 1, \\
+x\notin\cL&\Longrightarrow 0\leq f(x)/g(x)\leq 1/4.
+\end{align*}
+Since $\msf{FP}\subseteq\msf{GapP}$ and $\msf{GapP}$ is closed under
+multiplication and subtraction, $h(x)=4f(x)-2g(x)$ is in $\msf{GapP}$, and hence
+\begin{align*}
+x\in\cL&\Longrightarrow g(x)\leq 4f(x)-2g(x)\leq 2g(x)
+\Longrightarrow h(x)\geq 0, \\
+x\notin\cL&\Longrightarrow -2g(x)\leq 4f(x)-2g(x)\leq-g(x)
+\Longrightarrow h(x)< 0.
+\end{align*}
+So $\cL\in\msf{PP}$, and we have $\msf{AWPP}\subseteq\msf{PP}$.
+
+\section{Oracle Access (oap)}
+
+For a pair of classes $\A$ and $\msf{B}$, it may be the case that
+$\A^O\not\subseteq\msf{B}^O$ because the computational model of $\A^O$ is able
+to make longer oracle calls than that of $\msf{B}^O$. For example, $\msf{B}^O$
+could be polynomially limited in space or time and therefore be unable to write
+long questions for the oracle, while $A^O$ has no such limitations.
+
+\section{Password Oracles (pass)}
+
+A \textit{password oracle} is a type of oracle $f$ constructed so that
+$\A^f\not\subseteq\msf{B}^f$. Typically, $f$ is a function
+$\Sigma^*\times\Sigma^*\rightarrow\Sigma^*$ chosen so that
+$PW_f=\{x\in\Sigma:P\}$ lies in $\A^f$ but not in $\msf{B}^f$, where $P$ is a
+proposition depending on the values of $f(x,y)$ for $y\in\Sigma^*$ (the
+\textit{passwords} of $x$). The oracle $f$ can be adversarially constructed or,
+in many cases, selected according to a random process.
+
+\begin{theorem}
+Let $f:\Sigma^{2*}\ra\Sigma\cup\{\square\}$ be a function selected randomly
+according to the following rules:
+\begin{itemize}
+\item For every $x\in\Sigma^n$, there exists a unique $y\in\Sigma^n$ such that
+$f(x,y)\neq\square$. This $y$ is selected using the uniform distribution on
+$\Sigma^n$.
+\item  For every $x\in\Sigma^n$, if $y$ is the unique element of $\Sigma^n$ such
+that $f(x,y)\neq\square$, then $\Pr[f(x,y)=1]=\Pr[f(x,y)=0]=1/2$.
+\end{itemize}
+Then $(\cocap\cdot\msf{UP})^f\not\subseteq(\sP/\poly)^f$ with probability 1.
+\end{theorem}
+
+\begin{proof}
+For each $x\in\Sigma^*$, define $PW_f(x)=f(x,y)$, where $y$ is the unique
+element of $\Sigma^{|x|}$ such that $f(x,y)\neq\square$. Then
+$PW_f\in(\cocap\cdot\msf{UP})^f$, because for a given $x\in\Sigma^*$ the unique
+$y$ can be used as a the certificate to check that $PW_f(x)=1$ or $PW_f(x)=0$.
+
+Fix an enumeration $\{M_k\}$ of Turing machines. For $M_k$ and input of length
+$n$, we allow computation times up to $C_kn^{r_k}$ and advice strings up to
+length $D_kn^{s_k}$, where the coefficients and exponents are unbounded and
+increasing as functions of $k$. Then, since for any $x\in\Sigma^n$ there are
+$2^n$ possible values of $y$, while advice and computation time are polynomials
+of $n$, we have
+\[
+\Pr[(\forall n)(\exists\text{ advice }a)(\forall|x|=n)[M_k(x,a)=PW_f(x)]]=0.
+\]
+\end{proof}
+
+\section{$\msf{ZPP} = \cocap\cdot\msf{RP}$ (ZRP)}
+
+The equality $\msf{ZPP} = \cocap\cdot\msf{RP}$ is sometimes taken to be the
+definition of $\msf{ZPP}$. Otherwise, $\msf{ZPP}$ is defined as the class of
+decision problems computable by a probabilistic Turing machine that always
+computes the correct solution and is expected to run in polynomial-time. With
+this definition, one can show $\msf{ZPP}\subseteq\msf{RP}$ by running a
+$\msf{ZPP}$-machine for twice its expected running time, then returning the
+output 0 if an answer has not yet been determined. Since $\msf{ZPP}$ is
+symmetric, it follows that $\msf{ZPP}\subseteq\cocap\cdot\msf{RP}$. Conversely, to
+show that $\cocap\cdot\msf{RP}\subseteq\msf{ZPP}$, run an $\msf{RP}$- and
+$\co\cdot\msf{RP}$-machine in parallel, and repeat as necessary until either the
+$\msf{RP}$-machine returns 1 or the $\co\cdot\msf{RP}$-machine returns 0.
+
+\section{Bibliography}
+
+\nocite{*}
+\bibliographystyle{alpha}
+\bibliography{refs}
+
+
+\end{document}
