@@ -6,7 +6,7 @@ digraph G {
     2 [label="P",id="Tnode2"];
     3 [label="UP",id="Tnode3"];
     4 [label="ZPP",id="Tnode4"];
-    2 -> 4 [color=black];
     2 -> 1 [color=black];
+    2 -> 4 [color=black];
     2 -> 3 [color=black];
 }

@@ -6,7 +6,7 @@ digraph G {
     2 [label="P",id="Rnode2"];
     3 [label="UP",id="Rnode3"];
     4 [label="ZPP",id="Rnode4"];
-    2 -> 4 [color=black];
     2 -> 1 [color=black];
+    2 -> 4 [color=black];
     2 -> 3 [color=black];
 }

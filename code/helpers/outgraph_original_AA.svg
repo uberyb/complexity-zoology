@@ -22,7 +22,7 @@
 <text text-anchor="middle" x="99" y="-14.3" font-family="Times,serif" font-size="14.00">P</text>
 </g>
 <!-- 2&#45;&gt;1 -->
-<g id="edge2" class="edge">
+<g id="edge1" class="edge">
 <title>2&#45;&gt;1</title>
 <path fill="none" stroke="black" d="M84.43,-33.17C74.25,-43.06 60.48,-56.45 48.97,-67.64"/>
 <polygon fill="black" stroke="black" points="46.53,-65.13 41.8,-74.62 51.41,-70.15 46.53,-65.13"/>
@@ -46,7 +46,7 @@
 <text text-anchor="middle" x="171" y="-86.3" font-family="Times,serif" font-size="14.00">ZPP</text>
 </g>
 <!-- 2&#45;&gt;4 -->
-<g id="edge1" class="edge">
+<g id="edge2" class="edge">
 <title>2&#45;&gt;4</title>
 <path fill="none" stroke="black" d="M113.57,-33.17C123.75,-43.06 137.52,-56.45 149.03,-67.64"/>
 <polygon fill="black" stroke="black" points="146.59,-70.15 156.2,-74.62 151.47,-65.13 146.59,-70.15"/>
