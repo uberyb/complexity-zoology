@@ -2,20 +2,28 @@ import shutil, subprocess
 from code import equalities, logic, ops, output, parser
 
 def main():
+
+    # < Most of this code comes from parser.py and is documented in
+    # input-syntax.pdf
     print('Reading input...')
     parsed = parser.parse('./data/classes.txt', './data/operators.txt')
     classes = parsed[0]
     classes_keywords = parsed[1]
     operators = parsed[2]
     operators_keywords = parsed[3]
-    props = parsed[4]
-    oprules = parsed[5]
-    oporder = parsed[6]
+    props = parsed[4] # Organized as a dictionary {'relation (or op)': 'some class' : {set of classes under this relation}}
+    oprules = parsed[5] # These are rules defined in data/operators.txt. Comes at a tuple (op1, op2, op3, op4) which I think means op1.op2 = op3.op4
+    oporder = parsed[6] # Not sure why oporder is important or how exactly it's specified yet
+    # >
 
+
+    # < There is a preference hierarchy outlined in input-syntax.pdf which is an
+    # ordering of the prefered name of a class. Not really important to
+    # understand how this fnc works
     prefs = generate_preference_hierarchy(classes_keywords)
+    # >
 
-    (props, q, names) = equalities.main(classes_keywords, props, operators,
-                                        classes, prefs)
+    (props, q, names) = equalities.main(classes_keywords, props, operators, classes, prefs)
 
     (op, opinv) = ops.opcompute(names, classes, operators, q, oprules)
 

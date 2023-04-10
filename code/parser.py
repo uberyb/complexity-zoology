@@ -217,7 +217,7 @@ def read_oprules(f, operators, operators_keywords):
                 quit()
     return oprules
 
- # read ordering of operators from the input file
+# read ordering of operators from the input file
 def read_oporder(f, operators):
     f.seek(0)
     oporder = {}

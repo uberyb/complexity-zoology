@@ -3,14 +3,14 @@
 Knowledge Status Table
 ======================
 
-World:                      P     D     O   ?p    ?d    ?u 
----------------------------------------------------------- 
-All oracles              3680  9354   460   20   417   111 
-All algebraic oracles    3022  3332   326    0  3918   114 
-Some algebraic oracle    3022  2185     0  326     0  5179 
-Random oracle            2435  5405  1058  508   156   140 
-Trivial oracle           2566  2021  4725    0     0     0 
-Some oracle             11344  2542     0  156     0     0 
+World:                  P  D  O  ?p  ?d  ?u 
+------------------------------------------- 
+All oracles             7  2  0   0   0  21 
+All algebraic oracles   7  0  0   0   0  23 
+Some algebraic oracle   7  0  0   0   0  23 
+Random oracle           7  0  0   0   0  23 
+Trivial oracle          7  0  0   0   0  23 
+Some oracle             7  0  0   0   0  23 
 
 KEY: P - proven
      D - disproven
@@ -25,398 +25,131 @@ Extremal Unknowns
 Most likely - all oracles
 -------------------------
 
-BQP <?u RG(3)
-PostBPP <?u QRG(2)
-PostBPP <?u RG(3)
-QRG(1) <?d PP/poly
-RG(2) <?d PP/poly
-SPP <?u QRG(2)
-SPP <?u RG(3)
-cocap.IP <?d PP/poly
-cocap.IP <?d QIP(2)
-cocap.IP <?d QMA/qpoly
-cocap.IP <?u QRG(2)
-cocap.IP <?u RG(3)
-cocap.IP <?d co.QIP(2)
-cocap.IP <?d co.QMA/qpoly
-cocap.MA <?d (NP-cap-coNP)/poly
-cocap.MAEXP <?d NEXP/poly
-cocap.MIP <?p QMIP_le
-cocap.MIP <?p co.QMIP_le
-cocap.NIQSZK <?d PP/poly
-cocap.NIQSZK <?d QMA/qpoly
-cocap.NIQSZK <?u QRG(2)
-cocap.NIQSZK <?d co.QMA/qpoly
-cocap.NISZK <?d (NP-cap-coNP)/poly
-cocap.NISZK <?d QMA(2)
-cocap.NISZK <?d co.QMA(2)
-cocap.QMA(2) <?p QMIP_le
-cocap.QMA(2) <?p co.QMIP_le
-cocap.QMIP_le <?p QMIP_ne
-cocap.QMIP_le <?p co.QMIP_ne
-cocap.SBP <?d QMA(2)
-cocap.SBP <?d QRG(1)
-cocap.SBP <?d co.QMA(2)
-cocap.Sigma_2P <?u QRG(2)
++P <?u UP
++P <?u ZPP
++P <?u co.UP
+UP <?u co.UP
+ZPP <?u UP
+ZPP <?u co.UP
+co.UP <?u UP
+cocap.UP <?u +P
+cocap.UP <?u ZPP
 
 Least likely - all oracles
 --------------------------
 
-MAEXP <?d NEXP/poly
-MIP <?d NP/poly
-NEXP_plo <?d QRG(1)
-NEXP_plo <?d RG(2)
-QMIP_le <?d QAM
-QMIP_le <?d QCMA/qpoly
-QMIP_le <?d QMA(2)
-QMIP_ne <?d QAM
-QMIP_ne <?d QCMA/qpoly
-QMIP_ne <?d QMA(2)
-QRG(2) <?d PP/poly
-RG(3) <?d Delta_3P
-co.MAEXP <?d NEXP/poly
-co.MIP <?d co.NP/poly
-co.NEXP_plo <?d QRG(1)
-co.NEXP_plo <?d RG(2)
-co.QMIP_le <?d co.QAM
-co.QMIP_le <?d co.QCMA/qpoly
-co.QMIP_le <?d co.QMA(2)
-co.QMIP_ne <?d co.QAM
-co.QMIP_ne <?d co.QCMA/qpoly
-co.QMIP_ne <?d co.QMA(2)
-cocap.MIP <?d (NP-cap-coNP)/poly
-cocap.NP/poly <?d (NP-cap-coNP)/poly
-cocap.QMIP_le <?d cocap.QAM
-cocap.QMIP_le <?d cocap.QCMA/qpoly
-cocap.QMIP_le <?d cocap.QMA(2)
-cocap.QMIP_ne <?d cocap.QAM
-cocap.QMIP_ne <?d cocap.QCMA/qpoly
-cocap.QMIP_ne <?d cocap.QMA(2)
++P <?u P
+UP <?u P
+ZPP <?u cocap.UP
+co.UP <?u P
 
 Most likely - algebraic oracles
 -------------------------------
 
-+P a<?d PP/poly
-BPP a<?d Delta_2P
-BQP a<?d NP/poly
-BQP a<?d PH
-BQP a<?u RG(3)
-BQP a<?d co.NP/poly
-Delta_2P a<?d QIP(2)
-Delta_2P a<?d QMA/qpoly
-Delta_2P a<?d co.QIP(2)
-Delta_2P a<?d co.QMA/qpoly
-EXP a<?u AH_plo
-EXP a<?d PSPACE/poly
-EXP^NP a<?d NEXP/poly
-MA a<?d co.QIP(2)
-NEXP a<?d co.MAEXP
-NISZK a<?d co.NISZK
-NP a<?d co.A_0PP
-NP/poly a<?d cocap.NP/poly
-PH a<?d Delta_3P
-PostBPP a<?d QMA/qpoly
-PostBPP a<?u QRG(2)
-PostBPP a<?u RG(3)
-PostBPP a<?d co.QMA/qpoly
-QCMA a<?d co.QMA/qpoly
-QRG(1) a<?d PP/poly
-RG(2) a<?d PP/poly
-RP a<?d co.NP
-SBP a<?d Sigma_2P
-SPP a<?d PH
-SPP a<?d QIP(2)
-SPP a<?d QMA/qpoly
-SPP a<?u QRG(2)
-SPP a<?u RG(3)
-SPP a<?d co.QIP(2)
-SPP a<?d co.QMA/qpoly
-UP a<?d (NP-cap-coNP)/poly
-UP a<?d co.QMA(2)
-UP a<?d co.SBP
-ZPP a<?d +P
-co.MA a<?d QIP(2)
-co.NEXP a<?d MAEXP
-co.NISZK a<?d NISZK
-co.NP a<?d A_0PP
-co.NP/poly a<?d cocap.NP/poly
-co.QCMA a<?d QMA/qpoly
-co.RP a<?d NP
-co.SBP a<?d co.Sigma_2P
-co.UP a<?d (NP-cap-coNP)/poly
-co.UP a<?d QMA(2)
-co.UP a<?d SBP
-cocap.MA a<?d (NP-cap-coNP)/poly
-cocap.MAEXP a<?d EXP^NP
-cocap.MAEXP a<?d NEXP/poly
-cocap.NEXP a<?d EXP
-cocap.NIQSZK a<?d PP/poly
-cocap.NIQSZK a<?d QMA/qpoly
-cocap.NIQSZK a<?u QRG(2)
-cocap.NIQSZK a<?d co.QMA/qpoly
-cocap.NISZK a<?d (NP-cap-coNP)/poly
-cocap.NISZK a<?d BQP/qpoly
-cocap.NISZK a<?d PP
-cocap.NISZK a<?d QMA(2)
-cocap.NISZK a<?d co.QMA(2)
-cocap.NP a<?d AWPP
-cocap.SBP a<?d QMA(2)
-cocap.SBP a<?d QRG(1)
-cocap.SBP a<?d co.QMA(2)
-cocap.Sigma_2P a<?u QRG(2)
-cocap.UP a<?d BQP/qpoly
-cocap.UP a<?d QSZK
++P a<?u UP
++P a<?u ZPP
++P a<?u co.UP
+UP a<?u co.UP
+ZPP a<?u +P
+ZPP a<?u UP
+ZPP a<?u co.UP
+co.UP a<?u UP
+cocap.UP a<?u +P
+cocap.UP a<?u ZPP
 
 Least likely - algebraic oracles
 --------------------------------
 
-+P a<?d P
-AH a<?u AH_plo
-A_0PP a<?d UP
-EXP^NP a<?d +P
-EXP^NP a<?d P/poly
-EXP^NP a<?d S_2P
-EXP^NP a<?d cocap.NISZK
-EXP^NP a<?d cocap.QMA(2)
-MAEXP a<?d (NP-cap-coNP)/poly
-MAEXP a<?d +P
-MAEXP a<?d BQP/mpoly
-MAEXP a<?d Delta_2P
-MAEXP a<?d cocap.NISZK
-MAEXP a<?d cocap.QMA(2)
-NEXP/poly a<?d P/poly
-PP a<?d SPP
-PP a<?d cocap.QCMA
-PP a<?d cocap.SBP
-QIP(2) a<?d UP
-QIP(2) a<?d cocap.QCMA
-QIP(2) a<?d cocap.SBP
-QMA(2) a<?d UP
-QMA(2) a<?d cocap.QCMA
-QMA(2) a<?d cocap.SBP
-co.A_0PP a<?d co.UP
-co.MAEXP a<?d (NP-cap-coNP)/poly
-co.MAEXP a<?d +P
-co.MAEXP a<?d BQP/mpoly
-co.MAEXP a<?d Delta_2P
-co.MAEXP a<?d cocap.NISZK
-co.MAEXP a<?d cocap.QMA(2)
-co.QIP(2) a<?d co.UP
-co.QIP(2) a<?d cocap.QCMA
-co.QIP(2) a<?d cocap.SBP
-co.QMA(2) a<?d co.UP
-co.QMA(2) a<?d cocap.QCMA
-co.QMA(2) a<?d cocap.SBP
-cocap.A_0PP a<?d ZPP
-cocap.A_0PP a<?d cocap.UP
-cocap.NP a<?d P
-cocap.QIP(2) a<?d ZPP
-cocap.QIP(2) a<?d cocap.UP
-cocap.QMA(2) a<?d ZPP
-cocap.QMA(2) a<?d cocap.UP
++P a<?u P
+UP a<?u P
+ZPP a<?u P
+co.UP a<?u P
 
 Most likely - some algebraic oracle
 -----------------------------------
 
-+P x<?u PP/poly
-AH_plo x<?u NEXP/poly
-AH_plo x<?u RE
-AH_plo x<?u co.RE
-BPP x<?u Delta_2P
-BQP x<?u NP/poly
-BQP x<?u PH
-BQP x<?u RG(3)
-BQP x<?u co.NP/poly
-BQP/qpoly x<?p BQP/mpoly
-Delta_2P x<?u PP
-EXP x<?u AH_plo
-EXP^NP x<?u NEXP/poly
-NEXP_plo x<?p co.MAEXP
-NISZK x<?p co.NIQSZK
-NP x<?u co.A_0PP
-PH x<?u Delta_3P
-P^Sharp-P x<?p MP
-PostBPP x<?u QRG(2)
-PostBPP x<?u RG(3)
-QRG(1) x<?p CH
-QRG(1) x<?u PP/poly
-RG(2) x<?p CH
-RG(2) x<?u PP/poly
-RG(3) x<?p PSPACE/poly
-RP x<?u co.NP
-SBP x<?u Sigma_2P
-SPP x<?u PH
-SPP x<?u QRG(2)
-SPP x<?u RG(3)
-UP x<?p co.QIP(2)
-UP x<?u co.QMA(2)
-UP x<?p co.QMA/qpoly
++P x<?u UP
++P x<?u ZPP
++P x<?u co.UP
+UP x<?u co.UP
 ZPP x<?u +P
-co.NEXP_plo x<?p MAEXP
-co.NISZK x<?p NIQSZK
-co.NP x<?u A_0PP
-co.RP x<?u NP
-co.SBP x<?u co.Sigma_2P
-co.UP x<?p QIP(2)
-co.UP x<?u QMA(2)
-co.UP x<?p QMA/qpoly
-cocap.MA x<?u (NP-cap-coNP)/poly
-cocap.MAEXP x<?u EXP^NP
-cocap.MAEXP x<?u NEXP/poly
-cocap.NEXP_plo x<?p EXP
-cocap.NIQSZK x<?p CH
-cocap.NIQSZK x<?u PP/poly
-cocap.NIQSZK x<?u QMA/qpoly
-cocap.NIQSZK x<?u QRG(2)
-cocap.NIQSZK x<?u co.QMA/qpoly
-cocap.NISZK x<?u (NP-cap-coNP)/poly
-cocap.NISZK x<?u BQP/qpoly
-cocap.NISZK x<?u PP
-cocap.NISZK x<?u QMA(2)
-cocap.NISZK x<?p QRG(1)
-cocap.NISZK x<?u co.QMA(2)
-cocap.NP x<?u AWPP
-cocap.QAM x<?p P^Sharp-P
-cocap.QMA x<?p QCMA/qpoly
-cocap.QMA x<?p co.QCMA/qpoly
-cocap.QMA(2) x<?p PSPACE/poly
-cocap.QMA/qpoly x<?p PP/poly
-cocap.SBP x<?u QMA(2)
-cocap.SBP x<?u QRG(1)
-cocap.SBP x<?u co.QMA(2)
-cocap.Sigma_2P x<?u QRG(2)
-cocap.UP x<?u BQP/qpoly
-cocap.UP x<?u QSZK
+ZPP x<?u UP
+ZPP x<?u co.UP
+co.UP x<?u UP
+cocap.UP x<?u +P
+cocap.UP x<?u ZPP
 
 Least likely - some algebraic oracle
 ------------------------------------
 
-AH x<?u AH_plo
-AH_plo x<?u P
-EXP x<?u ZPP
-EXP x<?u cocap.UP
-EXP^NP x<?u BPP
-EXP^NP x<?u SPP
-MAEXP x<?u (NP-cap-coNP)/poly
-MAEXP x<?u BQP
-MAEXP x<?u Delta_2P
-MAEXP x<?u SPP
-MAEXP x<?u cocap.NISZK
-MAEXP x<?u cocap.SBP
-NEXP/poly x<?u P/poly
-co.MAEXP x<?u (NP-cap-coNP)/poly
-co.MAEXP x<?u BQP
-co.MAEXP x<?u Delta_2P
-co.MAEXP x<?u SPP
-co.MAEXP x<?u cocap.NISZK
-co.MAEXP x<?u cocap.SBP
++P x<?u P
+UP x<?u P
+ZPP x<?u P
+co.UP x<?u P
 
 Most likely - random oracle
 ---------------------------
 
-AWPP r<?d +P
-A_0PP r<?d co.A_0PP
-BQP r<?p RG(3)
-BQP/qpoly r<?p BQP/mpoly
-Delta_3P r<?u RG(3)
-NISZK r<?p co.NIQSZK
-QRG(1) r<?p CH
-QRG(1) r<?u PP/poly
-RG(2) r<?p CH
-RG(2) r<?u PP/poly
-RG(2) r<?u QRG(1)
-RG(3) r<?p PSPACE/poly
-co.A_0PP r<?d A_0PP
-co.NISZK r<?p NIQSZK
-cocap.IP r<?p QIP(2)
-cocap.IP r<?p QRG(2)
-cocap.IP r<?p RG(3)
-cocap.IP r<?p co.QIP(2)
-cocap.MIP r<?p PSPACE/poly
-cocap.MIP r<?p QMIP_le
-cocap.MIP r<?p co.QMIP_le
-cocap.NIQSZK r<?p CH
-cocap.NIQSZK r<?p PP/poly
-cocap.NIQSZK r<?p QMA(2)
-cocap.NIQSZK r<?p QMA/qpoly
-cocap.NIQSZK r<?p QRG(2)
-cocap.NIQSZK r<?p co.QMA(2)
-cocap.NIQSZK r<?p co.QMA/qpoly
-cocap.NISZK r<?p BQP/qpoly
-cocap.NISZK r<?p UP
-cocap.NISZK r<?p co.UP
-cocap.NP/poly r<?p (NP-cap-coNP)/poly
-cocap.QCMA r<?p AWPP
-cocap.QMA r<?p QCMA/qpoly
-cocap.QMA r<?p co.QCMA/qpoly
-cocap.QMA(2) r<?p PSPACE/poly
-cocap.QMA(2) r<?p QMIP_le
-cocap.QMA(2) r<?p co.QMIP_le
-cocap.QMA/qpoly r<?p PP/poly
-cocap.QMIP_le r<?p EXP
-cocap.QMIP_le r<?p PSPACE/poly
-cocap.QMIP_le r<?p QMIP_ne
-cocap.QMIP_le r<?p co.QMIP_ne
-cocap.Sigma_2P r<?u QRG(2)
-cocap.UP r<?p BQP/qpoly
-cocap.UP r<?p QSZK
++P r<?u UP
++P r<?u ZPP
++P r<?u co.UP
+UP r<?u co.UP
+ZPP r<?u +P
+ZPP r<?u UP
+ZPP r<?u co.UP
+co.UP r<?u UP
+cocap.UP r<?u +P
+cocap.UP r<?u ZPP
 
 Least likely - random oracle
 ----------------------------
 
-A_0PP r<?d SPP
-NEXP_plo r<?d QRG(1)
-NEXP_plo r<?d RG(2)
-PP r<?d AWPP
-QIP r<?p QIP(2)
-QIP(2) r<?p QCMA
-QMA(2) r<?p QCMA
-QMA/qpoly r<?p QCMA/qpoly
-QMIP_le r<?p QMIP_ne
-QMIP_ne r<?p QMIP_le
-QRG(2) r<?d S_2P
-RG(3) r<?u Delta_3P
-co.A_0PP r<?d SPP
-co.NEXP_plo r<?d QRG(1)
-co.NEXP_plo r<?d RG(2)
-co.QIP r<?p co.QIP(2)
-co.QIP(2) r<?p co.QCMA
-co.QMA(2) r<?p co.QCMA
-co.QMA/qpoly r<?p co.QCMA/qpoly
-co.QMIP_le r<?p co.QMIP_ne
-co.QMIP_ne r<?p co.QMIP_le
-cocap.NP/poly r<?p (NP-cap-coNP)/poly
-cocap.QMA/qpoly r<?p BQP/mpoly
-cocap.QMIP_le r<?d P
-cocap.QMIP_ne r<?d P
-cocap.Sigma_2P r<?u S_2P
++P r<?u P
+UP r<?u P
+ZPP r<?u P
+co.UP r<?u P
 
 Most likely - trivial oracle
 ----------------------------
 
++P t<?u UP
++P t<?u ZPP
++P t<?u co.UP
+UP t<?u co.UP
+ZPP t<?u +P
+ZPP t<?u UP
+ZPP t<?u co.UP
+co.UP t<?u UP
+cocap.UP t<?u +P
+cocap.UP t<?u ZPP
 
 Least likely - trivial oracle
 -----------------------------
 
++P t<?u P
+UP t<?u P
+ZPP t<?u P
+co.UP t<?u P
 
 Most likely - some oracle
 -------------------------
 
-cocap.MAEXP o<?p PP
-cocap.MAEXP o<?p QMIP_le
-cocap.MAEXP o<?p QMIP_ne
-cocap.MAEXP o<?p co.QMIP_le
-cocap.MAEXP o<?p co.QMIP_ne
++P o<?u UP
++P o<?u ZPP
++P o<?u co.UP
+UP o<?u co.UP
+ZPP o<?u +P
+ZPP o<?u UP
+ZPP o<?u co.UP
+co.UP o<?u UP
+cocap.UP o<?u +P
+cocap.UP o<?u ZPP
 
 Least likely - some oracle
 --------------------------
 
-MAEXP o<?p BQP
-MAEXP o<?p SPP
-MAEXP o<?p cocap.NISZK
-MAEXP o<?p cocap.SBP
-co.MAEXP o<?p BQP
-co.MAEXP o<?p SPP
-co.MAEXP o<?p cocap.NISZK
-co.MAEXP o<?p cocap.SBP
++P o<?u P
+UP o<?u P
+ZPP o<?u P
+co.UP o<?u P
 
